@@ -1,0 +1,239 @@
+country	Algeria	#526F3B
+country	Egypt	#628F4B
+country	Libya	#72AF5B
+country	Morocco	#82CF6B
+country	Sudan	#92EF7B
+country	Tunisia	#B2FF7B
+country	Guinea	#88CC8B
+country	Senegal	#99DD7C
+country	Cameroon	#5AA84A
+country	Central African Republic	#6ABA5A
+country	Mauritania	#8CBF6A
+
+country	Western Sahara	#B2FF9B
+country	Burundi	#629F4B
+country	Comoros	#72BF5B
+country	Djibouti	#82DF6B
+country	Eritrea	#92FF7B
+country	Ethiopia	#A2FF8B
+country	Kenya	#B2FF9B
+country	Madagascar	#C2FFAB
+country	Malawi	#73AF61
+country	Mauritius	#83CF71
+country	Mozambique	#93EF81
+country	Rwanda	#A3FF91
+country	Seychelles	#B3FFA1
+country	Somalia	#C3FFB1
+country	Tanzania	#74BF51
+country	Uganda	#84DF61
+country	Zambia	#94FF71
+country	Zimbabwe	#A4FF81
+country	Angola	#466C3B
+country	Chad	#769C6B
+country	Congo	#86AC7B
+country	Democratic Republic of Congo	#96BC8B
+country	Equatorial Guinea	#A6CC9B
+country	Gabon	#B6DCAB
+country	Sao Tome and Principe	#C6ECBB
+country	Benin	#376F3B
+country	Burkina Faso	#478F4B
+country	Cape Verde	#57AF5B
+country	Gambia	#67CF6B
+country	Ghana	#77EF7B
+country	Guinea Bissau	#97FF9B
+country	Ivory Coast	#A7FFAB
+country	Liberia	#B7FFBB
+country	Mali	#C7FFCB
+country	Niger	#48AF4B
+country	Nigeria	#58CF5B
+country	Sierra Leone	#78FF7B
+country	Togo	#88FF8B
+country	Botswana	#397F4B
+country	Eswatini	#498F5B
+country	Lesotho	#59AF6B
+country	Namibia	#69CF7B
+country	South Africa	#79EF8B
+
+country	Denmark	#FF5A5A
+country	Estonia	#FF4A4A
+country	Finland	#FF3A3A
+country	Iceland	#FF2A2A
+country	Ireland	#FFBAB8
+country	Latvia	#FF6969
+country	Lithuania	#FF5959
+country	Norway	#FF4949
+country	Sweden	#FF3939
+country	United Kingdom	#FF2929
+
+country	Albania	#FF7F4D
+country	Andorra	#FF6F4D
+country	Bosnia and Herzegovina	#FF5F4D
+country	Croatia	#FF4F4D
+country	Greece	#FF3F4D
+country	Italy	#FF2F4D
+country	Malta	#FF1F4D
+country	Montenegro	#FF0F4D
+country	North Macedonia	#FF004D
+country	Portugal	#FF9F4D
+country	San Marino	#FF8F4D
+country	Serbia	#FF7F4D
+country	Slovenia	#FF6F4D
+country	Spain	#FF5F4D
+country	Vatican City	#FF4F4D
+
+country	Belarus	#A30000
+country	Bulgaria	#930000
+country	Czech Republic	#830000
+country	Hungary	#730000
+country	Moldova	#630000
+country	Poland	#530000
+country	Romania	#430000
+country	Russia	#330000
+country	Slovakia	#230000
+country	Ukraine	#130000
+
+country	Austria	#FFAAAA
+country	Belgium	#FF9999
+country	France	#FF8888
+country	Germany	#FF7766
+country	Liechtenstein	#FF6666
+country	Luxembourg	#FF5555
+country	Monaco	#FF4444
+country	Netherlands	#FF3333
+country	Switzerland	#FF2222
+
+
+country	Antigua and Barbuda	#FF9D27
+country	Bahamas	#FFAD37
+country	Barbados	#FF9E28
+country	Cuba	#FFAE38
+country	Dominican Republic	#FF9F29
+country	Dominica	#FFAF39
+country	Grenada	#FFA02A
+country	Haiti	#FFB03A
+country	Jamaica	#FFA12B
+country	Saint Kitts and Nevis	#FFB13B
+country	Saint Lucia	#FFA22C
+country	Saint Vincent and the Grenadines	#FFB23C
+country	Trinidad and Tobago	#FFA32D
+country	Belize	#FFAD37
+country	Costa Rica	#FFAE38
+country	El Salvador	#FFAF39
+country	Guatemala	#FFB03A
+country	Honduras	#FFB13B
+country	Nicaragua	#FFB23C
+country	Panama	#FFB33D
+country	Canada	#FF9A1B
+country	Mexico	#E2942B
+country	USA	#F2A43B
+
+country	China	#0E3A8A
+country	Hong Kong	#0E3A89
+country	Japan	#60A5FA
+country	Taiwan	#1E88E5
+country	Mongolia	#7AA7FF
+country	North Korea	#2150D4
+country	South Korea	#1A3E9B
+country	Kazakhstan	#2F33A1
+country	Kyrgyzstan	#4527A7
+country	Tajikistan	#532FB5
+country	Turkmenistan	#6535CC
+country	Uzbekistan	#7C44E0
+country	Afghanistan	#21225F
+country	Bangladesh	#3D33C1
+country	Bhutan	#5A59E8
+country	India	#4B51CC
+country	Iran	#32209F
+country	Maldives	#5C2BB7
+country	Nepal	#753FCB
+country	Pakistan	#8145DF
+country	Sri Lanka	#A184FF
+country	Brunei	#1C0F52
+country	Cambodia	#3D2195
+country	Indonesia	#5A2FB5
+country	Laos	#753FCB
+country	Malaysia	#8145DF
+country	Myanmar	#4C187E
+country	Philippines	#59199B
+country	Singapore	#6E1985
+country	Thailand	#8A1DAD
+country	Timor-Leste	#AA23D1
+country	Vietnam	#C229F4
+
+country	Armenia	#214EBC
+country	Azerbaijan	#316ECC
+country	Bahrain	#418EDC
+country	Cyprus	#51ADEC
+country	Georgia	#61CDFC
+country	Iraq	#51BDFC
+country	Israel	#214FBC
+country	Jordan	#316FCC
+country	Kuwait	#418FDC
+country	Lebanon	#51AFEC
+country	Oman	#61CFFC
+country	Qatar	#51D0FC
+country	Saudi Arabia	#2150BC
+country	Syria	#3170CC
+country	Turkey	#4190DC
+country	United Arab Emirates	#51B0EC
+country	Yemen	#61D0FC
+country	Australia	#469D8F
+country	Fiji	#56ADA1
+country	Kiribati	#66BDB3
+country	Marshall Islands	#76CDC5
+country	Micronesia	#86DDD7
+country	Nauru	#96EDE9
+country	New Zealand	#479D90
+country	Palau	#57ADA2
+country	Papua New Guinea	#67BDC4
+country	Samoa	#77CDD6
+country	Solomon Islands	#87DDD8
+country	Tonga	#97EDEA
+country	Tuvalu	#48AE91
+country	Vanuatu	#58BEA3
+country	Argentina	#D27424
+country	Bolivia	#E28434
+country	Brazil	#BF6E2E
+country	Chile	#E28535
+country	Colombia	#D47626
+country	Ecuador	#E38636
+country	Guyana	#D57727
+country	Paraguay	#E38737
+country	Peru	#B1531E
+country	Suriname	#E38838
+country	Uruguay	#D77929
+country	Venezuela	#E48939
+
+region	northern africa	#023618
+region	eastern africa	#058A3C
+region	middle africa	#13F672
+region	western africa	#9DFBC4
+region	southern africa	#C8E6C9
+
+region	northern europe	#FD151B
+region	southern europe	#F53500
+region	eastern europe	#AC0006
+region	western europe	#FF8360
+
+region	caribbean	#FFB326
+region	central america	#C99739
+region	north america	#FEC601
+region	south america	#BF6109
+
+region	eastern asia	#1E88E5
+region	japan korea	#026AF2
+region	central asia	#0D47A1
+region	southern asia	#0A0074
+region	south-eastern asia	#8157C4
+region	western asia	#6C0D79
+
+region	oceania	#26A69A
+
+age range	0-3 m/o	#FFB6C1
+age range	4-6 m/o	#FF69B4
+age range	7-12 m/o	#FF1493
+age range	<1 y/o	#DB7093
+age range	1-5 y/o	#C71585
+age range	6-10 y/o	#8B008B
+age range	11-17 y/o	#800080
+age range	18+ y/o	#4B0082

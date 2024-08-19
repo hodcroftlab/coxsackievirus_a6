@@ -1,0 +1,7 @@
+##gff-version 3
+#!gff-spec-version 1.21
+#!processor NCBI annotwriter
+##sequence-region AF081297.1 1 915
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=86107
+AF081297.1	Genbank	region	1	915	.	+	.	ID=AF081297.1:1..915;Dbxref=taxon:86107;gb-acronym=CV-A6;gbkey=Src;mol_type=genomic RNA;strain=Gdula
+AF081297.1	Genbank	CDS	1	915	.	+	0	Name=product;gbkey=CDS;gene=VP1;start_range=.,1;partial=true;end_range=915,.;protein_id=AAD17701.1;ID=cds-AAD17701.1;Dbxref=NCBI_GP:AAD17701.1;product=capsid protein VP1

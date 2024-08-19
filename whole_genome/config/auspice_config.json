@@ -1,0 +1,109 @@
+{
+  "title": "Genomic epidemiology of Coxsackievirus A6 - complete genome",
+  "maintainers": [
+    {"name": "Nadia Neuner-Jehle", "url": "https://www.swisstph.ch/en/staff/profile/people/nadia-neuner-jehle"}
+  ],
+  "data_provenance": [
+    {
+      "name": "GenBank",
+      "url": "https://www.ncbi.nlm.nih.gov/genbank/"
+    }
+  ],
+  "build_url": "https://github.com/hodcroftlab/coxsackievirus_a6/tree/master",
+  "colorings": [
+    {
+      "key": "gt",
+      "title": "Genotype",
+      "type": "categorical"
+    },
+    {
+      "title": "Published Subgenogroup",
+      "type": "categorical",
+      "key": "subgenogroup"
+    },
+    {
+      "key": "num_date",
+      "title": "Date",
+      "type": "continuous"
+    },
+    {
+      "key": "age_range",
+      "title": "Age range",
+      "type": "categorical"
+    },
+    {
+      "key": "med_diagnosis_all",
+      "title": "Medical diagnosis (detailed)",
+      "type": "categorical"
+    },
+    {
+      "key": "med_diagnosis_major",
+      "title": "Major medical diagnosis",
+      "type": "categorical"
+    },
+    {
+      "key": "virus",
+      "title": "Virus",
+      "type": "categorical"
+    },
+    {
+      "key": "abbreviation",
+      "title": "Type",
+      "type": "categorical"
+    },
+    {
+      "key": "country",
+      "title": "Country",
+      "type": "categorical"
+    },
+    {
+      "key": "region",
+      "title": "Region",
+      "type": "categorical"
+    },
+    {
+      "key": "place",
+      "title": "Location",
+      "type": "categorical"
+    },
+    {
+      "key": "isolation_source",
+      "title": "Isolation source",
+      "type": "categorical"
+    },
+    {
+      "title": "Gender",
+      "type": "categorical",
+      "key": "gender"
+    },
+    {
+      "title": "Age available",
+      "type": "categorical",
+      "key": "has_age"
+    }
+  ],
+  "geo_resolutions": [
+    "country",
+    "place",
+    "region"
+  ],
+  "panels": [
+     "tree",
+    "map",
+    "entropy"
+  ],
+  "display_defaults": {
+    "map_triplicate": true
+  },
+  "filters": [
+    "country",
+    "subgenogroup",
+    "region",
+    "author",
+    "length",
+    "med_diagnosis_major",
+    "has_age",
+    "collab_country",
+    "date_added"
+  ]
+  }

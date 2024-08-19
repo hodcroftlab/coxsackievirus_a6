@@ -1,0 +1,60 @@
+LOCUS       AF081297                 915 bp    RNA     linear   VRL 06-AUG-2018
+DEFINITION  Coxsackievirus A6 strain Gdula capsid protein VP1 (VP1) gene,
+            partial cds.
+ACCESSION   AF081297
+VERSION     AF081297.1
+KEYWORDS    .
+SOURCE      Coxsackievirus A6 (CV-A6)
+  ORGANISM  Coxsackievirus A6
+            Viruses; Riboviria; Orthornavirae; Pisuviricota; Pisoniviricetes;
+            Picornavirales; Picornaviridae; Ensavirinae; Enterovirus;
+            Enterovirus A.
+REFERENCE   1  (bases 1 to 915)
+  AUTHORS   Oberste,M.S., Maher,K., Kilpatrick,D.R. and Pallansch,M.A.
+  TITLE     Molecular evolution of the human enteroviruses: correlation of
+            serotype with VP1 sequence and application to picornavirus
+            classification
+  JOURNAL   J. Virol. 73 (3), 1941-1948 (1999)
+   PUBMED   9971773
+REFERENCE   2  (bases 1 to 915)
+  AUTHORS   Oberste,M.S., Maher,K., Kilpatrick,D.R. and Pallansch,M.A.
+  TITLE     Direct Submission
+  JOURNAL   Submitted (29-JUL-1998) Division of Virla and Rickettsial Diseases,
+            Centers for Disease Control and Prevention, 1600 Clifton Road NE,
+            Mailstop G-17, Atlanta, GA 30333, USA
+FEATURES             Location/Qualifiers
+     source          1..915
+                     /organism="Coxsackievirus A6"
+                     /mol_type="genomic RNA"
+                     /strain="Gdula"
+                     /db_xref="taxon:86107"
+     CDS             1..915
+                     /ID="cds-AAD17701.1"
+                     /Dbxref="NCBI_GP:AAD17701.1"
+                     /Name="product"
+                     /end_range="915,."
+                     /gbkey="CDS"
+                     /gene="VP1"
+                     /partial="true"
+                     /product="capsid protein VP1"
+                     /protein_id="AAD17701.1"
+                     /start_range=".,1"
+                     /locus_tag="product"
+ORIGIN
+        1 aatgacccca tttcaaatgc aatagaaaat gctgtgagca cactcgctga caccacgata
+       61 tcacgtgtta cagcggccaa cactgctgct agctcccatt cccttggtac tggacgcgtg
+      121 ccggcgttgc aggctgcgga gacaggggca agttccaacg ctagcgatga gaacctgatt
+      181 gaaactcgtt gtgtgatgaa tagaaatgga gttaacgaag caagtgtaga acacttctac
+      241 tcccgtgcag ggctagtagg agttgtggag gtgaaagact caggcactag tcaggacggg
+      301 tacacggtgt ggcccataga tgtgatgggc tttgtgcaac agcggcgcaa gttagagcta
+      361 tctacttaca tgcgctttga cgctgaattt acctttgtgt ccaatctcaa tgacagcaca
+      421 acacccggca tgctattgca gtacatgtac gtgccgccgg gtgcgcccaa accagacggt
+      481 aggaagtcat atcaatggca aacagccacc aacccttcaa tattcgcaaa gttgagtgac
+      541 ccaccgcccc aagtgtctgt cccattcatg tcaccggcgt cagcctacca gtggttctac
+      601 gatggttacc ccacgtttgg cgaacacaag caagctacta atttacaata cggtcagtgc
+      661 cctaacaaca tgatggggca ttttgctatt cggacagtta gtgaatccac caccgggaaa
+      721 aatgtccatg tccgggtgta catgagaatt aagcacgtaa gagcatgggt gcccagacct
+      781 ttcagatccc aagcttacat ggtcaaaaac tacccgacat acagccaaac aatatccaat
+      841 actgcagccg atcgtgcgag cataaccact acggactatg agggtggcgt accagcaaac
+      901 ccgcagagaa ctttt
+//
