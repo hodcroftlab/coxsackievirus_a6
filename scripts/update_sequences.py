@@ -3,6 +3,8 @@ import pandas as pd
 import datetime
 import os
 import re
+import time
+from datetime import datetime
 
 # Function to check if an accession number is real: it uses the entrez functionality of ncbi
 from check_accession import extract_accession
@@ -25,6 +27,7 @@ if __name__ == '__main__':
     parser.add_argument('--dates', help="Date last updated file")
     parser.add_argument('--local_accession', help="Local accession file")
     parser.add_argument('--add_metadata', help="Additional extended metadata file")
+    parser.add_argument('--metadata', help="metadata file")
     args = parser.parse_args()
 
     input_sequences = args.in_seq
@@ -35,7 +38,11 @@ if __name__ == '__main__':
 
 
     # Get current date
-    current_date = datetime.datetime.now().strftime("%Y-%m-%d")
+    current_date = datetime.now().strftime("%Y-%m-%d")
+
+    # Get download date for sequences
+    t=time.ctime(os.path.getctime("data/sequences.fasta"))
+    seqs_download_date=datetime.strptime(t, "%a %b %d %H:%M:%S %Y").strftime("%d-%m-%Y")
 
     # read table with extended (published) metadata
     extended_meta = pd.read_csv(extended_meta_file, sep='\t')
@@ -45,7 +52,7 @@ if __name__ == '__main__':
     if os.path.exists(date_last_updated_file):
         df_dates = pd.read_csv(date_last_updated_file, sep='\t')
     else:
-        df_dates = pd.DataFrame(columns=['accession', 'last_updated'])
+        df_dates = pd.DataFrame(columns=['accession', 'date_added'])
 
     # Read existing local_accn.txt file
     if os.path.exists(local_accn_file):
@@ -63,7 +70,7 @@ if __name__ == '__main__':
         if strain in df_local_accn['sample_name'].values and accession not in df_local_accn['gb_accession'].values:
             old_internal_accession = df_local_accn.loc[df_local_accn['sample_name'] == strain, 'internal_accession'].values[0] # get interal_accession from strain
             df_local_accn = pd.concat([df_local_accn, pd.DataFrame([[old_internal_accession, strain, accession, current_date]], columns=['internal_accession', 'sample_name', 'gb_accession', 'date_added'])])
-            df_dates = pd.concat([df_dates, pd.DataFrame([[accession, current_date]], columns=['accession', 'last_updated'])])
+            df_dates = pd.concat([df_dates, pd.DataFrame([[accession, current_date]], columns=['accession', 'date_added'])])
 
     # remove duplicated accessions or duplicated strain names
     df_local_accn = df_local_accn.drop_duplicates(subset=['internal_accession', 'sample_name'], keep='last')
@@ -109,7 +116,7 @@ if __name__ == '__main__':
 
 
     # Update df_dates DataFrame
-    new_entries = pd.DataFrame({'accession': list(sequence_names), 'last_updated': current_date})
+    new_entries = pd.DataFrame({'accession': list(sequence_names), 'date_added': current_date})
     df_dates = pd.concat([df_dates, new_entries]).drop_duplicates(subset='accession', keep='last')
     df_dates=df_dates.reset_index(drop=True)
 
@@ -176,12 +183,22 @@ if __name__ == '__main__':
 
     # open date_last_updated_file and add new names
     df=df_local_accn.loc[:, ["seq_accession","date_added"]].reset_index(drop=True)
-    df=df.rename(columns={"seq_accession":"accession","date_added":"last_updated"})
+    df=df.rename(columns={"seq_accession":"accession"})
     df_dates=df_dates.reset_index(drop=True)
 
     # merge them
     df_dates_c = pd.concat([df_dates, df]).drop_duplicates(subset='accession', keep='last')
-    df_dates_c.to_csv(date_last_updated_file, sep='\t',header=["accession","last_updated"],index=None)
+
+    # Read metadata
+    meta = pd.read_csv(args.metadata, sep='\t')
+
+    # Drop duplicates and convert to DataFrame
+    accn_list = meta[['accession']].drop_duplicates()
+    accn_list['date_added'] = seqs_download_date
+
+    # Concatenate with the existing DataFrame
+    df_dates_c = pd.concat([df_dates_c, accn_list]).sort_values(by="date_added", ascending=True).drop_duplicates(subset='accession', keep='last')
+    df_dates_c.to_csv(date_last_updated_file, sep='\t', index=None)
 
     # Create the dictionary
     name_to_internal_accn = df_local_accn.set_index('sample_name')['seq_accession'].to_dict()

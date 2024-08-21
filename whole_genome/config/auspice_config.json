@@ -22,6 +22,11 @@
       "key": "subgenogroup"
     },
     {
+      "title": "Published Lineages",
+      "type": "categorical",
+      "key": "lineage"
+    },
+    {
       "key": "num_date",
       "title": "Date",
       "type": "continuous"
@@ -77,6 +82,11 @@
       "key": "gender"
     },
     {
+      "title": "Date when added",
+      "type": "continuous",
+      "key": "date_added"
+    },
+    {
       "title": "Age available",
       "type": "categorical",
       "key": "has_age"
@@ -97,13 +107,14 @@
   },
   "filters": [
     "country",
-    "subgenogroup",
     "region",
     "author",
+    "subgenogroup", 
     "length",
     "med_diagnosis_major",
     "has_age",
     "collab_country",
-    "date_added"
+    "date_added",
+    "doi"
   ]
   }

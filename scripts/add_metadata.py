@@ -23,6 +23,7 @@ if __name__ == '__main__':
     parser.add_argument('--regions', help="file to specify regions: format = country region")
     parser.add_argument('--id', help="id: strain or accession", choices=["strain","accession"],default="accession")
     parser.add_argument('--rename', help="copy of updated_metadata.tsv")
+    parser.add_argument('--update', help="date when sequences were added")
     args = parser.parse_args()
 
     id_field = args.id
@@ -32,12 +33,15 @@ if __name__ == '__main__':
     con_reg_table = args.regions
     local_accn = args.local
     renamed_strains = args.rename
+    last_updated_file = args.update
+    
 
     # load data
     meta = pd.read_csv(input_csv_meta, keep_default_na=True, sep='\t', index_col=False)
     new_data = pd.read_csv(add_data, keep_default_na=True, sep='\t', index_col=False)
     local_accn_file= pd.read_csv(local_accn, keep_default_na=True, sep='\t', index_col=False)
     renamed_strains_df = pd.read_csv(renamed_strains, keep_default_na=True, sep='\t', index_col=False)
+    last_updated=pd.read_csv(last_updated_file, keep_default_na=True, sep='\t', index_col=False,names=["accession","date_added"])
 
     # Identify records that need updating
     needs_update = meta[~meta['accession'].isin(renamed_strains_df['accession'])]
@@ -74,6 +78,9 @@ if __name__ == '__main__':
 
     # step 1: merge both files with to accession number
     new_meta = pd.merge(meta, new_data, on=id_field, how='outer').dropna(subset="accession")
+
+    # add date_added column
+    new_meta= pd.merge(new_meta,last_updated, on=id_field,how='left')
 
     # Creating the new strain column based on the conditions
     new_meta['strain'] = new_meta['strain_y'].mask(new_meta['strain_y'] == new_meta['accession'], new_meta['strain_x'])  # Take strain_x if strain_y == accession
@@ -343,9 +350,9 @@ if __name__ == '__main__':
     new_meta2= new_meta2.loc[:,['accession', 'genbank_accession_rev', 'strain', 'date', 'region', 'place',
         'country', 'host', 'gender', 'age_yrs','age_range',"has_age", 'has_diagnosis','med_diagnosis_all','med_diagnosis_major',
         'isolation_source', 'length','length_VP1','subgenogroup','lineage','date_submitted',
-        'sra_accession', 'abbr_authors', 'reverse', 'authors', 'institution',
+        'sra_accession', 'abbr_authors', 'reverse', 'authors', 'institution','doi',
         'qc.overallScore', 'qc.overallStatus',
-        'alignmentScore', 'alignmentStart', 'alignmentEnd', 'genome_coverage']]
+        'alignmentScore', 'alignmentStart', 'alignmentEnd', 'genome_coverage','date_added']]
 
 
     new_meta2.to_csv(output_csv_meta, sep='\t', index=False)

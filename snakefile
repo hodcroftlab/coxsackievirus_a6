@@ -29,7 +29,10 @@ rule files:
         colors =            "config/colors.tsv",
         clades =            "{seg}/config/clades_genome.tsv",
         regions=            "config/geo_regions.tsv",
-        extended_metafile=  "data/assign_publications_corrected.tsv"
+        meta=               "data/metadata.tsv",
+        extended_metafile=  "data/assign_publications_corrected.tsv",
+        last_updated_file = "data/date_last_updated.txt",
+        local_accn_file =   "data/local_accn.txt"
 
 files = rules.files.input
 
@@ -42,7 +45,7 @@ rule fetch:
         dir = "ingest"
     output:
         sequences="data/sequences.fasta",
-        metadata="data/metadata.tsv"
+        metadata=files.meta
     params:
         seq="ingest/data/sequences.fasta",
         meta="ingest/data/metadata.tsv"
@@ -65,7 +68,7 @@ rule update_strain_names:
         Updating strain information in metadata.
         """
     input:
-        file_in = "data/metadata.tsv"
+        file_in = files.meta
     output:
         file_out = "data/updated_strain_names.tsv"
     shell:
@@ -81,19 +84,20 @@ rule update_strain_names:
 rule update_sequences:
     input:
         sequences = "data/sequences.fasta",
-        date_last_updated = "data/date_last_updated.txt",
-        local_accn = "data/local_accn.txt",
+        metadata=files.meta,
         add_metadata = files.extended_metafile
     output:
         sequences = "data/sequences_added.fasta"
     params:
         file_ending = "data/*.fas*",
-        temp = "data/temp_sequences_added.fasta"
+        temp = "data/temp_sequences_added.fasta",
+        date_last_updated = files.last_updated_file,
+        local_accn = files.local_accn_file,
     shell:
         """
         touch {params.temp} && rm {params.temp}
         cat {params.file_ending} > {params.temp}
-        python scripts/update_sequences.py --in_seq {params.temp} --out_seq {output.sequences} --dates {input.date_last_updated} --local_accession {input.local_accn} --add {input.add_metadata}
+        python scripts/update_sequences.py --in_seq {params.temp} --out_seq {output.sequences} --dates {params.date_last_updated} --local_accession {params.local_accn} --meta {input.metadata} --add {input.add_metadata}
         rm {params.temp}
         awk '/^>/{{if (seen[$1]++ == 0) print; next}} !/^>/{{print}}' {output.sequences} > {params.temp} && mv {params.temp} {output.sequences}
         """
@@ -181,10 +185,11 @@ rule add_metadata:
         Cleaning dates in metadata
         """
     input:
-        metadata="data/metadata.tsv",
+        metadata=files.meta,
         new_data=rules.curate_meta_dates.output.metadata,
         regions=ancient(files.regions),
-        local_accn="data/local_accn.txt",
+        local_accn=files.local_accn_file,
+        last_updated=files.last_updated_file,
         renamed_strains=rules.update_strain_names.output.file_out
     params:
         strain_id_field="accession"
@@ -197,6 +202,7 @@ rule add_metadata:
             --add {input.new_data} \
             --rename {input.renamed_strains} \
             --local {input.local_accn} \
+            --update {input.last_updated}\
             --regions {input.regions} \
             --id {params.strain_id_field} \
             --output {output.metadata}
@@ -351,8 +357,8 @@ rule refine:
         date_inference = "marginal",
         clock_filter_iqd = 6, # was 3
         strain_id_field ="accession",
-        clock_rate = 0.004, # leave it empty for estimation?
-        clock_std_dev = 0.0015
+        # clock_rate = 0.004, # leave it empty for estimation?
+        # clock_std_dev = 0.0015
     shell:
         """
         augur refine \
@@ -365,11 +371,11 @@ rule refine:
             --timetree \
             --coalescent {params.coalescent} \
             --date-confidence \
-            --clock-rate {params.clock_rate} \
-            --clock-std-dev {params.clock_std_dev} \
             --date-inference {params.date_inference} \
             --clock-filter-iqd {params.clock_filter_iqd}
         """
+        # --clock-rate {params.clock_rate} \
+        # --clock-std-dev {params.clock_std_dev} \
 
 rule ancestral:
     message: "Reconstructing ancestral sequences and mutations"

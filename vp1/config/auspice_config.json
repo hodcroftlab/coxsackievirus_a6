@@ -82,9 +82,9 @@
       "key": "gender"
     },
     {
-      "title": "Age available",
+      "title": "Date when added",
       "type": "categorical",
-      "key": "has_age"
+      "key": "date_added"
     }
   ],
   "geo_resolutions": [
@@ -109,6 +109,7 @@
     "med_diagnosis_major",
     "has_age",
     "collab_country",
-    "date_added"
+    "date_added",
+    "doi"
   ]
   }
