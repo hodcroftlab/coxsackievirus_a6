@@ -212,6 +212,12 @@ if __name__ == '__main__':
         'Febrile illness': 'Fever','Pyrexia': 'Fever',
         'V&D':'Vomiting; Diarrhea',
         'Diarrhoea':'Diarrhea',
+        'Severe':"Severe HFMD",
+        'Light':"Light HFMD",
+        'mild':"Mild HFMD",
+        'Atypical HFMD':"Atypical HFMD",
+        'herpangina': 'Herpangina',
+        'vesicular': 'vesicular papules','Rash with vesicles': 'vesicular papules',
         '(death)': 'Fatality','fatal': 'Fatality','death': 'Fatality',
         "Myoclonic jerk":'Myoclonus',
         'CNS symptoms': 'CNS','CNS involvement': 'CNS','Cns Disorder':'CNS',
@@ -220,7 +226,7 @@ if __name__ == '__main__':
         'hand-foot and mouth disease': 'HFMD',
         'Neck Stiffness; Vomiting':'Meningitis',
         'Meningoencephalitis': 'Encephalitis','Encephalytis': 'Encephalitis',
-        'Skin Rash':'Rash'
+        'Skin Rash':'Rash', 'exanthema':'Rash'
     }
 
     short_forms = set(short_versions.values())
@@ -233,6 +239,7 @@ if __name__ == '__main__':
         'Acute Cardiogenic Shock': 'Fatality',
         'AFP':'AFP',
         'HFMD':'HFMD',
+        'Atypical HFMD':"Atypical HFMD",
         'Fatality':'Fatality',
         'CNS':'CNS',
     }

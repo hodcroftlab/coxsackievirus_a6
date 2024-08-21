@@ -308,6 +308,9 @@ rule fix_align_codon:
         Rscript scripts/fixAlignmentGaps.R {input.sequences} {output.alignment}
         """
 
+# potentially add one-by-one genes
+# use wildcards
+
 rule tree:
     message:
         """
@@ -348,7 +351,7 @@ rule refine:
         date_inference = "marginal",
         clock_filter_iqd = 6, # was 3
         strain_id_field ="accession",
-        clock_rate = 0.004,
+        clock_rate = 0.004, # leave it empty for estimation?
         clock_std_dev = 0.0015
     shell:
         """

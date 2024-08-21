@@ -2,11 +2,16 @@ import requests
 import re
 from Bio import Entrez, SeqIO
 import pandas as pd
+from dotenv import load_dotenv, find_dotenv
+import os
 
 # Function to check if an accession number is real: it uses the entrez functionality of ncbi
 def extract_accession(name,extract="accession"):
     
-    Entrez.email = "hello@nextstrain.org"
+    load_dotenv(find_dotenv())
+    Entrez.email = os.environ.get("EMAIL")
+    #email address should be stored in an .env file in the base directory, in the format EMAIL=user@email.com
+
     # Define the API endpoint and parameters
     url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi'
     params = {'db': 'nuccore', 'term': name, 'retmode': 'xml'}

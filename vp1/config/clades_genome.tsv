@@ -2,7 +2,58 @@ clade	gene	site	alt
 D1	nuc	243	C
 D1	nuc	645	A
 D1	nuc	243	C
-D3a	nuc	351	G
+
+D2	nuc	69	A
+D2	nuc	78	T
+D2	nuc	90	C
+D2	nuc	123	T
+D2	nuc	135	C
+D2	nuc	180	C
+D2	nuc	249	G
+D2	nuc	384	T
+D2	nuc	417	T
+D2	nuc	426	T
+D2	nuc	435	A
+D2	nuc	630	G
+D2	nuc	678	T
+D2	nuc	708	C
+D2	nuc	724	A
+D2	nuc	786	A
+D2	nuc	822	T
+D2	nuc	894	T
+D2	VP1	242	I
+
 D3	nuc	303	C
 D3	nuc	360	G
 D3	nuc	798	T
+D3a	nuc	351	G
+D3a	VP1	5	T
+D3a	nuc	13	A
+D3a	nuc	30	C
+D3a	nuc	108	A
+D3a	nuc	153	C
+D3a	nuc	339	A
+D3a	nuc	909	G
+D3b	nuc	13	G
+D3b	nuc	771	A
+D3b	nuc	111	G
+D3b	nuc	822	T
+
+E	nuc	114	T
+E	nuc	247	T
+E	nuc	429	G
+E	VP1	23	I
+E	VP1	64	S
+E	VP1	83	S
+
+B2	nuc	532	A
+B2	nuc	759	T
+B2	VP1	178	M
+
+B	nuc	105	T
+B	nuc	621	G
+B	nuc	630	C
+
+C1	nuc	816	C
+C1	VP1	18	A
+C1	VP1	283	S
