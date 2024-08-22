@@ -10,13 +10,16 @@
 ###############
 # Define segments to analyze
 segments = ['vp1', 'whole_genome']
+genes=["-vp4", "-vp2", "-vp3", "-vp1", "-2A", "-2B", "-2C", "-3A", "-3B", "-3C", "-3D"]
 
 # Expand augur JSON paths
-augur_jsons = expand("auspice/cva6_{seg}.json", seg=segments)
-
 rule all:
     input:
-        augur_jsons
+        augur_jsons = expand("auspice/cva6_{seg}.json", seg=segments)
+
+rule all_genes:
+    input:
+        augur_jsons = expand("auspice/cva6_genome{gene}.json", gene=genes)
 
 # Rule to handle configuration files
 rule files:
@@ -316,6 +319,40 @@ rule fix_align_codon:
 
 # potentially add one-by-one genes
 # use wildcards
+rule sub_alignments:
+    input:
+        alignment=rules.fix_align_codon.output.alignment,
+        reference=files.reference
+    output:
+        alignment = "{seg}/results/aligned{gene}.fasta"
+    run:
+        real_gene = wildcards.gene.replace("-", "", 1)
+        
+        # Extract boundaries from the reference GenBank file
+        gene_boundaries = {}
+        with open(input.reference) as handle:
+            for record in SeqIO.parse(handle, "genbank"):
+                for feature in record.features:
+                    if feature.type == "CDS" and 'Name' in feature.qualifiers:
+                        product = feature.qualifiers['Name'][0].upper()
+                        if product == real_gene.upper():
+                            gene_boundaries[product] = (feature.location.start.position, feature.location.end.position)
+        
+        if real_gene.upper() not in gene_boundaries:
+            raise ValueError(f"Gene {real_gene} not found in reference file.")
+
+        b = gene_boundaries[real_gene.upper()]
+
+        alignment = SeqIO.parse(input.alignment, "fasta")
+        with open(output.alignment, "w") as oh:
+            for record in alignment:
+                sequence = record.seq.tomutable()
+                gene_keep = sequence[b[0]:b[1]]
+                sequence[0:len(sequence)] = len(sequence) * "N"
+                sequence[b[0]:b[1]] = gene_keep
+                record.seq = sequence
+                SeqIO.write(record, oh, "fasta")
+
 
 rule tree:
     message:
@@ -323,9 +360,9 @@ rule tree:
         Creating a maximum likelihood tree
         """
     input:
-        alignment = rules.fix_align_codon.output.alignment
+        alignment = rules.sub_alignments.output.alignment
     output:
-        tree = "{seg}/results/tree_raw.nwk"
+        tree = "{seg}/results/tree_raw{gene}.nwk"
     threads: 9
     shell:
         """
@@ -346,12 +383,12 @@ rule refine:
         """
     input:
         tree = rules.tree.output.tree,
-        alignment = rules.fix_align_codon.output.alignment,
+        alignment = rules.sub_alignments.output.alignment,
         metadata =  rules.add_metadata.output.metadata,
         reference = rules.reference_gb_to_fasta.output.reference
     output:
-        tree = "{seg}/results/tree.nwk",
-        node_data = "{seg}/results/branch_lengths.json"
+        tree = "{seg}/results/tree{gene}.nwk",
+        node_data = "{seg}/results/branch_lengths{gene}.json"
     params:
         coalescent = "opt",
         date_inference = "marginal",
@@ -384,7 +421,7 @@ rule ancestral:
         alignment = rules.align.output.alignment,
         reference = rules.reference_gb_to_fasta.output.reference
     output:
-        node_data = "{seg}/results/nt_muts.json"
+        node_data = "{seg}/results/nt_muts{gene}.json"
     params:
         inference = "joint"
     shell:
@@ -403,7 +440,7 @@ rule translate:
         node_data = rules.ancestral.output.node_data,
         reference = files.reference
     output:
-        node_data = "{seg}/results/aa_muts.json"
+        node_data = "{seg}/results/aa_muts{gene}.json"
     shell:
         """
         augur translate \
@@ -421,7 +458,7 @@ rule clades:
         nuc_muts = rules.ancestral.output.node_data,
         clades = files.clades
     output:
-        clade_data = "{seg}/results/clades.json"
+        clade_data = "{seg}/results/clades{gene}.json"
     shell:
         """
         augur clades --tree {input.tree} \
@@ -436,7 +473,7 @@ rule traits:
         tree = rules.refine.output.tree,
         metadata = rules.add_metadata.output.metadata
     output:
-        node_data = "{seg}/results/traits.json",
+        node_data = "{seg}/results/traits{gene}.json",
     params:
         traits = "country",
         strain_id_field= "accession"
@@ -467,7 +504,7 @@ rule export:
     params:
         strain_id_field= "accession"
     output:
-        auspice_json = "auspice/cva6_{seg}-accession.json"
+        auspice_json = "auspice/cva6_{seg}{gene}-accession.json"
         
     shell:
         """
@@ -491,7 +528,27 @@ rule rename_json:
         auspice_json= rules.export.output.auspice_json,
         metadata = rules.add_metadata.output.metadata,
     output:
-        auspice_json="auspice/cva6_{seg}.json"
+        auspice = rules.all.input.augur_jsons
+        # auspice_json="auspice/cva6_{seg}.json"
+    params:
+        strain_id_field="accession",
+        display_strain_field= "strain"
+    shell:
+        """
+        python3 scripts/set_final_strain_name.py --metadata {input.metadata} \
+                --metadata-id-columns {params.strain_id_field} \
+                --input-auspice-json {input.auspice_json} \
+                --display-strain-name {params.display_strain_field} \
+                --output {output.auspice_json}
+        """
+
+rule rename_json_all:
+    input:
+        auspice_json= rules.export.output.auspice_json,
+        metadata = rules.add_metadata.output.metadata,
+    output:
+        auspice = rules.all_genes.input.augur_jsons
+        # auspice_json="auspice/cva6_{seg}{gene}.json"
     params:
         strain_id_field="accession",
         display_strain_field= "strain"
