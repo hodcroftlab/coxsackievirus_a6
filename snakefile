@@ -447,8 +447,9 @@ rule refine:
         date_inference = "marginal",
         clock_filter_iqd = 3, # was 3
         strain_id_field ="accession",
-        clock_rate = 0.004, # leave it empty for estimation?
-        clock_std_dev = 0.0015
+        # clock_rate = 0.004, # leave it empty for estimation?
+        # clock_std_dev = 0.0015
+        clock_rate_string = lambda wildcards: f"--clock-rate 0.004 --clock-std-dev 0.0015" if wildcards.gene else ""
     shell:
         """
         augur refine \
@@ -461,8 +462,7 @@ rule refine:
             --timetree \
             --coalescent {params.coalescent} \
             --date-confidence \
-            --clock-rate {params.clock_rate} \
-            --clock-std-dev {params.clock_std_dev} \
+            {params.clock_rate_string} \
             --date-inference {params.date_inference} \
             --clock-filter-iqd {params.clock_filter_iqd}
         """
@@ -486,6 +486,7 @@ rule ancestral:
             --tree {input.tree} \
             --alignment {input.alignment} \
             --output-node-data {output.node_data} \
+            --keep-ambiguous\
             --inference {params.inference}
         """
 
@@ -579,37 +580,6 @@ rule export:
             --output {output.auspice_json}
         """
 
-# rule export_genes:
-#     message: "Creating auspice JSONs"
-#     input:
-#         tree = rules.refine.output.tree,
-#         metadata = rules.add_metadata.output.metadata,
-#         branch_lengths = rules.refine.output.node_data,
-#         traits = rules.traits.output.node_data,
-#         nt_muts = rules.ancestral.output.node_data,
-#         aa_muts = rules.translate.output.node_data,
-#         clades = rules.clades.output.clade_data,
-#         colors = files.colors,
-#         lat_longs = files.lat_longs,
-#         auspice_config = files.auspice_config
-#     params:
-#         strain_id_field= "accession"
-#     output:
-#         auspice_json = "auspice/cva6_whole_genome{gene}-accession.json"
-#         # auspice_json = rules.all_genes.input.augur_jsons
-        
-#     shell:
-#         """
-#         augur export v2 \
-#             --tree {input.tree} \
-#             --metadata {input.metadata} \
-#             --metadata-id-columns {params.strain_id_field} \
-#             --node-data {input.branch_lengths} {input.traits} {input.nt_muts} {input.aa_muts} {input.clades} \
-#             --colors {input.colors} \
-#             --lat-longs {input.lat_longs} \
-#             --auspice-config {input.auspice_config} \
-#             --output {output.auspice_json}
-#         """
 
 ##############################
 # Change from accession to strain name view in tree
@@ -632,27 +602,11 @@ rule rename_json:
                 --input-auspice-json {input.auspice_json} \
                 --display-strain-name {params.display_strain_field} \
                 --output {output.auspice_json}
+
+        mv {input.auspice_json} auspice/accession/
         """
 
-# rule rename_json_all:
-#     input:
-#         auspice_json= rules.export_genes.output.auspice_json,
-#         metadata = rules.add_metadata.output.metadata,
-#     output:
-#         # auspice_json = rules.all_genes.input.augur_jsons
-#         auspice_json="auspice/cva6_whole_genome{gene}.json"
-#     params:
-#         strain_id_field="accession",
-#         display_strain_field= "strain"
-#     shell:
-#         """
-#         python3 scripts/set_final_strain_name.py --metadata {input.metadata} \
-#                 --metadata-id-columns {params.strain_id_field} \
-#                 --input-auspice-json {input.auspice_json} \
-#                 --display-strain-name {params.display_strain_field} \
-#                 --output {output.auspice_json}
-#         """
-
+##############################
 rule clean:
     message: "Removing directories: {params}"
     params:
