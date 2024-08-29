@@ -445,10 +445,10 @@ rule refine:
     params:
         coalescent = "opt",
         date_inference = "marginal",
-        clock_filter_iqd = 6, # was 3
+        clock_filter_iqd = 3, # was 3
         strain_id_field ="accession",
-        # clock_rate = 0.004, # leave it empty for estimation?
-        # clock_std_dev = 0.0015
+        clock_rate = 0.004, # leave it empty for estimation?
+        clock_std_dev = 0.0015
     shell:
         """
         augur refine \
@@ -461,11 +461,12 @@ rule refine:
             --timetree \
             --coalescent {params.coalescent} \
             --date-confidence \
+            --clock-rate {params.clock_rate} \
+            --clock-std-dev {params.clock_std_dev} \
             --date-inference {params.date_inference} \
             --clock-filter-iqd {params.clock_filter_iqd}
         """
-        # --clock-rate {params.clock_rate} \
-        # --clock-std-dev {params.clock_std_dev} \
+        
 
 rule ancestral:
     message: "Reconstructing ancestral sequences and mutations"
