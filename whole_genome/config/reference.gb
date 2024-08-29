@@ -1,4 +1,4 @@
-LOCUS       AY421764                7434 bp    ss-RNA  linear   VRL 28-MAY-2004
+LOCUS       AY421764                7434 bp ss-RNA     linear   VRL 28-MAY-2004
 DEFINITION  Human coxsackievirus A6 strain Gdula, complete genome.
 ACCESSION   AY421764
 VERSION     AY421764.1
@@ -27,83 +27,83 @@ FEATURES             Location/Qualifiers
                      /strain="Gdula"
                      /isolate="CA6"
                      /db_xref="taxon:86107"
+     5'UTR           1..745
+     CDS             1..7434
+                     /codon_start=1
+                     /product="polyprotein"
+                     /protein_id="AAR38844.1"
+                     /translation="MGAQVSAQKSGTHETGNIATEGSTINFTNINYYKDSYAASASRQ
+                     DFTQDPTKFTSPVLDAIKEAAAPLQSPSVEACGYSDRVAQLTVGNSTITTQEAANIVL
+                     SYGEWPGYCPSTDATAVDKPTRPDVSVNRFYTLSTKSWKTESTGWYWKFPDVLNDTGV
+                     FGQNAQFHYLYRSGFCMHVQCNASKFHQGALLVVVIPEFVVAASSPATKPNGQGLYPD
+                     FAHTNPGKEGQVFRDPYVLDAGIPLSQALVFPHQWINLRTNNCATIIMPYVNALPFDS
+                     ALNHSNFGLAVIPISPLKYCNGATTEVPITLTIAPLNSEFSGLRQAIKQGLPTELKPG
+                     TNQFLTTDDGTSPPILPGFEPTPLIHIPGEFTSLLDLCRIETILEVNNTTGTTGVNRL
+                     LIPVRAQNNVDQLCASFQVDPGRNGPWQSTMVGQICRYYTQWSGSLKVTFMFTGSFMA
+                     TGKMLIAYTPPGSAQPTTREAAMLGTHIVWDFGLQSSVTLVIPWISNTHFRAVKTGGV
+                     YDYYATGIVTIWYQTNFVVPPDTPSEANIIALGAAQENFTLKLCKDTDEIRQTAEYQN
+                     DPISNAIENAVSTLADTTISRVTAANTAASSHSLGTGRVPALQAAETGASSNASDENL
+                     IETRCVMNRNGVNEASVEHFYSRAGLVGVVEVKDSGTSQDGYTVWPIDVMGFVQQRRK
+                     LELSTYMRFDAEFTFVSNLNDSTTPGMLLQYMYVPPGAPKPDGRKSYQWQTATNPSIF
+                     AKLSDPPPQVSVPFMSPASAYQWFYDGYPTFGEHKQATNLQYGQCPNNMMGHFAIRTV
+                     SESTTGKNVHVRVYMRIKHVRAWVPRPFRSQAYMVKNYPTYSQTISNTAADRASITTT
+                     DYEGGVPANPQRTFGKFGQQSGAIYVGNFRVVNRHLATHNDWANLVWEDSSRDLLVSS
+                     TTAQGCDTIARCNCQTGVYYCNSRRKHYPVSFSKPSLVFVEASEYYPARYQSHLMLAV
+                     GHSEPGDCGGILRCQHGVVGIVSTGGNGLVGFANVRDLLWLDEEAMEQGVSDYIKGLG
+                     DAFGTGFTDAVSREVEALKNHLIGSEGAVEKILKNLVKLISALVIVIRSDYDMVTLTA
+                     TLALIGCHGSPWAWIKSKTASILGIPMAQKQSASWLKKFNDMANAAKGLEWISDKISK
+                     FIDWLKEKIIPAAKEKVEFLNNLKQLPLLENQISNLEQSAASQEDLEAMFGNVSYLAH
+                     FCRKFQPLYAIEAKRVYALEKRMNNYMQFKSKHRIEPVCLIIRGSPGTGKSLATGIIA
+                     RAIADKYHSSVYSLPPDPDHFDGYKQQVVTVMDDLCQNPDGKDMSLFCQMVSTVDFIP
+                     PMASLEEKGVSFTSKFVIASTNASNIIVPTVSDSDAIRRRFYMDCDIEVTDSYKTDLG
+                     RLDAGRAAKLCSENNTANFKRCSPLVCGKAIQLRDRKSKVRYSVDTVVSELIREYNNR
+                     SAIGNTIEALFQGPPKFRPIRINLEEKPAPDAISDLLASVDSEEVRQYCREQGWIIPE
+                     TPTNVERHLNRAVLVMQSVATVVAVVSLVYVIYKLFAGFQGAYSGAPKQALKKPVLRT
+                     ATVQGPSLDFALSLLRRNIRQAQTDQGHFTMLGVRDRLAILPRHSQPGKTIWIEHKLV
+                     NVLDAVELVDEQGVNLELTLLTLDTNEKFRDITKFIPEAITGASDATLVINTEHMPSM
+                     FVPVGDVVQYGFLNLSGKPTHRTMMYNFPTKAGQCGGVVTSVGKIIGIHIGGNGRQGF
+                     CAGLKRSYFASEQGEIQWIKPNKETGRLNINGPTRTKLEPSVFHDVFEGNKEPAVLTS
+                     KDPRLEVNFEQALFSKYVGNTLHEPDEYVTQAALHYANQLKQLDINTSKMSMEEACYG
+                     TEYLEAIDLHTSAGYPYSALGIKKRDILDPATRDTSKMKLYMDKYGLDLPYSTYVKDE
+                     LRSLDKIKKGKSRLIEASSLNDSVYLRMTFGHLYEVFHANPGTITGSAVGCNPDVFWS
+                     KLPILLPGSLFAFDYSGYDASLSPVWFRALELVLREIGYTEEAVSLIEGINHTHHVYR
+                     NKTYCVLGGMPSGCSGTSIFNSMINNIIIRTLLIKTFKGIDLDELNMVAYGDDVLASY
+                     PFPIDCLELAKTGKEYGLTMTPADKSSCFNEVTWENATFLKRGFLPDHQFPFLIHPTM
+                     PMREIHESIRWTKDARNTQDHVRSLCLLAWHNGKEEYEKFVSTIRSVPIGKALAIPNF
+                     ENLRRNWLELF"
      CDS             1..745
-                     /gbkey="Prot"
-                     /product="5'UTR"
-                     /Name="5UTR"
-                     /locus_tag="5UTR"
-     CDS             746..952
-                     /ID="id-AAR38844.1:1..69"
-                     /gbkey="Prot"
-                     /product="VP4 protein"
-                     /Name="VP4_protein"
-                     /locus_tag="VP4_protein"
-     CDS             953..1720
-                     /ID="id-AAR38844.1:70..325"
-                     /gbkey="Prot"
-                     /product="VP2 protein"
-                     /Name="VP2_protein"
-                     /locus_tag="VP2_protein"
-     CDS             1721..2440
-                     /ID="id-AAR38844.1:326..565"
-                     /gbkey="Prot"
-                     /product="VP3 protein"
-                     /Name="VP3_protein"
-                     /locus_tag="VP3_protein"
-     CDS             2441..3355
-                     /ID="id-AAR38844.1:566..870"
-                     /gbkey="Prot"
-                     /product="VP1 protein"
-                     /Name="VP1_protein"
-                     /locus_tag="VP1_protein"
-     CDS             3356..3805
-                     /ID="id-AAR38844.1:871..1020"
-                     /gbkey="Prot"
-                     /product="2A protein"
-                     /Name="2A_protein"
-                     /locus_tag="2A_protein"
-     CDS             3806..4102
-                     /ID="id-AAR38844.1:1021..1119"
-                     /gbkey="Prot"
-                     /product="2B protein"
-                     /Name="2B_protein"
-                     /locus_tag="2B_protein"
-     CDS             4103..5089
-                     /ID="id-AAR38844.1:1120..1448"
-                     /gbkey="Prot"
-                     /product="2C protein"
-                     /Name="2C_protein"
-                     /locus_tag="2C_protein"
-     CDS             5090..5347
-                     /ID="id-AAR38844.1:1449..1534"
-                     /gbkey="Prot"
-                     /product="3A protein"
-                     /Name="3A_protein"
-                     /locus_tag="3A_protein"
-     CDS             5348..5413
-                     /ID="id-AAR38844.1:1535..1556"
-                     /gbkey="Prot"
-                     /product="3B protein"
-                     /Name="3B_protein"
-                     /locus_tag="3B_protein"
-     CDS             5414..5962
-                     /ID="id-AAR38844.1:1557..1739"
-                     /gbkey="Prot"
-                     /product="3C protein"
-                     /Name="3C_protein"
-                     /locus_tag="3C_protein"
-     CDS             5963..7348
-                     /ID="id-AAR38844.1:1740..2201"
-                     /gbkey="Prot"
-                     /product="3D protein"
-                     /Name="3D_protein"
-                     /locus_tag="3D_protein"
+		     /product="5'UTR"
+     CDS	     746..952
+        	     /product="VP4 protein"
+        	     /note="1A"
+     CDS	     953..1720
+        	     /product="VP2 protein"
+        	     /note="1B"
+     CDS	     1721..2440
+         	     /product="VP3 protein"
+         	     /note="1C"
+     CDS	     2441..3355
+         	     /product="VP1 protein"
+         	     /note="1D"
+     CDS	     3356..3805
+          	     /product="2A protein"
+     CDS 	     3806..4102
+         	     /product="2B protein"
+     CDS	     4103..5089
+         	     /product="2C protein"
+     CDS 	     5090..5347
+          	     /product="3A protein"
+     CDS   	     5348..5413
+        	     /product="3B protein"
+         	     /note="VPg"
+     CDS 	     5414..5962
+          	     /product="3C protein"
+     CDS  	     5963..7348
+           	     /product="3D protein"
      CDS             7352..7434
-                     /gbkey="Prot"
-                     /product="3'UTR"
-                     /Name="3UTR"
-                     /locus_tag="3UTR"
-ORIGIN
+		     /product="3'UTR"
+     3'UTR           7352..7434
+ORIGIN      
         1 ttaaaacagc ctgtgggttg cacccactca cagggcccac tgggcgctag cacactgatt
        61 tcccggaatc cttgtgcgcc tgttttatat cccctccccc atgcgcaact tagaagcaat
       121 ctacaccttc gatcaatagc aggcgtggcg cgccagccat gtctagatca agcacttctg
