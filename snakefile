@@ -15,7 +15,7 @@ wildcard_constraints:
 #     #from: https://bitbucket.org/snakemake/snakemake/issues/910/empty-wildcard-assignment-works-only-if
 
 # Define segments to analyze
-segments = ['vp1', 'whole_genome']
+segments = ['vp1', 'whole-genome']
 GENES=["-5utr","-vp4", "-vp2", "-vp3", "-vp1", "-2A", "-2B", "-2C", "-3A", "-3B", "-3C", "-3D","-3utr"]
 
 # Expand augur JSON paths
@@ -317,12 +317,6 @@ rule reference_gb_to_fasta:
         from Bio import SeqIO 
         SeqIO.convert(input.reference, "genbank", output.reference, "fasta")
 
-        # """
-        # python scripts/reference_genbank_to_fasta.py \
-        #     --input {input.reference} \
-        #     --output {output.reference}
-        # """
-
 rule align: 
     message:
         """
@@ -394,7 +388,7 @@ rule sub_alignments:
             for record in alignment:
                 sequence = Seq(record.seq)
                 gene_keep = sequence[b[0]:b[1]]
-                if set(gene_keep) == {"N"} or len(gene_keep) == 0:
+                if set(gene_keep) == {"N"} or len(gene_keep) == 0 or set(gene_keep) == {"-"}:
                     continue  # Skip sequences that are entirely masked
                 sequence = len(sequence) * "N"
                 sequence = sequence[:b[0]] + gene_keep + sequence[b[1]:]
@@ -436,7 +430,6 @@ rule refine:
         # alignment = rules.fix_align_codon.output.alignment,
         alignment = rules.sub_alignments.output.alignment,
         metadata =  rules.add_metadata.output.metadata,
-        reference = rules.reference_gb_to_fasta.output.reference
     output:
         # tree = "{seg}/results/tree.nwk",
         tree = "{seg}/results/tree{gene}.nwk",
@@ -447,7 +440,7 @@ rule refine:
         date_inference = "marginal",
         clock_filter_iqd = 3, # was 3
         strain_id_field ="accession",
-        # clock_rate = 0.004, # leave it empty for estimation?
+        # clock_rate = 0.004, # remove for estimation
         # clock_std_dev = 0.0015
         clock_rate_string = lambda wildcards: f"--clock-rate 0.004 --clock-std-dev 0.0015" if wildcards.gene else ""
     shell:
@@ -473,8 +466,7 @@ rule ancestral:
     input:
         tree = rules.refine.output.tree,
         # alignment = rules.align.output.alignment,
-        alignment = rules.sub_alignments.output.alignment,
-        reference = rules.reference_gb_to_fasta.output.reference
+        alignment = rules.sub_alignments.output.alignment
     output:
         # node_data = "{seg}/results/nt_muts.json"
         node_data = "{seg}/results/nt_muts{gene}.json"
@@ -548,11 +540,33 @@ rule traits:
             --confidence
         """
 
+rule clade_published:
+    message: "Assigning clades from publications"
+    input:
+        metadata = rules.add_metadata.output.metadata,
+        subgenotypes = "data/clades_vp1.tsv"
+    params:
+        strain_id_field= "accession"
+    output:
+        final_metadata = "data/final_metadata_added_subgenotyp.tsv"
+    run:
+        import pandas as pd
+        
+        # Load the input data files
+        metadata_df = pd.read_csv(input.metadata, sep="\t")
+        subgenotypes_df = pd.read_csv(input.subgenotypes, sep="\t")
+        
+        # Merge the dataframes on the specified column
+        merged_df = pd.merge(metadata_df, subgenotypes_df, on=params.strain_id_field, how="left")
+        
+        # Save the merged dataframe to the output file
+        merged_df.to_csv(output.final_metadata, sep="\t", index=False)
+
 rule export:
     message: "Creating auspice JSONs"
     input:
         tree = rules.refine.output.tree,
-        metadata = rules.add_metadata.output.metadata,
+        metadata = rules.clade_published.output.final_metadata,
         branch_lengths = rules.refine.output.node_data,
         traits = rules.traits.output.node_data,
         nt_muts = rules.ancestral.output.node_data,

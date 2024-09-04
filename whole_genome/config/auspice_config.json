@@ -17,6 +17,11 @@
       "type": "categorical"
     },
     {
+      "key": "clade_assignment",
+      "title": "VP1 Clades",
+      "type": "categorical"
+    },    
+    {
       "title": "Published Subgenogroup",
       "type": "categorical",
       "key": "subgenogroup"
@@ -44,16 +49,6 @@
     {
       "key": "med_diagnosis_major",
       "title": "Major medical diagnosis",
-      "type": "categorical"
-    },
-    {
-      "key": "virus",
-      "title": "Virus",
-      "type": "categorical"
-    },
-    {
-      "key": "abbreviation",
-      "title": "Type",
       "type": "categorical"
     },
     {
@@ -87,9 +82,26 @@
       "key": "date_added"
     },
     {
-      "title": "Age available",
-      "type": "categorical",
-      "key": "has_age"
+      "key": "length_VP1",
+      "title": "Length of VP1",
+      "type": "ordinal"
+    },
+    {
+      "key": "length",
+      "title": "Total Length",
+      "type": "continuous"
+    },
+    {
+      "key": "has_age",
+      "title": "Age available"
+    },
+    {
+      "key": "has_diagnosis",
+      "title": "Diagnosis available"
+    },
+    {
+      "key": "author",
+      "title": "Authors"
     }
   ],
   "geo_resolutions": [
@@ -113,7 +125,6 @@
     "length",
     "med_diagnosis_major",
     "has_age",
-    "collab_country",
     "date_added",
     "doi"
   ]
