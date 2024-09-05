@@ -41,13 +41,11 @@ rule all:
 
 
 
-include: "workflow/snakemake_rules/fetch_sequences.smk"
+include: "workflow/snakemake_rules/fetch_from_ncbi.smk"
 
 include: "workflow/snakemake_rules/curate.smk"
 
-# if "s3_dst" in config:
-#     include: "workflow/snakemake_rules/upload.smk"
-
 include: "workflow/snakemake_rules/sort.smk"
+
 
 

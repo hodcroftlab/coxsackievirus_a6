@@ -62,18 +62,16 @@ For specific builds:
 ### First steps
 To run the ingest, you will need some specific reference files, such as a `reference.fasta` or `annotation.gff3` file.
 1. In the `config` file: check that the taxid is correct
-2. To get these files you have to run the script [generate_from_genbank.p<](ingest/generate_from_genbank.py) manually. 
+2. To get these files you have to run the script [generate_from_genbank.py](ingest/bin/generate_from_genbank.py) manually. 
     If you want to have two reference files for whole genome and VP1, you can choose a similar way:
     ```
-    > python3 ingest/generate_from_genbank.py --reference "AY421764.1" --output-dir "whole_genome/config/"
-    > python3 ingest/generate_from_genbank.py --reference "AF081297.1" --output-dir "vp1/config/"
-    > cp vp1/config/reference.fasta  data/references/reference_vp1_blast.fasta
+    > python3 ingest/bin/generate_from_genbank.py --reference "AY421764.1" --output-dir "whole_genome/config/"
     ```
     - You need to specify a few things: [0];[product];[2].
     - It will create the files in the subdirectory `data/references`. 
     - These files will be used by the `ingest` snakefile.
 3. Check that the `attributes` in `data/references/pathogen.json` are up to date.
-4. Run the `ingest' snakefile (either manually or using the main snakefile).
+4. Run the `ingest` snakefile (either manually or using the main snakefile).
     - Depending on your system you may need to run `chmod +x ./vendored/*; chmod +x ./bin/*` first.
 5. Run the main snakefile.
 

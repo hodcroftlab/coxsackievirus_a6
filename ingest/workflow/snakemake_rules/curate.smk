@@ -61,8 +61,8 @@ rule curate:
         all_geolocation_rules="data/all-geolocation-rules.tsv",
         annotations=config["curate"]["annotations"],
     output:
-        metadata="data/all_metadata.tsv",
-        sequences="results/sequences.fasta",
+        metadata = "data/trans_metadata.tsv",
+        sequences = "data/trans_sequences.fasta"
     log:
         "logs/curate.txt",
     benchmark:
@@ -114,18 +114,4 @@ rule curate:
                 --output-fasta {output.sequences} \
                 --output-id-field {params.id_field} \
                 --output-seq-field {params.sequence_field} ) 2>> {log}
-        """
-
-
-rule subset_metadata:
-    input:
-        metadata="data/all_metadata.tsv",
-    output:
-        subset_metadata="data/subset_metadata.tsv",
-    params:
-        metadata_fields=",".join(config["curate"]["metadata_columns"]),
-    shell:
-        """
-        tsv-select -H -f {params.metadata_fields} \
-            {input.metadata} > {output.subset_metadata}
         """
