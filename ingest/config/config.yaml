@@ -6,8 +6,7 @@ conda_environment: "workflow/envs/nextstrain.yaml"
 entrez_search_term: "Coxsackievirus A6"
 
 # Required to fetch from NCBI Datasets
-ncbi_taxon_id:
-  general: "86107" # taxid for CV-A6
+ncbi_taxon_id: "86107" # taxid for CV-A6
 
 ncbi_datasets_fields:
   - accession
