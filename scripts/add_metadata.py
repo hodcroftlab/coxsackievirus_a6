@@ -146,11 +146,11 @@ if __name__ == '__main__':
         return val
 
     # Apply the standardization to both columns
-    new_meta['isolation_source'] = new_meta['isolation_source'].apply(standardize_isolation_source)
+    new_meta['sample_type'] = new_meta['sample_type'].apply(standardize_isolation_source)
     new_meta['isolation'] = new_meta['isolation'].apply(standardize_isolation_source)
 
     # Combine the two columns, prioritizing the standardized values
-    new_meta['combined_isolation_source'] = new_meta['isolation'].mask(new_meta['isolation'].isna(), new_meta['isolation_source'])
+    new_meta['combined_isolation_source'] = new_meta['isolation'].mask(new_meta['isolation'].isna(), new_meta['sample_type'])
 
     # Replace the original isolation_source column
     new_meta['isolation_source'] = new_meta['combined_isolation_source']
@@ -315,7 +315,7 @@ if __name__ == '__main__':
     new_meta["has_age"] = ~new_meta["age_yrs"].isna()
 
     # parse gender
-    new_meta['gender'] = new_meta['sex_x'].mask(new_meta['sex_x'].isna(),new_meta['sex_y'])
+    new_meta['gender'] = new_meta['sex']
     new_meta['gender'] = new_meta['gender'].mask(new_meta['gender'].str.contains('female', case=False, na=False), 'F')
     new_meta['gender'] = new_meta['gender'].mask(new_meta['gender'].str.contains('male', case=False, na=False), 'M')
 
@@ -347,10 +347,10 @@ if __name__ == '__main__':
 
     # ipdb.set_trace()
     # write new metadata file to output
-    new_meta2= new_meta2.loc[:,['accession', 'genbank_accession_rev', 'strain', 'date', 'region', 'place',
+    new_meta2= new_meta2.loc[:,['accession', 'accession_version', 'strain', 'date', 'region', 'place',
         'country', 'host', 'gender', 'age_yrs','age_range',"has_age", 'has_diagnosis','med_diagnosis_all','med_diagnosis_major',
-        'isolation_source', 'length','length_VP1','subgenogroup','lineage','date_submitted',
-        'sra_accession', 'abbr_authors', 'reverse', 'authors', 'institution','doi',
+        'isolation_source', 'length','length_VP1','subgenogroup','lineage','date_released',
+        'abbr_authors', 'authors', 'institution','doi',
         'qc.overallScore', 'qc.overallStatus',
         'alignmentScore', 'alignmentStart', 'alignmentEnd', 'genome_coverage','date_added']]
 
