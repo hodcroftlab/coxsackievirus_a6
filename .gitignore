@@ -8,6 +8,7 @@ auspice/
 
 ingest/.snakemake/
 ingest/benchmarks/
+ingest/logs/
 
 */results/
 */temp/
