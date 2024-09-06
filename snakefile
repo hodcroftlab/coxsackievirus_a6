@@ -10,13 +10,15 @@
 ###############
 wildcard_constraints:
     seg="vp1|whole_genome",
-    gene="|-5utr|-vp4|-vp2|-vp3|-vp1|-2A|-2B|-2C|-3A|-3B|-3C|-3D|-3utr"
+    gene="|-5utr|-vp4|-vp2|-vp3|-vp1|-2A|-2B|-2C|-3A|-3B|-3C|-3D|-3utr",
+    quart = "|-1Q|-2Q|-3Q|-4Q"
    
 #     #from: https://bitbucket.org/snakemake/snakemake/issues/910/empty-wildcard-assignment-works-only-if
 
 # Define segments to analyze
 segments = ['vp1', 'whole-genome']
-GENES=["-5utr","-vp4", "-vp2", "-vp3", "-vp1", "-2A", "-2B", "-2C", "-3A", "-3B", "-3C", "-3D","-3utr"]
+GENES=["-5utr","-vp4", "-vp2", "-vp3", "-vp1", "-2A", "-2B", "-2C", "-3A", "-3B", "-3C", "-3D","-3utr"],
+QUARTS = ["-1Q", "-2Q", "-3Q", "-4Q"]
 
 # Expand augur JSON paths
 rule all:
@@ -27,6 +29,9 @@ rule all_genes:
     input:
         augur_jsons = expand("auspice/cva6_whole_genome{genes}.json", genes=GENES)
 
+rule all_quarts:
+    input:
+        augur_jsons = expand("auspice/cva6_whole_genome{quarts}.json", quarts=QUARTS)
 
 # Rule to handle configuration files
 rule files:
@@ -360,28 +365,35 @@ rule sub_alignments:
         reference=files.reference
     output:
         # alignment = "{seg}/results/aligned.fasta"
-        alignment = "{seg}/results/aligned_fixed{gene}.fasta"
+        alignment = "{seg}/results/aligned_fixed{gene}{quart}.fasta"
     run:
         from Bio import SeqIO
         from Bio.Seq import Seq
 
-        real_gene = wildcards.gene.replace("-", "", 1)
+        if wildcards.quart:
+            real_gene = wildcards.quart.replace("-", "", 1)
+            boundaries = {
+                '1Q':(3443, 3943),      '2Q':(3944, 4444),
+                '3Q':(4445, 4945),  '4Q':(4946, 5446)}
+            b = boundaries[real_gene]
+        else:
+            real_gene = wildcards.gene.replace("-", "", 1)
 
-        # Extract boundaries from the reference GenBank file
-        gene_boundaries = {}
-        with open(input.reference) as handle:
-            for record in SeqIO.parse(handle, "genbank"):
-                for feature in record.features:
-                    if feature.type == "CDS" and 'Name' in feature.qualifiers:
-                        product = feature.qualifiers['Name'][0].upper()
-                        if product == real_gene.upper():
-                            # Corrected: Use .start and .end directly
-                            gene_boundaries[product] = (feature.location.start, feature.location.end)
+            # Extract boundaries from the reference GenBank file
+            gene_boundaries = {}
+            with open(input.reference) as handle:
+                for record in SeqIO.parse(handle, "genbank"):
+                    for feature in record.features:
+                        if feature.type == "CDS" and 'Name' in feature.qualifiers:
+                            product = feature.qualifiers['Name'][0].upper()
+                            if product == real_gene.upper():
+                                # Corrected: Use .start and .end directly
+                                gene_boundaries[product] = (feature.location.start, feature.location.end)
 
-        if real_gene.upper() not in gene_boundaries:
-            raise ValueError(f"Gene {real_gene} not found in reference file.")
+            if real_gene.upper() not in gene_boundaries:
+                raise ValueError(f"Gene {real_gene} not found in reference file.")
 
-        b = gene_boundaries[real_gene.upper()]
+            b = gene_boundaries[real_gene.upper()]
 
         alignment = SeqIO.parse(input.alignment, "fasta")
         with open(output.alignment, "w") as oh:
@@ -406,7 +418,7 @@ rule tree:
         alignment = rules.sub_alignments.output.alignment
     output:
         # tree = "{seg}/results/tree_raw.nwk"
-        tree = "{seg}/results/tree_raw{gene}.nwk"
+        tree = "{seg}/results/tree_raw{gene}{quart}.nwk"
     threads: 9
     shell:
         """
@@ -432,9 +444,9 @@ rule refine:
         metadata =  rules.add_metadata.output.metadata,
     output:
         # tree = "{seg}/results/tree.nwk",
-        tree = "{seg}/results/tree{gene}.nwk",
+        tree = "{seg}/results/tree{gene}{quart}.nwk",
         # node_data = "{seg}/results/branch_lengths.json"
-        node_data = "{seg}/results/branch_lengths{gene}.json"
+        node_data = "{seg}/results/branch_lengths{gene}{quart}.json"
     params:
         coalescent = "opt",
         date_inference = "marginal",
@@ -442,7 +454,8 @@ rule refine:
         strain_id_field ="accession",
         # clock_rate = 0.004, # remove for estimation
         # clock_std_dev = 0.0015
-        clock_rate_string = lambda wildcards: f"--clock-rate 0.004 --clock-std-dev 0.0015" if wildcards.gene else ""
+        clock_rate_string = lambda wildcards: f"--clock-rate 0.004 --clock-std-dev 0.0015" if wildcards.gene or wildcards.quart else ""
+        clock_rate_string = "--clock-rate 0.004 --clock-std-dev 0.0015"
     shell:
         """
         augur refine \
@@ -469,7 +482,7 @@ rule ancestral:
         alignment = rules.sub_alignments.output.alignment
     output:
         # node_data = "{seg}/results/nt_muts.json"
-        node_data = "{seg}/results/nt_muts{gene}.json"
+        node_data = "{seg}/results/nt_muts{gene}{quart}.json"
     params:
         inference = "joint"
     shell:
@@ -489,7 +502,7 @@ rule translate:
         node_data = rules.ancestral.output.node_data,
         reference = files.reference
     output:
-        node_data = "{seg}/results/aa_muts{gene}.json"
+        node_data = "{seg}/results/aa_muts{gene}{quart}.json"
         # node_data = "{seg}/results/aa_muts.json"
     shell:
         """
@@ -509,7 +522,7 @@ rule clades:
         clades = files.clades
     output:
         # clade_data = "{seg}/results/clades.json"
-        clade_data = "{seg}/results/clades{gene}.json"
+        clade_data = "{seg}/results/clades{gene}{quart}.json"
     shell:
         """
         augur clades --tree {input.tree} \
@@ -525,7 +538,7 @@ rule traits:
         metadata = rules.add_metadata.output.metadata
     output:
         # node_data = "{seg}/results/traits.json"
-        node_data = "{seg}/results/traits{gene}.json",
+        node_data = "{seg}/results/traits{gene}{quart}.json",
     params:
         traits = "country",
         strain_id_field= "accession"
@@ -578,7 +591,7 @@ rule export:
     params:
         strain_id_field= "accession"
     output:
-        auspice_json = "auspice/cva6_{seg}{gene}-accession.json"
+        auspice_json = "auspice/cva6_{seg}{gene}{quart}-accession.json"
         # auspice_json = rules.all.input.augur_jsons
         
     shell:
@@ -605,7 +618,7 @@ rule rename_json:
         metadata = rules.add_metadata.output.metadata,
     output:
         # auspice_json = rules.all.input.augur_jsons
-        auspice_json="auspice/cva6_{seg}{gene}.json"
+        auspice_json="auspice/cva6_{seg}{gene}{quart}.json"
     params:
         strain_id_field="accession",
         display_strain_field= "strain"
