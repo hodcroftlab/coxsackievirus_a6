@@ -1,5 +1,20 @@
 #high divergence, date not clear if real
 OR500230
 OR500231
+MT350228
+MT350229
+KY433795
+AB779616
+MT350230
 
 #KP289518
+
+#monopartite
+LR027552
+
+# reference strains
+AF081297
+AY421764
+
+
+#X000*

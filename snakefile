@@ -2,10 +2,10 @@
 # Snakemake execution templates:
 
 # To run a default VP1 run(<600bp):
-# snakemake  vp1/auspice/cva6_vp1.json --cores 1
+# snakemake  auspice/cva6_vp1.json --cores 9
 
 # To run a default whole genome run ( <6400bp):
-# snakemake whole_genome/auspice/cva6_whole_genome.json --cores 1
+# snakemake auspice/cva6_whole-genome.json --cores 9
 
 ###############
 wildcard_constraints:
@@ -373,7 +373,7 @@ rule sub_alignments:
         if wildcards.quart:
             real_gene = wildcards.quart.replace("-", "", 1)
             boundaries = {
-                '1Q':(3443, 3943),      '2Q':(3944, 4444),
+                '1Q':(3443, 3943),  '2Q':(3944, 4444),
                 '3Q':(4445, 4945),  '4Q':(4946, 5446)}
             b = boundaries[real_gene]
         else:
@@ -454,7 +454,7 @@ rule refine:
         strain_id_field ="accession",
         # clock_rate = 0.004, # remove for estimation
         # clock_std_dev = 0.0015
-        clock_rate_string = lambda wildcards: f"--clock-rate 0.004 --clock-std-dev 0.0015" if wildcards.gene or wildcards.quart else ""
+        # clock_rate_string = lambda wildcards: f"--clock-rate 0.004 --clock-std-dev 0.0015" if wildcards.gene or wildcards.quart else ""
         clock_rate_string = "--clock-rate 0.004 --clock-std-dev 0.0015"
     shell:
         """
