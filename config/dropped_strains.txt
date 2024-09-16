@@ -16,5 +16,5 @@ LR027552
 AF081297
 AY421764
 
-
-#X000*
+# underdiverged
+MF578379 

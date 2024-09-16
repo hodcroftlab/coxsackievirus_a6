@@ -235,6 +235,7 @@ if __name__ == '__main__':
     'Neurological': 'CNS', 'severe neurological involvement': 'CNS',
     'polio': 'AFP', 'Difficulty Walking': 'AFP',
     'Neck Stiffness; Vomiting': 'Meningitis',
+    'aseptic meningitis': 'Aseptic Meningitis', 
     'Meningitis': 'Meningitis',
     'Meningoencephalitis': 'Encephalitis', 'Encephalytis': 'Encephalitis', 'encephalitis':'Encephalitis',
     'Skin Rash': 'Rash', 'exanthema': 'Rash'
