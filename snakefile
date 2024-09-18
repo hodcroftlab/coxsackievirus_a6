@@ -13,8 +13,6 @@ wildcard_constraints:
     gene="|-5utr|-vp4|-vp2|-vp3|-vp1|-2A|-2B|-2C|-3A|-3B|-3C|-3D|-3utr",
     quart = "|-1Q|-2Q|-3Q|-4Q"
    
-#     #from: https://bitbucket.org/snakemake/snakemake/issues/910/empty-wildcard-assignment-works-only-if
-
 # Define segments to analyze
 segments = ['vp1', 'whole-genome']
 GENES=["-5utr","-vp4", "-vp2", "-vp3", "-vp1", "-2A", "-2B", "-2C", "-3A", "-3B", "-3C", "-3D","-3utr"],
@@ -147,7 +145,7 @@ rule blast_sort:
         
     params:
         matchLen = 300,
-        range="{seg}"
+        range=files.sequence_length
     shell:
         """
         python scripts/blast_sort.py --blast {input.blast_result} \
@@ -558,21 +556,47 @@ rule clade_published:
     message: "Assigning clades from publications"
     input:
         metadata = rules.add_metadata.output.metadata,
-        subgenotypes = "data/clades_vp1.tsv"
+        subgenotypes = "data/clades_vp1.tsv",
+        alignment="vp1/results/aligned_fixed.fasta"
     params:
         strain_id_field= "accession"
     output:
         final_metadata = "data/final_metadata_added_subgenotyp.tsv"
     run:
         import pandas as pd
-        
+        from Bio import SeqIO
+        import numpy as np
+
         # Load the input data files
         metadata_df = pd.read_csv(input.metadata, sep="\t")
         subgenotypes_df = pd.read_csv(input.subgenotypes, sep="\t")
-        
+
         # Merge the dataframes on the specified column
         merged_df = pd.merge(metadata_df, subgenotypes_df, on=params.strain_id_field, how="left")
-        
+
+        # Read alignment
+        seqs = list(SeqIO.parse(input.alignment, "fasta"))
+
+        # Calculate VP1 lengths for each sequence without gaps ("-") and Ns
+        ids = [record.id for record in seqs]
+        vp1_lengths = [len(record.seq.replace("N", "").replace("-", "")) for record in seqs]
+
+        # Create a DataFrame with sequence IDs and VP1 lengths
+        len_df = pd.DataFrame({"accession": ids, "l_vp1": vp1_lengths})
+
+        # Add the length to the metadata
+        merged_df = pd.merge(merged_df, len_df, left_on=params.strain_id_field, right_on="accession", how="left")
+
+        # Define bins and labels for VP1 length ranges
+        bins_length = [-np.inf, 599, 699, 799, 899, np.inf]
+        labels_length = ['<600nt', '600-700nt', '700-800nt', '800-900nt', '>900nt']
+
+        # Create length range column using pd.cut for VP1 length
+        merged_df['length_VP1'] = pd.cut(merged_df['l_vp1'], bins=bins_length, labels=labels_length, right=False).astype(str)
+
+        # Drop the original 'l_vp1' column
+        merged_df = merged_df.drop(columns=["l_vp1"])
+
         # Save the merged dataframe to the output file
         merged_df.to_csv(output.final_metadata, sep="\t", index=False)
 
