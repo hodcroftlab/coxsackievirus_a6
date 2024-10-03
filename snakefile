@@ -291,7 +291,8 @@ rule filter:
         group_by = "country",
         sequences_per_group = 15000, # set lower if you want to have a max sequences per group
         strain_id_field= "accession",
-        min_date = 1950  # Gdula was collected in 1949
+        min_date = 1965  # Gdula was collected in 1949
+        ##TODO: add length filter
     shell:
         """
         augur filter \
