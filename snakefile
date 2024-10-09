@@ -15,7 +15,7 @@ wildcard_constraints:
    
 # Define segments to analyze
 segments = ['vp1', 'whole-genome']
-GENES=["-5utr","-vp4", "-vp2", "-vp3", "-vp1", "-2A", "-2B", "-2C", "-3A", "-3B", "-3C", "-3D","-3utr"],
+GENES = ["-5utr","-vp4", "-vp2", "-vp3", "-vp1", "-2A", "-2B", "-2C", "-3A", "-3B", "-3C", "-3D","-3utr"]
 QUARTS = ["-1Q", "-2Q", "-3Q", "-4Q"]
 
 # Expand augur JSON paths
@@ -319,7 +319,7 @@ rule reference_gb_to_fasta:
     output:
         reference = "{seg}/results/reference_sequence.fasta"
     run:
-        from Bio import SeqIO 
+        from Bio import SeqIO
         SeqIO.convert(input.reference, "genbank", output.reference, "fasta")
 
 rule align: 
@@ -455,7 +455,7 @@ rule refine:
         # clock_rate = 0.004, # remove for estimation
         # clock_std_dev = 0.0015
         # clock_rate_string = lambda wildcards: f"--clock-rate 0.004 --clock-std-dev 0.0015" if wildcards.gene or wildcards.quart else ""
-        clock_rate_string = "--clock-rate 0.004 --clock-std-dev 0.0015"
+        clock_rate_string = "--clock-rate 0.004 --clock-std-dev 0.0015" # check publications
     shell:
         """
         augur refine \

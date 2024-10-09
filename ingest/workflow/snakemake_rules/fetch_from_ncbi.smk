@@ -105,7 +105,6 @@ rule format_ncbi_dataset_report:
             > {output.ncbi_dataset_tsv}
         """
 
-
 # Technically you can bypass this step and directly provide FASTA and TSV files
 # as input files for the curate pipeline.
 # We do the formatting here to have a uniform NDJSON file format for the raw
