@@ -1,7 +1,8 @@
 {
   "title": "Genomic epidemiology of Coxsackievirus A6 - complete genome",
   "maintainers": [
-    {"name": "Nadia Neuner-Jehle", "url": "https://www.swisstph.ch/en/staff/profile/people/nadia-neuner-jehle"}
+    {"name": "Nadia Neuner-Jehle", "url": "https://www.swisstph.ch/en/staff/profile/people/nadia-neuner-jehle"},
+    {"name": "Emma Hodcroft", "url": "http://emmahodcroft.com/"}
   ],
   "data_provenance": [
     {
@@ -20,7 +21,7 @@
       "key": "clade_assignment",
       "title": "VP1 Clades",
       "type": "categorical"
-    },    
+    },
     {
       "title": "Published Subgenogroup",
       "type": "categorical",
@@ -78,7 +79,7 @@
     },
     {
       "title": "Date when added",
-      "type": "continuous",
+      "type": "categorical",
       "key": "date_added"
     },
     {
@@ -90,14 +91,6 @@
       "key": "length",
       "title": "Total Length",
       "type": "continuous"
-    },
-    {
-      "key": "has_age",
-      "title": "Age available"
-    },
-    {
-      "key": "has_diagnosis",
-      "title": "Diagnosis available"
     },
     {
       "key": "author",

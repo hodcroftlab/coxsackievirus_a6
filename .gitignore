@@ -20,4 +20,6 @@ ingest/logs/
 scripts/bin
 scripts/__pycache__
 
+Simplot
+
 .env

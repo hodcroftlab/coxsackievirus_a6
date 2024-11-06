@@ -54,53 +54,54 @@ country	Lesotho	#59AF6B
 country	Namibia	#69CF7B
 country	South Africa	#79EF8B
 
-country	Denmark	#E53935
-country	Estonia	#F44336
-country	Finland	#FF5722
-country	Iceland	#FF9800
-country	Ireland	#FFC107
-country	Latvia	#FFEB3B
-country	Lithuania	#CDDC39
-country	Norway	#4CAF50
-country	Sweden	#009688
-country	United Kingdom	#00BCD4
+country	Denmark	#FF5A5A
+country	Estonia	#FF4A4A
+country	Finland	#C08180
+country	Iceland	#FF2A2A
+country	Ireland	#FFBAB8
+country	Latvia	#FF6969
+country	Lithuania	#FF5959
+country	Norway	#FF4949
+country	Sweden	#FF3939
+country	United Kingdom	#900C3F
 
-country	Albania	#FF5722
-country	Andorra	#FF6F00
-country	Bosnia and Herzegovina	#F57F17
-country	Croatia	#F57C00
-country	Greece	#FFA000
-country	Italy	#FF8F00
-country	Malta	#F57C00
-country	Montenegro	#FF6F00
-country	North Macedonia	#FF5722
-country	Portugal	#FF9800
-country	San Marino	#F57F17
-country	Serbia	#FF8F00
-country	Slovenia	#FF6F00
-country	Spain	#F57F17
-country	Vatican City	#F57C00
+country	Albania	#FF7F4D
+country	Andorra	#FF6F4D
+country	Bosnia and Herzegovina	#FF5F4D
+country	Croatia	#FF4F4D
+country	Greece	#FF3F4D
+country	Italy	#FF2F4D
+country	Malta	#FF1F4D
+country	Montenegro	#FF0F4D
+country	North Macedonia	#FF004D
+country	Portugal	#FF9F4D
+country	San Marino	#FF8F4D
+country	Serbia	#FF7F4D
+country	Slovenia	#FF6F4D
+country	Spain	#A21815
+country	Vatican City	#FF4F4D
 
-country	Belarus	#C2185B
-country	Bulgaria	#D32F2F
-country	Czech Republic	#B71C1C
-country	Hungary	#B71C1C
-country	Moldova	#F44336
-country	Poland	#D32F2F
-country	Romania	#C62828
-country	Russia	#E53935
-country	Slovakia	#F44336
-country	Ukraine	#C62828
+country	Belarus	#A30000
+country	Bulgaria	#930000
+country	Czech Republic	#830000
+country	Hungary	#730000
+country	Moldova	#630000
+country	Poland	#530000
+country	Romania	#430000
+country	Russia	#330000
+country	Slovakia	#230000
+country	Ukraine	#130000
 
-country	Austria	#FFCC80
-country	Belgium	#FFB74D
-country	France	#FF9800
-country	Germany	#FFA000
-country	Liechtenstein	#F57F17
-country	Luxembourg	#FF8F00
-country	Monaco	#FF6F00
-country	Netherlands	#FF5722
-country	Switzerland	#F57C00
+country	Austria	#FFAAAA
+country	Belgium	#FF9999
+country	France	#FF5733
+country	Germany	#C70039
+country	Liechtenstein	#FF6666
+country	Luxembourg	#FF5555
+country	Monaco	#FF4444
+country	Netherlands	#FF3333
+country	Switzerland	#FF2222
+
 
 country	Antigua and Barbuda	#FF9D27
 country	Bahamas	#FFAD37
@@ -209,10 +210,10 @@ region	middle africa	#13F672
 region	western africa	#9DFBC4
 region	southern africa	#C8E6C9
 
-region	northern europe	#E53935
-region	southern europe	#F57F17
-region	eastern europe	#8E24AA
-region	western europe	#FBC02D
+region	northern europe	#FD151B
+region	southern europe	#F53500
+region	eastern europe	#AC0006
+region	western europe	#FF5733
 
 region	caribbean	#FFB326
 region	central america	#C99739
@@ -228,11 +229,11 @@ region	western asia	#6C0D79
 
 region	oceania	#26A69A
 
-age_range	0-3 m/o	#4066cf
-age_range	4-6 m/o	#4b8dc2
-age_range	7-12 m/o	#5da8a3
-age_range	1-3 y/o	#96bd60
-age_range	4-5 y/o	#b8bc4b
-age_range	6-10 y/o	#d4b13f
-age_range	11-17 y/o	#e4672f
-age_range	18+ y/o	#dc2f24
+age range	0-3 m/o	#FFB6C1
+age range	4-6 m/o	#FF69B4
+age range	7-12 m/o	#FF1493
+age range	<1 y/o	#DB7093
+age range	1-5 y/o	#C71585
+age range	6-10 y/o	#8B008B
+age range	11-17 y/o	#800080
+age range	18+ y/o	#4B0082
