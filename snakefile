@@ -2,10 +2,10 @@
 # Snakemake execution templates:
 
 # To run a default VP1 run(<600bp):
-# snakemake  auspice/cva6_vp1.json --cores 9
+# snakemake  auspice/coxsackievirus_A6_vp1.json --cores 9
 
 # To run a default whole genome run ( <6400bp):
-# snakemake auspice/cva6_whole-genome.json --cores 9
+# snakemake auspice/coxsackievirus_A6_whole-genome.json --cores 9
 
 ###############
 wildcard_constraints:
@@ -21,15 +21,15 @@ QUARTS = ["-1Q", "-2Q", "-3Q", "-4Q"]
 # Expand augur JSON paths
 rule all:
     input:
-        augur_jsons = expand("auspice/cva6_{segs}.json", segs=segments)
+        augur_jsons = expand("auspice/coxsackievirus_A6_{segs}.json", segs=segments)
 
 rule all_genes:
     input:
-        augur_jsons = expand("auspice/cva6_whole_genome{genes}.json", genes=GENES)
+        augur_jsons = expand("auspice/coxsackievirus_A6_gene_{genes}.json", genes=GENES)
 
 rule all_quarts:
     input:
-        augur_jsons = expand("auspice/cva6_whole_genome{quarts}.json", quarts=QUARTS)
+        augur_jsons = expand("auspice/coxsackievirus_A6_whole_genome{quarts}.json", quarts=QUARTS)
 
 # Rule to handle configuration files
 rule files:
@@ -291,7 +291,7 @@ rule filter:
         group_by = "country",
         sequences_per_group = 15000, # set lower if you want to have a max sequences per group
         strain_id_field= "accession",
-        min_date = 1965  # Gdula was collected in 1949
+        min_date = 1970  # Gdula was collected in 1949
         ##TODO: add length filter
     shell:
         """
@@ -307,7 +307,8 @@ rule filter:
             --output {output.sequences}
         """
 
-        # --exclude-where doi="Private data: J-L Bailly"\
+        # 	    --exclude-where doi="Private data: J-L Bailly"\
+
 
 rule reference_gb_to_fasta:
     message:
@@ -618,7 +619,7 @@ rule export:
     params:
         strain_id_field= "accession"
     output:
-        auspice_json = "auspice/cva6_{seg}{gene}{quart}-accession.json"
+        auspice_json = "auspice/coxsackievirus_A6_{seg}{gene}{quart}-accession.json"
         # auspice_json = rules.all.input.augur_jsons
         
     shell:
@@ -645,7 +646,7 @@ rule rename_json:
         metadata = rules.add_metadata.output.metadata,
     output:
         # auspice_json = rules.all.input.augur_jsons
-        auspice_json="auspice/cva6_{seg}{gene}{quart}.json"
+        auspice_json="auspice/coxsackievirus_A6_{seg}{gene}{quart}.json"
     params:
         strain_id_field="accession",
         display_strain_field= "strain"
@@ -664,8 +665,8 @@ rule rename_json:
 rule clean:
     message: "Removing directories: {params}"
     params:
-        # "results ",
-        "auspice"
+        "results ",
+        # "auspice"
     shell:
         "rm -rfv {params}"
 
@@ -674,9 +675,21 @@ rule rename_whole_genome:
     message: 
         "Rename whole-genome built"
     input: 
-        json="auspice/cva6_whole_genome.json"
+        json="auspice/coxsackievirus_A6_whole_genome.json"
     output:
-        json="auspice/cva6_whole-genome.json" # easier view in auspice
+        json="auspice/coxsackievirus_A6_whole-genome.json" # easier view in auspice
+    shell:
+        """
+        mv {input.json} {output.json}
+        """
+
+rule rename_genes:
+    message: 
+        "Rename the single genome builts"
+    input: 
+        json="auspice/coxsackievirus_A6_whole_genome{gene}.json"
+    output:
+        json="auspice/coxsackievirus_A6_gene_{gene}.json" # easier view in auspice
     shell:
         """
         mv {input.json} {output.json}
