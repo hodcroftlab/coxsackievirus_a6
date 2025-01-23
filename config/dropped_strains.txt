@@ -15,6 +15,7 @@ LR027552
 # reference strains
 AF081297
 AY421764
+PQ530051 # Gdula
 
 # underdiverged
 MF578379 
@@ -26,3 +27,8 @@ AB090802
 #vaccines
 LQ705799
 MB001409
+
+
+# high diversity, plitting of in 1950s
+KF412903
+HQ844644
