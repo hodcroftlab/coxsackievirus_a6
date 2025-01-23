@@ -19,59 +19,14 @@ D3	nuc	573	G
 D3	VP1	30	V
 D3	nuc	510	T
 
-D3.1	nuc	13	G
-D3.1	nuc	771	A
-D3.1	VP1	5	A
+D3b	nuc	111	G
+D3b	nuc	471	A
+D3b	nuc	822	T
 
-D3.1.1	nuc	261	G
-D3.1.1	nuc	471	A
-
-D3.2	nuc	261	A
-D3.2	nuc	108	C
-D3.2	nuc	333	C
-D3.2	nuc	639	C
-D3.2	nuc	777	A
-D3.2	nuc	786	A
-
-D3.3	nuc	80	A
-D3.3	nuc	213	T
-D3.3	nuc	321	T
-D3.3	nuc	636	T
-D3.3	nuc	660	C
-D3.3	VP1	27	N
-
-D3.3.1	nuc	822	T
-D3.3.1	nuc	732	C
-D3.3.1	nuc	438	A
-D3.3.1	nuc	378	C
-
-D3.3.2	nuc	3	C
-D3.3.2	nuc	17	G
-D3.3.2	nuc	126	G
-D3.3.2	nuc	855	C
-
-D3.4	nuc	108	A
-D3.4	nuc	135	C
-D3.4	nuc	492	T
-D3.4	VP1	30	A
-
-D3.5	nuc	186	C
-D3.5	nuc	582	G
-
-D3.5.1	nuc	837	A
-D3.5.1	nuc	510	C
-D3.5.1	nuc	234	T
-
-D3.5.2	nuc	636	C
-D3.5.2	nuc	657	A
-D3.5.2	nuc	795	A
-
-D3.5.3	nuc	837	C
-D3.5.3	nuc	486	G
-D3.5.3	nuc	186	T
-
-D3.6	clade	D3.5.3
-D3.6	nuc	522	G
+D3a	nuc	108	C
+D3a	nuc	261	A
+D3a	nuc	639	C
+D3a	nuc	786	A
 
 E	nuc	114	T
 E	nuc	247	T
