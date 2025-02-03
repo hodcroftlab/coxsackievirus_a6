@@ -1,0 +1,17 @@
+##gff-version 3
+#!gff-spec-version 1.21
+#!processor NCBI annotwriter
+##sequence-region AY421764.1 1 7434
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=86107
+AY421764.1	Genbank	region	1	7434	.	+	.	ID=AY421764.1:1..7434;Dbxref=taxon:86107;gb-acronym=CV-A6;gbkey=Src;isolate=CA6;mol_type=genomic RNA;strain=Gdula
+AY421764.1	Genbank	CDS	746	952	.	+	.	Name=VP4_protein;gbkey=Prot;product=VP4 protein;ID=id-AAR38844.1:1..69
+AY421764.1	Genbank	CDS	953	1720	.	+	.	Name=VP2_protein;gbkey=Prot;product=VP2 protein;ID=id-AAR38844.1:70..325
+AY421764.1	Genbank	CDS	1721	2440	.	+	.	Name=VP3_protein;gbkey=Prot;product=VP3 protein;ID=id-AAR38844.1:326..565
+AY421764.1	Genbank	CDS	2441	3355	.	+	.	Name=VP1_protein;gbkey=Prot;product=VP1 protein;ID=id-AAR38844.1:566..870
+AY421764.1	Genbank	CDS	3356	3805	.	+	.	Name=2A_protein;gbkey=Prot;product=2A protein;ID=id-AAR38844.1:871..1020
+AY421764.1	Genbank	CDS	3806	4102	.	+	.	Name=2B_protein;gbkey=Prot;product=2B protein;ID=id-AAR38844.1:1021..1119
+AY421764.1	Genbank	CDS	4103	5089	.	+	.	Name=2C_protein;gbkey=Prot;product=2C protein;ID=id-AAR38844.1:1120..1448
+AY421764.1	Genbank	CDS	5090	5347	.	+	.	Name=3A_protein;gbkey=Prot;product=3A protein;ID=id-AAR38844.1:1449..1534
+AY421764.1	Genbank	CDS	5348	5413	.	+	.	Name=3B_protein;gbkey=Prot;product=3B protein;ID=id-AAR38844.1:1535..1556
+AY421764.1	Genbank	CDS	5414	5962	.	+	.	Name=3C_protein;gbkey=Prot;product=3C protein;ID=id-AAR38844.1:1557..1739
+AY421764.1	Genbank	CDS	5963	7348	.	+	.	Name=3D_protein;gbkey=Prot;product=3D protein;ID=id-AAR38844.1:1740..2201

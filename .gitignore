@@ -13,7 +13,9 @@ ingest/logs/
 
 */results/
 */temp/
-*/data/
+ingest/data/*
+!ingest/data/references/
+ingest/data/references/nextclade.tsv
 
 *.code-workspace
 

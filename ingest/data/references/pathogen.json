@@ -1,0 +1,42 @@
+{
+  "schemaVersion": "3.0.0",
+  "files": {
+    "reference": "reference.fasta",
+    "pathogenJson": "pathogen.json",
+    "genomeAnnotation": "annotation.gff3"
+  },
+  "attributes": {
+    "name": "Coxsackievirus A6",
+    "reference name": "Human coxsackievirus A6 strain Gdula, complete genome.",
+    "reference accession": "AY421764.1"
+  },
+  "defaultCds": "VP1",
+  "qc": {
+    "schemaVersion": "1.2.0",
+    "missingData": {
+      "enabled": true,
+      "missingDataThreshold": 2000,
+      "scoreBias": 500,
+      "scoreWeight": 50
+    },
+    "snpClusters": {
+      "enabled": true,
+      "windowSize": 100,
+      "clusterCutOff": 6,
+      "scoreWeight": 50
+    },
+    "mixedSites": {
+      "enabled": true,
+      "mixedSitesThreshold": 15,
+      "scoreWeight": 50
+    },
+    "frameShifts": {
+      "enabled": true,
+      "scoreWeight": 20
+    },
+    "stopCodons": {
+      "enabled": true,
+      "scoreWeight": 50
+    }
+  }
+}
