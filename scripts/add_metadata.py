@@ -22,7 +22,7 @@ if __name__ == '__main__':
     parser.add_argument('--local', help="input local accession file")
     parser.add_argument('--regions', help="file to specify regions: format = country region")
     parser.add_argument('--id', help="id: strain or accession", choices=["strain","accession"],default="accession")
-    parser.add_argument('--rename', help="copy of updated_metadata.tsv")
+    parser.add_argument('--rename', help="output rule update_strain_names")
     parser.add_argument('--update', help="date when sequences were added")
     args = parser.parse_args()
 
@@ -40,7 +40,7 @@ if __name__ == '__main__':
     meta = pd.read_csv(input_csv_meta, keep_default_na=True, sep='\t', index_col=False)
     new_data = pd.read_csv(add_data, keep_default_na=True, sep='\t', index_col=False)
     local_accn_file= pd.read_csv(local_accn, keep_default_na=True, sep='\t', index_col=False)
-    renamed_strains_df = pd.read_csv(renamed_strains, keep_default_na=True, sep='\t', index_col=False)
+    renamed_strains_df = pd.read_csv(renamed_strains, keep_default_na=True, sep='\t', index_col=False, on_bad_lines='skip')
     last_updated=pd.read_csv(last_updated_file, keep_default_na=True, sep='\t', index_col=False,names=["accession","date_added"])
 
     # Identify records that need updating

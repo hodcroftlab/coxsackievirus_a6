@@ -75,19 +75,22 @@ rule fetch:
 # Update strain names
 ###############################
 
-# rule update_strain_names:
-#     message:
-#         """
-#         Updating strain information in metadata.
-#         """
-#     input:
-#         file_in = files.meta
-#     output:
-#         file_out = "data/updated_strain_names.tsv"
-#     shell:
-#         """
-#         time bash scripts/update_strain.sh {input.file_in} {output.file_out}
-#         """
+rule update_strain_names:
+    message:
+        """
+        Updating strain name in metadata.
+        """
+    input:
+        file_in =  files.meta
+    params:
+        backup = "data/strain_names_previous_run.tsv"
+    output:
+        file_out = "data/updated_strain_names.tsv"
+    shell:
+        """
+        time bash scripts/update_strain.sh {input.file_in} {params.backup} {output.file_out}
+        cp -i {output.file_out} {params.backup}
+        """
 
 ##############################
 # Add additional sequences
@@ -110,7 +113,9 @@ rule update_sequences:
         """
         touch {params.temp} && rm {params.temp}
         cat {params.file_ending} > {params.temp}
-        python scripts/update_sequences.py --in_seq {params.temp} --out_seq {output.sequences} --dates {params.date_last_updated} --local_accession {params.local_accn} --meta {input.metadata} --add {input.add_metadata}
+        python scripts/update_sequences.py --in_seq {params.temp} --out_seq {output.sequences} --dates {params.date_last_updated} \
+        --local_accession {params.local_accn} --meta {input.metadata} --add {input.add_metadata} \
+        --ingest_seqs {input.sequences}
         rm {params.temp}
         awk '/^>/{{if (seen[$1]++ == 0) print; next}} !/^>/{{print}}' {output.sequences} > {params.temp} && mv {params.temp} {output.sequences}
         """
@@ -234,7 +239,7 @@ rule add_metadata:
         regions=ancient(files.regions),
         local_accn=files.local_accn_file,
         last_updated=files.last_updated_file,
-        renamed_strains="data/updated_strain_names.tsv"
+        renamed_strains=rules.update_strain_names.output.file_out
     params:
         strain_id_field="accession"
     output:

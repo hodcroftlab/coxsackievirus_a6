@@ -2,97 +2,97 @@
 
 # Input and output file paths from arguments
 input_file="$1"
-output_file="$2"
+backup_file="$2"
+output_file="$3"
 
-# Define the columns to keep in the output file
-required_columns=("accession" "strain")
+temp_output_file="data/strain_names_temp.tsv"
 
-# Read the header line from the input file
-header_line=$(head -n 1 "$input_file")
+# Define the positions of accession and strain columns based on the header (1-based index)
+accession_col=1
+strain_col=5
 
-# Extract header names into an array
-IFS=$'\t' read -r -a headers <<< "$header_line"
-
-# Create a mapping of header names to their indices
-declare -A header_indices
-for i in "${!headers[@]}"; do
-    header_indices[${headers[$i]}]=$i
-done
-
-# Identify the indices of the required columns
-for col in "${required_columns[@]}"; do
-    if [[ -z "${header_indices[$col]}" ]]; then
-        echo "Error: Required column '$col' not found in the header."
-        exit 1
-    fi
-done
-
-# Create a temporary output file for new entries
-temp_output_file="$output_file.tmp"
-
-# Create or clear the output file if it doesn't exist and write the header
-if [[ ! -f "$output_file" ]]; then
-    required_indices=$(for col in "${required_columns[@]}"; do echo -n "${header_indices[$col]} "; done)
-    echo -e "$(for idx in $required_indices; do echo -n "${headers[$idx]}\t"; done | sed 's/\t$//')" > "$output_file"
-fi
-
-# Load existing accessions from the output file into a set
+# Read existing accessions in the backup file into an array for faster lookup
 declare -A existing_accessions
-while IFS=$'\t' read -r -a fields; do
-    accession="${fields[0]}"  # Assumes accession is the first column
-    existing_accessions["$accession"]=1
-done < <(tail -n +2 "$output_file")
-
-# Process the input file and append new entries to the temp file
-while IFS=$'\t' read -r -a fields; do
-    # Skip empty lines
-    if [[ -z "${fields[${header_indices[accession]}]}" ]]; then
-        continue
-    fi
-
-    # Extract values based on header indices
-    accession="${fields[${header_indices[accession]}]}"
-    strain="${fields[${header_indices[strain]}]}"
-
-    # Check if accession is already in the output file
-    if [[ -n "${existing_accessions[$accession]}" ]]; then
-        echo "Skipping $accession, already present in the output file."
-        continue
-    fi
-
-    # Fetch and update the strain if needed
-    if [ "$accession" == "$strain" ]; then
-        # Fetch the GenBank record
-        gb_entry=$(efetch -db nucleotide -id "$accession" -format gb 2>/dev/null)
-        
-        if [ $? -eq 0 ]; then
-            # Extract the strain from the FEATURES section
-            strain_from_gb=$(echo "$gb_entry" | grep -oP '/strain="\K[^"]+')
-            
-            if [ -n "$strain_from_gb" ]; then
-                strain=$strain_from_gb
-            else
-                strain="UNKNOWN"
-            fi
-        else
-            strain="UNKNOWN"
-        fi
-    fi
-
-    # Replace the strain value in the fields array
-    fields[${header_indices[strain]}]=$strain
-
-    # Write the selected fields to the temp output file
-    updated_row=$(for idx in $required_indices; do echo -n "${fields[$idx]}\t"; done | sed 's/\t$//')
-    echo -e "$updated_row" >> "$temp_output_file"
-done < <(tail -n +2 "$input_file")
-
-# Append the temp output to the main output file and remove duplicates
-if [[ -f "$temp_output_file" ]]; then
-    cat "$temp_output_file" >> "$output_file"
-    sort -u "$output_file" -o "$output_file"
-    rm "$temp_output_file"
+if [[ -f "$backup_file" ]]; then
+    while IFS=$'\t' read -r accession strain; do
+        existing_accessions["$accession"]=1
+    done < <(tail -n +2 "$backup_file")  # Skip the header
+else
+    echo "Error: Backup file not found."
+    exit 1
 fi
 
-# Report completion
-echo "Processing completed. Updated metadata saved to $output_file"
+# # Debug: Print the contents of the backup file
+# echo "Contents of the backup file:"
+# cat "$backup_file"
+
+# # Debug: Print the list of existing accessions
+# echo "Existing accessions:"
+# for accession in "${!existing_accessions[@]}"; do
+#     echo "$accession"
+# done
+
+# Initialize skipped and new_accessions counters
+skipped=0
+new_accessions=0
+
+# Create a list of accessions to process
+accessions_to_process=()
+
+# Read the input file and check if accession is equal to strain name
+while IFS=$'\t' read -r line; do
+    accession=$(echo "$line" | cut -f$accession_col)
+    strain=$(echo "$line" | cut -f$strain_col)
+    # Debug: Print the current accession and strain
+    # echo "Read from input file: accession=$accession, strain=$strain"
+    if [[ "$accession" == "$strain" ]]; then
+        accessions_to_process+=("$accession")
+    fi
+done < <(tail -n +2 "$input_file")  # Skip the header
+
+# Debug: Print the list of accessions to process
+# echo "Accessions to process: ${accessions_to_process[@]}"
+
+# Remove accessions that are already in the backup file
+accessions_to_process=($(comm -23 <(printf "%s\n" "${accessions_to_process[@]}" | sort) <(printf "%s\n" "${!existing_accessions[@]}" | sort)))
+
+# Debug: Print the list of accessions after removing existing ones
+echo "Accessions after removing existing ones: ${accessions_to_process[@]}"
+
+# Copy all entries from the backup file to the output file
+cp "$backup_file" "$output_file"
+
+# Process the remaining accessions
+for accession in "${accessions_to_process[@]}"; do
+    # Fetch the GenBank record
+    gb_entry=$(efetch -db nucleotide -id "$accession" -format gb 2>/dev/null)
+
+    if [ $? -eq 0 ]; then
+        # Extract the strain from the FEATURES section
+        strain_from_gb=$(echo "$gb_entry" | grep -oP '/strain="\K[^"]+')
+
+        if [ -n "$strain_from_gb" ]; then
+            strain=$strain_from_gb
+            ((new_accessions += 1))
+            echo "Updated strain for $accession: $strain"
+        else
+            strain="$accession"
+        fi
+    else
+        strain="$accession"
+    fi
+
+    # Append the updated entry to the output file
+    echo -e "$accession\t$strain" >> "$output_file"
+done
+
+# Sort and remove duplicates in the output file
+sort -u "$output_file" -o "$output_file"
+
+# Add the header if not already present
+if ! head -n 1 "$output_file" | grep -qP '^accession\s+strain'; then
+    # Prepend the header to the output file
+    echo -e "accession\tstrain" | cat - "$output_file" > temp && mv temp "$output_file"
+fi
+
+echo -e "\nProcessing completed. Updated metadata saved to $output_file.\n$skipped accessions were skipped.\n$new_accessions new strains were added."
