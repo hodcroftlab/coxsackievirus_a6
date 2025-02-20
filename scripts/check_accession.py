@@ -5,69 +5,84 @@ import pandas as pd
 from dotenv import load_dotenv, find_dotenv
 import os
 
+import time
+
 # Function to check if an accession number is real: it uses the entrez functionality of ncbi
-def extract_accession(name,extract="accession"):
-    
+def extract_accession(name, extract="accession"):
     load_dotenv(find_dotenv())
     Entrez.email = os.environ.get("EMAIL")
-    #email address should be stored in an .env file in the base directory, in the format EMAIL=user@email.com
-
+    # email address should be stored in an .env file in the base directory, in the format EMAIL=user@email.com
+    
     # Define the API endpoint and parameters
     url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi'
     params = {'db': 'nuccore', 'term': name, 'retmode': 'xml'}
     
-    try:
-        # Send request to the API
-        response = requests.get(url, params=params)
-        response.raise_for_status()  # Raise HTTPError for bad responses
+    max_retries = 5
+    backoff_factor = 5 #seconds
 
-        # Check if accession exists
-        if '<Count>0</Count>' in response.text:
-            return False, None
+    time.sleep(1) # for every entry sleep first
 
-        # Extract all IDs from the response
-        ids = re.findall(r'<Id>(\d+)</Id>', response.text)
-        if len(ids)>5:
-            return False, None
-        accessions = []
-        
-        for id_name in ids:
-            # Fetch the sequence record using Entrez
-            handle = Entrez.efetch(db="nucleotide", id=id_name, rettype="gb", retmode="text")
-            seq_record = SeqIO.read(handle, "genbank")
-            handle.close()  # Ensure we close the handle after reading
+    for attempt in range(max_retries):
+        try:
+            # Send request to the API
+            response = requests.get(url, params=params, headers = {'User-agent': 'Coxsackievirus A6 Nextstrain'})
+            response.raise_for_status()  # Raise HTTPError for bad responses
 
-            # print(seq_record)
+            # Check if accession exists
+            if '<Count>0</Count>' in response.text:
+                return False, None
 
-            # Check if the description contains "Coxsackievirus A6" or "CVA6"
-            if re.search(r'\b(Coxsackievirus A6|CVA6)\b', seq_record.description, re.IGNORECASE):
-                # Check if the description also contains "VP1" or "complete genome"
-                if re.search(r'\bVP1\b', seq_record.description, re.IGNORECASE) or re.search(r'\bcomplete \b', seq_record.description, re.IGNORECASE) or re.search(r'\bpartial cds\b', seq_record.description, re.IGNORECASE):
-                    # what to extract
-                    if extract == "accession":
-                        accession = seq_record.name
-                    elif extract == "strain":
-                        match = re.search(r'(strain|isolate)\s+([\w\-\.\/]+)', seq_record.description)
-                        if match:
-                            strain_name = match.group(2)
-                            if re.search(r'\bcomplete \b', seq_record.description, re.IGNORECASE) and len(ids)>1:
-                                accession = strain_name+"c"
-                            else:
-                                accession = strain_name
-                    else:
-                        accession = seq_record.description
-                    accessions.append(accession)
+            # Extract all IDs from the response
+            ids = re.findall(r'<Id>(\d+)</Id>', response.text)
+            if len(ids) > 5:
+                return False, None
+            accessions = []
 
-        if accessions:
-            # Safely unpack accessions if it has at least one item
-            accession = accessions[0]
-            return True, accession
-        else:
-            return False, None
+            for id_name in ids:
+                # Fetch the sequence record using Entrez
+                handle = Entrez.efetch(db="nucleotide", id=id_name, rettype="gb", retmode="text")
+                seq_record = SeqIO.read(handle, "genbank")
+                handle.close()  # Ensure we close the handle after reading
 
-    except Exception as e:
-        # Handle exceptions gracefully
-        print(f"Error checking accession {name}: {e}")
+                # Check if the description contains "Coxsackievirus A6" or "CVA6"
+                if re.search(r'\b(Coxsackievirus A6|CVA6)\b', seq_record.description, re.IGNORECASE):
+                    # Check if the description also contains "VP1" or "complete genome"
+                    if re.search(r'\bVP1\b', seq_record.description, re.IGNORECASE) or re.search(r'\bcomplete \b', seq_record.description, re.IGNORECASE) or re.search(r'\bpartial cds\b', seq_record.description, re.IGNORECASE):
+                        # what to extract
+                        if extract == "accession":
+                            accession = seq_record.name
+                        elif extract == "strain":
+                            match = re.search(r'(strain|isolate)\s+([\w\-\.\/]+)', seq_record.description)
+                            if match:
+                                strain_name = match.group(2)
+                                if re.search(r'\bcomplete \b', seq_record.description, re.IGNORECASE) and len(ids) > 1:
+                                    accession = strain_name + "c"
+                                else:
+                                    accession = strain_name
+                        else:
+                            accession = seq_record.description
+                        accessions.append(accession)
+
+            if accessions:
+                # Safely unpack accessions if it has at least one item
+                accession = accessions[0]
+                return True, accession
+            else:
+                return False, None
+
+        except requests.exceptions.HTTPError as e:
+            if response.status_code == 429:
+                # Too many requests, wait and retry
+                wait_time = backoff_factor * (2 ** attempt)
+                print(f"Rate limit exceeded. Retrying in {wait_time} seconds...")
+                time.sleep(wait_time)
+            else:
+                print(f"HTTP error occurred: {e}")
+                break
+        except Exception as e:
+            # Handle other exceptions gracefully
+            print(f"Error checking accession {name}: {e}")
+            break
 
     return False, None
 
