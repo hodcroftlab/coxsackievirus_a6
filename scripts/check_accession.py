@@ -25,7 +25,7 @@ def extract_accession(name, extract="accession"):
     for attempt in range(max_retries):
         try:
             # Send request to the API
-            response = requests.get(url, params=params, headers = {'User-agent': 'Coxsackievirus A6 Nextstrain'})
+            response = requests.get(url, params=params)
             response.raise_for_status()  # Raise HTTPError for bad responses
 
             # Check if accession exists
