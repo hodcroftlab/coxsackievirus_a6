@@ -159,8 +159,6 @@ rule blast_sort:
             --seqs {input.input_seqs} \
             --out_seqs {output.sequences} \
             --range {params.range}
-
-        rm -r temp
         """
 
 ##############################
@@ -259,6 +257,8 @@ rule add_metadata:
             --regions {input.regions} \
             --id {params.strain_id_field} \
             --output {output.metadata}
+
+        rm -r ./temp/
         """
 
 ##############################
@@ -678,7 +678,10 @@ rule clean:
         "results ",
         # "auspice"
     shell:
-        "rm -rfv {params}"
+        """
+        rm -rfv {params}
+        rm ingest/data/*
+        """
 
 
 rule rename_whole_genome:
