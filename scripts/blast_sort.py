@@ -7,8 +7,9 @@ def parse_args():
     parser.add_argument('--blast', required=True)
     parser.add_argument('--seqs', required=True)
     parser.add_argument('--out_seqs', required=True)
-    parser.add_argument('--range', required=True, choices=["vp1","whole_genome"])
-    parser.add_argument('--match_length', required=False, type=int)
+    parser.add_argument('--range', required=True, choices=["vp1","whole_genome"]) ## TODO: replace vp1 with protein of choice
+    parser.add_argument('--protein_length', required=False, type=int, nargs=2, help='min and max lengths for specific protein')
+    parser.add_argument('--whole_genome_length', required=False, type=int, nargs=2, help='min and max lengths for whole genome')
     return parser.parse_args()
 
 def main():
@@ -20,7 +21,7 @@ def main():
                                         "qstart","qend","sstart","send","evalue","bitscore","qcovs"])
     # Load sequences
     sequences = list(SeqIO.parse(args.seqs, "fasta"))
-    
+
     # Filter blast results and remove duplicates
     blast_results=blast_results.sort_values(['length','evalue'],ascending=[False,True]).drop_duplicates(subset='qseqid', keep='first')
     blast_results["diff_length_ref"]=abs(blast_results["send"]-blast_results["sstart"])
@@ -28,8 +29,8 @@ def main():
     selected_seqs = []
 
     # Process sequences based on the specified length range
-    if args.range == "vp1":
-        r=(600, 915)
+    if args.range == "vp1":  #TODO: replace with protein of choice
+        r = args.protein_length
         blast_results=blast_results[(blast_results.diff_length_ref >= r[0]) & (blast_results.diff_length_ref <= r[1])]
         for seq_record in sequences:
             if (seq_record.id in blast_results.qseqid.unique()):
@@ -42,9 +43,8 @@ def main():
                 new_seq_record.seq = reg_seq
                 if (r[0] <= len(reg_seq) <= r[1]):
                     selected_seqs.append(new_seq_record)
-    
     elif args.range == "whole_genome":
-        r=(6400, 8000)
+        r = args.whole_genome_length
         for seq_record in sequences:
             seq_length = len(seq_record.seq)
             if r[0] <= seq_length <= r[1]:

@@ -143,17 +143,19 @@ rule blast:
 
 rule blast_sort:
     input:
-        blast_result = rules.blast.output.blast_out, # output blast (vp1)
+        blast_result = rules.blast.output.blast_out, # output blast (for your protein)
         input_seqs = rules.update_sequences.output.sequences
     output:
         sequences = "{seg}/results/sequences.fasta"
         
     params:
-        matchLen = 300,
-        range=files.sequence_length
+        protein = [600,915], #TODO: min & max length for protein
+        whole_genome = [6400,8000], #TODO: min & max length for whole genome
+        range = "{seg}" # this is determining the path it takes in blast_sort (protein-specific or whole genome)
     shell:
         """
         python scripts/blast_sort.py --blast {input.blast_result} \
+            --protein_length {params.protein}  --whole_genome_length {params.whole_genome} \
             --seqs {input.input_seqs} \
             --out_seqs {output.sequences} \
             --range {params.range}
