@@ -131,9 +131,9 @@ rule blast:
         blast_db_file = "data/references/reference_vp1_blast.fasta",
         seqs_to_blast = rules.update_sequences.output.sequences
     output:
-        blast_out = "vp1/temp/blast_out.csv"
+        blast_out = "temp/blast_out.csv"
     params:
-        blast_db = "vp1/temp/entero_db_vp1"
+        blast_db = "temp/blast_database"
     shell:
         """
         sed -i 's/-//g' {input.seqs_to_blast}
@@ -159,6 +159,8 @@ rule blast_sort:
             --seqs {input.input_seqs} \
             --out_seqs {output.sequences} \
             --range {params.range}
+
+        rm -r temp
         """
 
 ##############################
