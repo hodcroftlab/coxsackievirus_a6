@@ -47,18 +47,22 @@ def extract_accession(name, extract="accession"):
                 # Check if the description contains "Coxsackievirus A6" or "CVA6"
                 if re.search(r'\b(Coxsackievirus A6|CVA6)\b', seq_record.description, re.IGNORECASE):
                     # Check if the description also contains "VP1" or "complete genome"
-                    if re.search(r'\bVP1\b', seq_record.description, re.IGNORECASE) or re.search(r'\bcomplete \b', seq_record.description, re.IGNORECASE) or re.search(r'\bpartial cds\b', seq_record.description, re.IGNORECASE):
+                    if re.search(r'\bVP1\b', seq_record.description, re.IGNORECASE) or re.search(r'\bcomplete \b', seq_record.description, re.IGNORECASE) or re.search(r'\bpartial cds\b', seq_record.description, re.IGNORECASE) or \
+                    re.search(r'Coxsackievirus A6 strain', seq_record.description, re.IGNORECASE):
                         # what to extract
                         if extract == "accession":
                             accession = seq_record.name
-                        elif extract == "strain":
-                            match = re.search(r'(strain|isolate)\s+([\w\-\.\/]+)', seq_record.description)
+                        elif extract == "strain": 
+                            match = re.search(r'(strain|isolate)[:\s]+([\w\-\.\/]+)', seq_record.description)
                             if match:
                                 strain_name = match.group(2)
-                                if re.search(r'\bcomplete \b', seq_record.description, re.IGNORECASE) and len(ids) > 1:
-                                    accession = strain_name + "c"
-                                else:
-                                    accession = strain_name
+                            else:
+                                # Fallback to extracting strain name from isolate field if not found in description
+                                strain_name = seq_record.annotations.get('isolate', 'unknown')
+                            if re.search(r'\bcomplete \b', seq_record.description, re.IGNORECASE) and len(ids)>1:
+                                accession = strain_name+"c"
+                            else:
+                                accession = strain_name
                         else:
                             accession = seq_record.description
                         accessions.append(accession)
