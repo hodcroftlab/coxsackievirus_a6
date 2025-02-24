@@ -44,7 +44,6 @@ if __name__ == '__main__':
                                      index_col=False, on_bad_lines='skip',names=['accession','strain'])
     last_updated=pd.read_csv(last_updated_file, keep_default_na=True, sep='\t', index_col=False,names=["accession","date_added"])
 
-    ipdb.set_trace()
     # Identify records that need updating
     needs_update = meta[~meta['accession'].isin(renamed_strains_df['accession'])]
     needs_update.to_csv("data/no_strain_correction.tsv", sep='\t', index=False)
