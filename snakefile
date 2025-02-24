@@ -43,7 +43,7 @@ rule files:
         clades =            "{seg}/config/clades_genome.tsv",
         regions=            "config/geo_regions.tsv",
         meta=               "data/metadata.tsv",
-        extended_metafile=  "data/assign_publications_corrected.tsv",
+        extended_metafile=  "data/assign_publications.tsv",
         last_updated_file = "data/date_last_updated.txt",
         local_accn_file =   "data/local_accn.txt"
 
@@ -173,7 +173,7 @@ rule curate_meta_dates:
         """
     input:
         metadata=files.extended_metafile,  # Path to input metadata file
-        genbank_meta="data/metadata/genbank_metadata_additional.tsv"  # Generated with bin/extract_genbank_metadata.py
+        genbank_meta="data/metadata/genbank_metadata_additional.tsv"  # Generated with bin/parse_genbank_meta.ipynb
     params:
         strain_id_field="accession",
         date_column="date",
@@ -182,7 +182,7 @@ rule curate_meta_dates:
     output:
         metadata="data/assign_publications_curated.tsv",  # Final output file for metadata
         genbank_meta="data/metadata/genbank_metadata_curated.tsv",  # Curated genbank metadata
-        final_metadata="data/assign_publications_corr_fetched.tsv"  # Final merged output file
+        final_metadata="data/assign_publications_meta.tsv"  # Final merged output file
     shell:
         """
         # Normalize strings for metadata
@@ -258,7 +258,9 @@ rule add_metadata:
             --id {params.strain_id_field} \
             --output {output.metadata}
 
+        if [ -d "./temp/" ]; then
         rm -r ./temp/
+        fi
         """
 
 ##############################
@@ -310,7 +312,6 @@ rule filter:
             --metadata {input.metadata} \
             --metadata-id-columns {params.strain_id_field} \
             --exclude {input.exclude} \
-            --exclude-where doi="Private data: J-L Bailly"\
             --group-by {params.group_by} \
             --sequences-per-group {params.sequences_per_group} \
             --min-date {params.min_date} \
