@@ -49,7 +49,8 @@ rule fetch_ncbi_dataset_package:
         """
         datasets download virus genome taxon {params.ncbi_taxon_id:q} \
             --no-progressbar \
-            --filename {output.dataset_package}
+            --filename {output.dataset_package} || \
+            curl https://hel1.your-objectstorage.com/loculus-public/mirror/{params.ncbi_taxon_id:q}.zip -o {output.dataset_package}
         """
 
 # Note: This rule is not part of the default workflow!
