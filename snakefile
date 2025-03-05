@@ -360,25 +360,15 @@ rule align:
         --output-fasta {output.alignment} 
         """
 
-rule fix_align_codon:
-    input:
-        sequences = rules.align.output.alignment
-    output:
-        alignment = "{seg}/results/aligned_fixed.fasta"
-    shell:
-        """
-        Rscript scripts/fixAlignmentGaps.R {input.sequences} {output.alignment}
-        """
-
 # potentially add one-by-one genes
 # use wildcards
 rule sub_alignments:
     input:
-        alignment=rules.fix_align_codon.output.alignment,
+        alignment=rules.align.output.alignment,
         reference=files.reference
     output:
         # alignment = "{seg}/results/aligned.fasta"
-        alignment = "{seg}/results/aligned_fixed{gene}{quart}.fasta"
+        alignment = "{seg}/results/aligned{gene}{quart}.fasta"
     run:
         from Bio import SeqIO
         from Bio.Seq import Seq
@@ -427,7 +417,7 @@ rule tree:
         Creating a maximum likelihood tree
         """
     input:
-        # alignment = rules.fix_align_codon.output.alignment,
+        # alignment = rules.align.output.alignment,
         alignment = rules.sub_alignments.output.alignment
     output:
         # tree = "{seg}/results/tree_raw.nwk"
@@ -452,7 +442,7 @@ rule refine:
         """
     input:
         tree = rules.tree.output.tree,
-        # alignment = rules.fix_align_codon.output.alignment,
+        # alignment = rules.align.output.alignment,
         alignment = rules.sub_alignments.output.alignment,
         metadata =  rules.add_metadata.output.metadata,
     output:
@@ -571,7 +561,7 @@ rule clade_published:
     input:
         metadata = rules.add_metadata.output.metadata,
         subgenotypes = "data/clades_vp1.tsv",
-        alignment="vp1/results/aligned_fixed.fasta"
+        alignment="vp1/results/aligned.fasta"
     params:
         strain_id_field= "accession"
     output:
