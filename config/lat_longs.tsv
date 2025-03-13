@@ -392,6 +392,7 @@ place	Jiangsu	32.0617	118.7632
 place	Jiangxi	27.6092	115.7221
 place	Jidezheng	24.2933	109.4172
 place	Jilin	43.8379	126.5496
+place	Jilin Province	43.6667	126.2000
 place	Jinan	36.6512	118.1815
 place	Jiujiang	29.7048	116.0028
 place	Jiangyin	31.9100	120.2630
@@ -427,6 +428,7 @@ place	Xiamen	24.4798	118.0894
 place	Xi’an	34.3416	108.9398
 place	Xinhui	22.4560	113.0482
 place	Xinjiang	42.5246	84.2484
+place	Xiangyang	32.0090	112.1224
 place	Xianghe	39.7642	117.0056
 place	Yancheng	33.3851	120.1492
 place	Yantai	37.4638	121.4479
@@ -445,6 +447,7 @@ place	Maharashtra State	19.7515	75.7139
 place	Maharashtra	19.7515	75.7139
 place	Mumbai	19.0760	72.8777
 place	Mumbai City	19.0760	72.8777
+place	Mumbai City, Maharashtra State	19.0760	72.8777
 place	Odisha	20.9517	85.0985
 place	Kandaldal	17.5155	76.9571
 place	Kolhapur	16.7050	74.2433
@@ -453,17 +456,21 @@ place	Pune	18.5204	73.8567
 
 country	japan	35.68536	139.75309
 place	Aichi	35.1802	136.9066
+place	Aichi Prefecture	35.1802	136.9066
 place	Hiroshima	34.3852	132.4553
 place	Hokkaido	43.2203	142.8635
 place	Isehara	35.3936	139.3149
 place	Kobe	34.6937	135.5023
+place	Kyoto	35.0116	135.7681
 place	Miyagi	38.2682	140.8694
 place	Nagoya	35.1815	136.9066
 place	Okinawa	26.5000	128.0000
 place	Osaka	34.6937	135.5023
 place	Osaka City	34.6937	135.5023
 place	Osaka Prefecture	34.6937	135.5023
+place	Sagamihara	35.5533	139.3544
 place	Sapporo	43.0618	141.3545
+place	Shizuoka	34.9756	138.3828
 place	Tokyo	35.6828	139.7595
 place	Toyama	36.6953	137.213
 place	Yamagata	38.2554	140.3392
@@ -498,6 +505,7 @@ country	south korea	37.0	127.5
 country	korea	37.0	127.5
 place	Seoul	37.5665	126.9780
 place	Wonju	37.3422	127.9202
+place	Gwangju	35.1595	126.8526
 
 country	thailand	15.0	100.0
 place	Bangkok	13.7540	100.5014
@@ -604,6 +612,7 @@ place	Tien Giang	10.3092	106.3374
 place	TienGiang	10.4032	106.3480
 place	TienGiang	10.4032	106.3480
 place	Tien Giang	10.3092	106.3374
+place	Tp Hcm	10.8231	106.6297
 place	Tra Vinh	9.9347	106.3439
 place	TraVinh	9.9347	106.3439
 place	Tuyên Quang	21.8230	105.2152
@@ -694,6 +703,7 @@ country	spain	40.0	-4.0
 place	Barcelona	41.3829	2.1774
 place	Barcelona (Cochin)	48.8315	2.3328
 place	Valencia	39.46975	-0.37739
+place	Vigo	42.2406	-8.7207
 place	Madrid	40.4168	-3.7038
 place	Catalunya	41.5912	1.5209
 
@@ -723,79 +733,112 @@ place	Geneva	46.2043907	6.1431577
 place	Lausanne	46.5197	6.6333
 
 country	france	46.603354	1.8883335
-place	Annecy	45.8992	6.1294
+place	Aix-Les-Bains	45.6889	5.9156
+place	Ajaccio	41.9192	8.7386
 place	Amiens	49.8942	2.2957
-place	Aubagne	43.2924	5.5703
-place	Angers	47.478419	-0.563166
 place	Anger	47.478419	-0.563166
+place	Angers	47.478419	-0.563166
+place	Annecy	45.8992	6.1294
 place	Annonay	45.2415	4.6706
+place	Aubagne	43.2924	5.5703
+place	Auvergne-Rhone-Alpes	45.7640	4.8357
+place	Bagnols-sur-Ceze	44.1593	4.6172
+place	Bagnolet	48.8667	2.4167
 place	Bayonne	43.4929	-1.4748
+place	Bellegarde-sur-Valserine	46.1086	5.8228
 place	Besançon	47.2379	6.0241
 place	Bischheim	48.6114	7.7517
+place	Boigny-sur-Bionne	47.9333	2.0167
+place	Bondues	50.6917	3.0961
 place	Bordeaux	44.8378	-0.5792
 place	Bourg-en-Bresse	46.2057	5.2259
 place	Brest	48.3904	-4.4861
 place	Caen	49.1829	-0.3707
+place	Chambery	45.5646	5.9178
 place	Chamilly	47.0221	4.8392
+place	Chamalieres	45.7797	3.0633
 place	Charnay Les Macon	46.2425	4.8317
 place	Clamart	48.8014	2.2616
 place	Clermont-Ferrand	45.7772	3.087
 place	Combs la Ville	48.6656	2.5743
+place	Combs-la-Ville	48.6656	2.5743
+place	Corbeil-Essonnes	48.6131	2.4832
+place	Cournon-d'auvergne	45.7439	3.1965
 place	Craponne	45.7584	4.8250
+place	Dieppe	49.9225	1.0783
 place	Dijon	47.3220	5.0415
+place	Doullens	50.1533	2.3433
 place	Essey Les Nancy	48.6903	6.2022
+place	Essey-Les-Nancy	48.6903	6.2022
+place	Etampes	48.4347	2.1534
 place	Fuveau	43.4064	5.4290
+place	Grand Est	48.5796	7.7500
 place	Grasse	43.6667	6.9167
 place	Grenoble	45.1885	5.7245
+place	Hauts de France	50.6292	3.0573
+place	Hery-sur-Alby	45.8125	6.0167
+place	Ile de France	48.8499	2.6370
+place	La-Garenne-Colombes	48.9089	2.2428
+place	Lagny-Sur-Marne	48.8765	2.7074
+place	Lagny-sur-Marne	48.8765	2.7074
 place	Le Mans	48.0061	0.1996
+place	L'Isle-d'Espagnac	45.6667	0.1833
 place	Lyon	45.7640	4.8357
-place	La Gareene Colombes	48.9089	2.2428
+place	Maromme	49.4711	1.0458
 place	Marquette-lez-Lille	50.6654	3.0352
 place	Maubeuge	50.2849	3.9737
+place	Meylan	45.2096	5.7755
 place	Metz	49.1193	6.1757
 place	Mirecourt	48.3000	6.1333
+place	Montardon	43.3511	-0.3706
+place	Montesson	48.9417	2.1416
 place	Montpellier	43.6108	3.8767
 place	Montreuil	48.8641	2.4435
-place	Montesson	48.9417	2.1416
 place	Nancy	48.6921	6.1844
 place	Nantes	47.2184	-1.5536
 place	Nogent Sur Marne	48.8500	2.5400
+place	Nogent-sur-Marne	48.8414	2.4825
 place	Orlean	47.9029	1.9092
+place	Orleans	47.9029	1.9092
 place	Paris	48.8566	2.3522
 place	Paris (Cochin)	48.8315	2.3328
 place	Paris FR	48.8566	2.3522
+place	Plouguernevel	48.2333	-3.1833
+place	Plerin	48.5314	-2.7666
+place	Poitiers	46.5802	0.3404
 place	Pont l'Eveque	49.2782	0.1939
 place	Pont-l'Eveque	49.2782	0.1939
-place	Poitiers	46.5802	0.3404
+place	Provence Alpes Cote d'Azur	43.9352	6.0679
 place	Puteaux	48.8824	2.2464
-place	Rennes	48.1173	-1.6778
 place	Reims	49.2583	4.0317
+place	Rennes	48.1173	-1.6778
+place	Riom	45.8942	3.1128
+place	Rosny-Sous-Bois	48.8708	2.4824
 place	Rouen	49.4431	1.0993
 place	Saint Sebastien	43.3111	-1.9860
+place	Saint-Brieuc	48.5146	-2.7653
 place	Saint-Malo	48.6493	-2.0257
-place	St Maur des Fosses	48.7989	2.4729
 place	Saint-Tropez	43.2708	6.6417
+place	Saint-Maur-des-Fossés	48.7989	2.4729
+place	Saint-Maur-des-Fosses	48.7989	2.4729
+place	Sagamihara	35.5533	139.3544
 place	Saverne	48.7497	7.3675
 place	Soyaux	45.6583	0.1923
+place	St Maur des Fosses	48.7989	2.4729
+place	St-Germain-En-Laye	48.8983	2.0939
+place	St-Germain-en-Laye	48.8983	2.0939
+place	St-Saure-des-Fosses	48.7989	2.4729
+place	St-Sebastien-Sur-Loire	47.1941	-1.5267
+place	St-Sebastien-sur-Loire	47.1941	-1.5267
+place	Toulon	43.1242	5.9280
 place	Toulouse	43.6045	1.4442
 place	Versailles	48.8049	2.1204
 place	Verrieres Le Buisson	48.7511	2.2925
+place	Verrieres-le-Buisson	48.7511	2.2925
 place	Vichy	46.4302	3.4029
 place	Villeneuve Les Avignon	43.9616	4.7981
-place	Volvic	45.7594	3.2680
-place	PLERIN	48.5314	-2.7666
-place	Bagnols-Sur-Ceze	44.1593	4.6172
-place	Aix-Les-Bains	45.6889	5.9156
-place	Corbeil-Essonnes	48.6131	2.4832
 place	Villeneuve-Les-Avignon	43.9616	4.7981
-place	Hauts de France	50.6292	3.0573
-place	Lagny-sur-Marne	48.8765	2.7074
-place	St-Saure-des-Fosses	48.7989	2.4729
-place	Orleans	47.9029	1.9092
-place	Cournon-d'Auvergne	45.7439	3.1965
-place	Sagamihara	35.5533	139.3544
-place	Hery-sur-Alby	45.8125	6.0167
-place	Riom	45.8942	3.1128
+place	Volvic	45.7594	3.2680
 
 place	Vienna	48.2082	16.3738
 place	Lower Austria	48.2000	15.6500
