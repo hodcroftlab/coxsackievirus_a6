@@ -1,0 +1,182 @@
+# ID for analyses: accession or strain
+id_field: "accession"
+
+# Config parameters related to the metadata curation
+metadata:
+    # List of symptoms related to clinical cases
+    # Define a mapping for full terms to their abbreviations and standardized names
+    symptom_list:
+        'poliomyelitis-like disease': 'AFP'
+        'acute flaccid paralysis': 'AFP'
+        'paralysis': 'AFP'
+        'poliomyelitis-like paralysis': 'AFP'
+        'afp': 'AFP'
+        'acute flaccid myelitis': 'AFP'
+        'afm': 'AFP'
+        'polio': 'AFP'
+        'difficulty walking': 'AFP'
+        'paralyses': 'AFP'
+        'Cerebellar ataxia': 'Ataxia'
+        'Cerebellitis': 'Ataxia'
+        'upper respiratory tract infection': 'Respiratory'
+        'urti': 'Respiratory'
+        'acute respiratory disease': 'Respiratory'
+        'asthmatic bronchitis': 'Respiratory'
+        'Cough': 'Respiratory'
+        'Influenza-like illness': 'Respiratory'
+        'Respiratory Symptoms': 'Respiratory'
+        'guillain-barré syndrome': 'GBS'
+        'guillain-barrésyndrome': 'GBS'
+        'febrile illness': 'Fever'
+        'pyrexia': 'Fever'
+        'fever': 'Fever'
+        'v&d': 'Vomiting; Diarrhea'
+        'transverse myelitis': 'Myelitis'
+        'diarrhoea': 'Diarrhea'
+        'diarrhea': 'Diarrhea'
+        'Gastroenteritis': 'GI infection'
+        'Gastrointestinal': 'GI infection'
+        'severe': 'Severe HFMD'
+        'light': 'Light HFMD'
+        'mild': 'Mild HFMD'
+        'Atypical hand foot and mouth disease': 'Atypical HFMD'
+        'atypical hfmd': 'Atypical HFMD'
+        'aHFMD': 'Atypical HFMD'
+        'sHFMD': 'severe HFMD'
+        'HFMD; Onychomadesis': 'Atypical HFMD'
+        'HFMD, Onychomadesis': 'Atypical HFMD'
+        'hfmd': 'HFMD'
+        'hand foot and mouth disease': 'HFMD'
+        'hand-foot and mouth disease': 'HFMD'
+        'Toe lesion': 'Lesion'
+        'Gingivostomatitis': 'Stomatitis'
+        'sepsis': 'Sepsis'
+        'neonatal sepsis': 'Sepsis'
+        'Seizure': 'Seizure'
+        'herpangina': 'Herpangina'
+        'herpangine': 'Herpangina'
+        'hypotension': 'Hypotension'
+        'hyperglycemia': 'Hyperglycemia'
+        'severe pulmonary hemorrhage': 'Cardiopulmonary Collapse'
+        'pulmonary hemorrhage': 'Cardiopulmonary Collapse'
+        'Acute cardiogenic shock': 'Cardiogenic shock'
+        'Acute cardiogenic shock, fatal': 'Cardiogenic shock; Fatality'
+        'cardiopulmonary collapse': 'Cardiopulmonary Collapse'
+        'vesicular': 'vesicular rash'
+        'rash with vesicles': 'vesicular rash'
+        '(death)': 'Fatality'
+        'fatal': 'Fatality'
+        'death': 'Fatality'
+        'Died': 'Fatality'
+        'Shock': 'Shock'
+        'oral ulcers': 'Oral Ulcers'
+        'Onychomadesis': 'Onychomadesis'
+        'cns symptoms': 'CNS'
+        'cns involvement': 'CNS'
+        'cns disorder': 'CNS'
+        'neurological': 'CNS'
+        'severe neurological involvement': 'CNS'
+        'myoclonic jerk': 'Myoclonic jerk'
+        'myoclonus': 'Myoclonic jerk'
+        'lethargy': 'Lethargy'
+        'lethargic': 'Lethargy'
+        'neck stiffness; vomiting': 'Meningitis'
+        'aseptic meningitis': 'Aseptic Meningitis'
+        'Benign intracranial hypertension': 'Meningitis'
+        'meningoencephalitis': 'Encephalitis'
+        'encephalytis': 'Encephalitis'
+        'Encephalitis': 'Encephalitis'
+        'Encéphalite': 'Encephalitis'
+        'skin rash': 'Rash'
+        'exanthema': 'Rash'
+        'rash': 'Rash'
+        'Skin': 'Rash'
+        'eczema': 'Rash'
+
+    # Grouping all symptoms to major forms
+    major_symptoms:
+        # CNS-related conditions
+        Encephalitis: CNS
+        Aseptic Meningitis: CNS
+        Meningitis: CNS
+        Opsomyoclonus Syndrome: CNS
+        Myoclonic jerk: CNS
+        CNS: CNS
+        lethargy: CNS
+        Seizure: CNS
+        # Fatality-related conditions
+        Fatality: Fatality
+        # AFP-related conditions
+        GBS: AFP
+        Myelitis: AFP
+        AFP: AFP
+        ataxia: AFP
+        # HFMD-related conditions
+        HFMD: HFMD
+        Atypical HFMD: Atypical HFMD
+        Onychomadesis: Atypical HFMD
+        Severe HFMD: HFMD
+        Light HFMD: HFMD
+        Mild HFMD: HFMD
+        # Other categories
+        Sepsis: other
+        Respiratory: other
+        Fever: other
+        Vomiting; Diarrhea: other
+        Diarrhea: other
+        Oral Ulcers: other
+        Hypotension: other
+        Hyperglycemia: other
+        Cardiogenic shock: other
+        Cardiopulmonary Collapse: other
+        Rash: other
+        Vesicular Rash: other
+
+    isolation_source:
+        'stool': 'feces'
+        'Stool': 'feces'
+        'Faeces': 'feces'
+        'CSF': 'cerebrospinal fluid'
+        'Cerebrospinal Fluid': 'cerebrospinal fluid'
+        'Cerebrospinal Fluid ': 'cerebrospinal fluid'
+        'Throat Swab': 'oronasopharynx'
+        'Throat swab': 'oronasopharynx'
+        'Oral Swab': 'oronasopharynx'
+        'Mouth Swab': 'oronasopharynx'
+        'Nasopharyngeal Aspirate': 'oronasopharynx'
+        'Brain': 'brain'
+        'Cerebellum': 'brain'
+        'Left brain': 'brain'
+        'Brainstem': 'brain'
+        'Vesicle Swab': 'swab'
+        'Ulcer Swab': 'lesion'
+        'Rectal swab': 'swab'
+        'Rectal Swab': 'swab'
+        'Mouth': 'oronasopharynx'
+        'Throat': 'oronasopharynx'
+        'Tonsil': 'oronasopharynx'
+        'Vesicle': 'lesion'
+        'Spinal cord ': 'spinal cord'
+
+
+# Config parameters related to the curate rule
+curate:
+  # List of date fields to standardize to ISO format YYYY-MM-DD
+  date_fields: ["date"]
+  # List of expected date formats that are present in the date fields provided above
+  # These date formats should use directives expected by datetime
+  # See https://docs.python.org/3.9/library/datetime.html#strftime-and-strptime-format-codes
+  expected_date_formats: ['%Y', '%m.%Y', '%d.%m.%Y', "%b-%Y", "%d-%b-%Y","%Y-%m-%d","%Y-%m"]
+
+align:
+    #high-diversity 
+    penalty_gap_extend : 1 #make longer gaps more costly - default is 0
+    penalty_gap_open : 13  #make gaps more expensive relative to mismatches - default is 13
+    penalty_gap_open_in_frame : 18 #make gaps more expensive relative to mismatches - default is 7
+    penalty_gap_open_out_of_frame : 23 #make out of frame gaps more expensive - default is 8 # prev was 19
+    kmer_length : 6 #reduce to find more matches - default is 10
+    kmer_distance : 25 #reduce to try more seeds - default is 50
+    min_match_length : 30 #reduce to keep more seeds - default is 40
+    allowed_mismatches : 15 #increase to keep more seeds - default is 8
+    min_length : 30 # min_length - default is 100
+    #cost of a mutation is 4

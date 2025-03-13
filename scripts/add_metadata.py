@@ -6,12 +6,17 @@ import string
 import ipdb
 from fuzzywuzzy import process
 import argparse
+import yaml
 
 #This file adds new metadata to the NCBI Virus metadata
 #The files get checked and curated if necessary
 
 # Function to check if an accession number is real: it uses the entrez functionality of ncbi
 from check_accession import extract_accession
+
+# Load configuration data from YAML file
+with open('config/config.yaml', 'r') as file:
+    config = yaml.safe_load(file)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='add additional metadata',
@@ -34,19 +39,13 @@ if __name__ == '__main__':
     local_accn = args.local
     renamed_strains = args.rename
     last_updated_file = args.update
-    
 
     # load data
     meta = pd.read_csv(input_csv_meta, keep_default_na=True, sep='\t', index_col=False)
     new_data = pd.read_csv(add_data, keep_default_na=True, sep='\t', index_col=False)
     local_accn_file= pd.read_csv(local_accn, keep_default_na=True, sep='\t', index_col=False)
-    renamed_strains_df = pd.read_csv(renamed_strains, keep_default_na=True, sep='\t',
-                                     index_col=False, on_bad_lines='skip',names=['accession','strain'])
+    renamed_strains_df = pd.read_csv(renamed_strains, keep_default_na=True, sep='\t', index_col=False,names=["accession","strain"])
     last_updated=pd.read_csv(last_updated_file, keep_default_na=True, sep='\t', index_col=False,names=["accession","date_added"])
-
-    # Identify records that need updating
-    needs_update = meta[~meta['accession'].isin(renamed_strains_df['accession'])]
-    needs_update.to_csv("data/no_strain_correction.tsv", sep='\t', index=False)
 
     # Create a lookup dictionary for strain updates
     lookup_strain = renamed_strains_df.set_index('accession')['strain'].to_dict()
@@ -111,32 +110,7 @@ if __name__ == '__main__':
     # Function to map non-standard terms to standard terms
     def standardize_isolation_source(value):
         # Add mappings for non-standard terms to standard terms
-        mapping = {
-            'stool': 'feces',
-            'Stool': 'feces',
-            'Faeces': 'feces',
-            'CSF': 'cerebrospinal fluid',
-            'Cerebrospinal Fluid': 'cerebrospinal fluid',
-            'Cerebrospinal Fluid ': 'cerebrospinal fluid',
-            'Throat Swab': 'oronasopharynx',
-            'Throat swab': 'oronasopharynx',
-            'Oral Swab': 'oronasopharynx',
-            'Mouth Swab': 'oronasopharynx',
-            'Nasopharyngeal Aspirate': 'oronasopharynx',
-            'Brain': 'brain',
-            'Cerebellum': 'brain',
-            'Left brain': 'brain',
-            'Brainstem': 'brain',
-            'Vesicle Swab': 'swab',
-            'Ulcer Swab': 'lesion',
-            'Rectal swab': 'swab',
-            'Rectal Swab': 'swab',
-            'Mouth': 'oronasopharynx',
-            'Throat': 'oronasopharynx',
-            'Tonsil': 'oronasopharynx',
-            'Vesicle': 'lesion',
-            'Spinal cord ': 'spinal cord'
-        }
+        mapping = config['metadata']['isolation_source']
         
         val=mapping.get(value, value)
         if pd.isna(val):
@@ -145,7 +119,7 @@ if __name__ == '__main__':
 
         # Return the mapped value if it exists, otherwise return the original value
         return val
-
+    
     # Apply the standardization to both columns
     new_meta['sample_type'] = new_meta['sample_type'].apply(standardize_isolation_source)
     new_meta['isolation'] = new_meta['isolation'].apply(standardize_isolation_source)
@@ -160,103 +134,53 @@ if __name__ == '__main__':
     new_meta = new_meta.drop(['isolation', 'combined_isolation_source'], axis=1)
 
 
+    # Define a dictionary for old naming formats and spelling mistakes
+    corrections = {
+        'czech republic': 'czechia',
+        'hongkong': 'hong_kong',
+        'viet nam': 'vietnam',
+        'uk': 'united kingdom',
+        'ivory coast': 'côte d\'ivoire',
+    }
+
+    # Function to correct country names
+    def correct_country_name(country):
+        if pd.notna(country):
+            country = country.strip().lower()
+            corrected_country = corrections.get(country, country).title().replace('_', ' ')
+            # print(f"Correcting '{country}' to '{corrected_country}'")  # Debugging statement
+            return corrected_country
+        return country
+
+    # Apply the corrections to the 'country' column
+    new_meta['country'] = new_meta['country'].apply(correct_country_name)
+
     # Check if the regions file is supplied
     if con_reg_table:
-        # Dictionary to store country-region mappings
-        regions = {}
-        
-        # Read the regions file
+        # Read the regions file and create a dictionary for country-region mappings
         with open(con_reg_table) as f:
-            regs = f.readlines()
-        
-        # Remove the first line (header)
-        regs = regs[1:]
-        
-        # Populate the regions dictionary
-        for x in regs:
-            x = x.strip()
-            pair = x.split("\t")
-            if len(pair) > 1:
-                regions[pair[0].strip().lower()] = pair[1].strip()
-        
-        # List to store the new region values
-        newregion = []
-        
-        # Iterate over each country in the 'country' column of new_meta
-        for coun in new_meta['country']:
-            reg = "NA"  # Default value if no region is found
+            regions = {line.split("\t")[0].strip().lower(): line.split("\t")[1].strip() for line in f.readlines()[1:]}
+
+        # Function to get region from country
+        def get_region(coun):
             if pd.notna(coun):
                 coun = coun.strip().lower()
-                coun_with_underscores = coun.replace(' ', '_')
-                
-                if coun not in regions:
-                    if coun_with_underscores not in regions:
-                        print(f"No region found for {coun}! Setting to NA")
-                    else:
-                        reg = regions[coun_with_underscores]
-                else:
-                    reg = regions[coun]
-            
-            reg = reg.replace('_', ' ')
-            reg = reg.title()
-            newregion.append(reg)
-        
+                return regions.get(coun, regions.get(coun.replace(' ', '_'), "NA")).replace('_', ' ').title()
+            return "NA"
+
         # Update the 'region' column in the new_meta DataFrame with the new region values
-        new_meta['region'] = newregion
+        new_meta['region'] = new_meta['country'].apply(get_region)
 
-
-    ## Diagnosis
-    # ipdb.set_trace()
+    # Debugging statement to check the unique values in the 'country' column after correction
+    # print("Unique countries after correction:", new_meta['country'].unique())
 
     new_meta['has_diagnosis'] =~new_meta['diagnosis'].isna()
 
     # Define a mapping for full terms to their abbreviations and standardized names
-    short_versions = {
-    'Poliomyelitis-like disease': 'AFP', 'acute flaccid paralysis': 'AFP',
-    'Paralysis': 'AFP', 'Poliomyelitis-like paralysis': 'AFP',
-    "AFP patient": 'AFP',
-    'patient with AFP':'AFP',
-    'Upper Respiratory Tract Infection': 'URTI',
-    'asthmatic bronchitis': "Respiratory Symptoms",
-    'Pharyngitis':'Pharyngitis',
-    'Guillain-Barré syndrome': 'GBS', 'Guillain-Barrésyndrome': 'GBS',
-    'Febrile illness': 'Fever', 'Pyrexia': 'Fever',
-    'V&D': 'Vomiting; Diarrhea', 'Diarrhoea': 'Diarrhea', '(diarrhea)': 'Diarrhea',
-    'Severe': "Severe HFMD", 'Light': "Light HFMD", 'mild': "Mild HFMD",
-    'Atypical hand foot and mouth disease': "Atypical HFMD",
-    'hand-foot and mouth disease': 'HFMD',
-    'hand foot and mouth disease': 'HFMD',
-    'hand, foot and mouth disease': 'HFMD',
-    'herpangina': 'Herpangina',
-    'Oral ulcer': 'Ulcer', 
-    'vesicular': 'vesicular papules', 'Rash with vesicles': 'vesicular papules',
-    '(death)': 'Fatality', 'fatal': 'Fatality', 'death': 'Fatality',
-    "Myoclonic jerk": 'Myoclonus',
-    'CNS symptoms': 'CNS', 'CNS involvement': 'CNS', 'Cns Disorder': 'CNS',
-    'Neurological': 'CNS', 'severe neurological involvement': 'CNS',
-    'polio': 'AFP', 'Difficulty Walking': 'AFP',
-    'Neck Stiffness; Vomiting': 'Meningitis',
-    'aseptic meningitis': 'Aseptic Meningitis', 
-    'Meningitis': 'Meningitis',
-    'Meningoencephalitis': 'Encephalitis', 'Encephalytis': 'Encephalitis', 'encephalitis':'Encephalitis',
-    'Skin Rash': 'Rash', 'exanthema': 'Rash'
-    }
+    short_versions = config['metadata']['symptom_list']
+    major_versions = config['metadata']['major_symptoms']
 
     short_forms = set(short_versions.values())
-
-    major_versions = {
-        'Encephalitis': 'CNS',
-        'Aseptic Meningitis': 'CNS',
-        'Meningitis': 'CNS',
-        'Opsomyoclonus Syndrome': 'CNS',
-        'Acute Cardiogenic Shock': 'Fatality',
-        'AFP':'AFP',
-        'HFMD':'HFMD',
-        'Atypical HFMD':"Atypical HFMD",
-        'Fatality':'Fatality',
-        'CNS':'CNS',
-    }
-
     major_forms = set(major_versions.values())
 
     def clean_diagnosis(diagnosis, threshold=75):
@@ -285,6 +209,8 @@ if __name__ == '__main__':
                 else:
                     # Check if the original diagnosis is in short_forms
                     standardized_diagnoses.append(diag if diag in short_forms else diag.title())
+        # Reorder the symptoms so that Fatality is first, then HFMD, then CNS
+        standardized_diagnoses = sorted(set(standardized_diagnoses), key=lambda x: (x != 'Fatality', x != 'HFMD', x != 'CNS', x))
         
         # Join the cleaned and standardized diagnoses back into a string
         return '; '.join(sorted(set(standardized_diagnoses)))
@@ -308,7 +234,6 @@ if __name__ == '__main__':
         
         # Join the cleaned and standardized diagnoses back into a string
         return '; '.join(sorted(set(major_diagnoses)))
-
 
     # All the diagnosis
     new_meta['med_diagnosis_all'] = new_meta['diagnosis'].apply(lambda x: clean_diagnosis(x))
@@ -340,27 +265,31 @@ if __name__ == '__main__':
     mask_months = new_meta['age_yrs'] < 1
     new_meta.loc[mask_months, 'age_range'] = pd.cut(new_meta.loc[mask_months, 'age_yrs'], bins=bins_months, labels=labels_months, right=False).astype(str)
 
-    # add VP1 length as continuous variable
-    ## read in blast output length
-    ##TODO: change to counting the length of the sequence after alignment and without gaps - done after tree building
-    # blast_results=pd.read_csv("vp1/results/blast_vp1_length.csv",names=["accession","l_vp1"])
-    # new_meta2=pd.merge(new_meta,blast_results, on="accession", how='left')
+    # rename length to NCBI_length_genome
+    new_meta.rename(columns={"length": "NCBI_length_genome"}, inplace=True)
 
-    # bins_length = [-np.inf, 599, 699,799,899, np.inf]
-    # labels_length = ['<600nt', '600-700nt', '700-800nt','800-900nt','>900nt']
+    # if ENPEN in origin, set ENPEN to True
+    new_meta = new_meta.assign(ENPEN=new_meta['origin'].str.contains('ENPEN', case=False, na=False))
 
-    # # Create length_range column using pd.cut for length
-    # new_meta2['length_VP1'] = pd.cut(new_meta2['l_vp1'], bins=bins_length, labels=labels_length, right=False).astype(str)
+    # if ENPEN=TRUE; Authors in doi should be moved to 'authors'
+    # e.g. Private: .... remove Private from authors, keep private in doi
+    new_meta['authors'] = new_meta.apply(
+        lambda row: row['doi'].replace("Private: ", "") if row['ENPEN'] else row['authors'],
+        axis=1
+    )
+    new_meta['doi'] = new_meta.apply(
+        lambda row: "Private" if row['ENPEN'] else row['doi'],
+        axis=1
+    )
 
-    # ipdb.set_trace()
     # write new metadata file to output
     new_meta2= new_meta.loc[:,['accession', 'accession_version', 'strain', 'date', 'region', 'place',
         'country', 'host', 'gender', 'age_yrs','age_range',"has_age", 'has_diagnosis','med_diagnosis_all','med_diagnosis_major',
-        'isolation_source', 'length',#'length_VP1',
-        'subgenogroup','lineage','date_released',
-        'abbr_authors', 'authors', 'institution','doi',
+        'isolation_source', 'NCBI_length_genome',
+        'subgenogroup','date_released',
+         'abbr_authors', 'authors', 'institution','ENPEN','doi',
         'qc.overallScore', 'qc.overallStatus',
         'alignmentScore', 'alignmentStart', 'alignmentEnd', 'genome_coverage','date_added']]
 
-
+    new_meta2 = new_meta2.drop_duplicates(subset="accession",keep="first")
     new_meta2.to_csv(output_csv_meta, sep='\t', index=False)
