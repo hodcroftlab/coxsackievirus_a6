@@ -1,6 +1,6 @@
 region	northern africa	28.0000	13.0000
 region	western africa	11.0000	-4.0000
-region	middle africa	0.0000	23.0000
+region	central africa	0.0000	23.0000
 region	eastern africa	0.0000	38.0000
 region	southern africa	-28.479262	24.672713
 
@@ -32,12 +32,10 @@ country	anguilla	18.21704	-63.05783
 country	argentina	-34.0	-64.0
 country	armenia	40.18111	44.51361
 country	aruba	12.512306	-69.975188
-country	australia	-24.7761085	134.755
 country	austria	47.2000338	13.199959
 country	azerbaijan	40.37767	49.89201
 country	bahamas	25.04082	-77.37122
 country	bangladesh	24.4768783	90.2932426
-country	belarus	53.0	28.0
 country	belgium	50.6407351	4.66696
 country	belize	17.49952	-88.19756
 country	benin	9.668764	2.284078
@@ -48,19 +46,15 @@ country	bosnia and herzegovina	43.84864	18.35644
 country	botswana	-22.199114	24.017975
 country	brazil	-10.3333332	-53.1999999
 country	brunei	4.5	114.66667
-country	bulgaria	42.6073975	25.4856617
 country	burkina faso	12.5	-1.66667
 country	burundi	-3.373056	29.918886
-country	cambodia	13.0	105.0
 country	cameroon	6.0	12.5
-country	canada	61.0666922	-107.991707
 country	canary islands	20.407566	-15.605260
 country	cape verde	15.11111	-23.61667
 country	cayman islands	19.3133	-81.2546
 country	central african republic	7.0	21.0
 country	chad	15.0	19.0
 country	chile	-31.7613364	-71.3187696
-country	china	35.000074	104.999927
 country	colombia	2.893108	-73.7845142
 country	comoros	-12.2045175	44.2832964
 country	congo	-0.7264326	15.6419155
@@ -68,7 +62,6 @@ country	costa rica	10.0	-84.0
 country	croatia	45.16667	15.5
 country	cuba	22.0	-79.5
 country	cyprus	35.0	33.0
-country	czech republic	49.8175	15.4730
 country	denmark	56.0	10.0
 country	djibouti	11.58901	43.14503
 country	dominica	15.5	-61.33333
@@ -81,16 +74,11 @@ country	eritrea	15.9500319	37.9999668
 country	estonia	59.0	26.0
 country	ethiopia	9.0	39.5
 country	fiji	-18.1239695	179.0122737
-country	finland	63.2467777	25.9209164
-country	france	46.603354	1.8883335
 country	french guiana	4.93333	-52.33333
 country	french polynesia	-17.6797	-149.4068
 country	gabon	-0.8999694	11.6899699
 country	gambia	13.5	-15.5
 country	georgia	41.99998	43.4999
-country	germany	51.0834196	10.4234469
-country	ghana	8.0300284	-1.080027
-country	greece	39.0	22.0
 country	grenada	12.11667	-61.66667
 country	guadeloupe	16.2650	-61.5510
 country	guam	13.4443	144.7937
@@ -103,7 +91,6 @@ country	honduras	15.2	-86.2419
 country	hong kong	22.3964	114.1095
 country	hungary	47.1625	19.5033
 country	iceland	64.9841821	-18.1059012
-country	india	22.3511148	78.6677428
 country	indonesia	-5.0	120.0
 country	iran	32.0	53.0
 country	iraq	33.0	44.0
@@ -112,13 +99,11 @@ country	israel	31.5	34.75
 country	italy	42.6384261	12.674297
 country	ivory coast	7.539989	-5.54708
 country	jamaica	18.1096	-77.2975
-country	japan	35.68536	139.75309
 country	jordan	31.1667049	36.941628
 country	kenya	-1.286389	36.817223
 country	kosovo	42.602636	20.902977
 country	kuwait	29.3117	47.4818
 country	kyrgyzstan	41.5	75.0
-country	laos	18.0	105.0
 country	latvia	56.8796	24.6032
 country	lebanon	33.88894	35.49442
 country	lesotho	-29.609988	28.233608
@@ -126,9 +111,7 @@ country	liberia	6.428055	-9.429499
 country	libya	25.0	17.0
 country	lithuania	55.0	24.0
 country	luxembourg	49.61167	6.13
-country	madagascar	-20.0	47.0
 country	malawi	-13.550995	34.124594
-country	malaysia	4.2105	101.9758
 country	maldives	3.2028	73.2207
 country	mali	18.0	-2.0
 country	malta	35.9375	14.3754
@@ -145,7 +128,6 @@ country	mongolia	46.8250388	103.8499736
 country	montenegro	42.5	19.3
 country	morocco	31.791702	-7.09262
 country	mozambique	-18.665695	35.529562
-country	myanmar	21.0	96.0
 country	namibia	-22.0	17.0
 country	nauru	-0.5477	166.9209
 country	nepal	28.394857	84.124008
@@ -172,7 +154,6 @@ country	portugal	39.5	-8.0
 country	puerto rico	18.25	-66.5
 country	qatar	25.5	51.25
 country	romania	46.0	25.0
-country	russia	55.751244	37.618423
 country	rwanda	-2.0	30.0
 country	saint helena	-15.95	-5.7
 country	saint kitts and nevis	17.33333	-62.75
@@ -183,31 +164,22 @@ country	samoa	-13.7586	-172.1046
 country	san marino	43.9333	12.4500
 country	sao tome and principe	0.3333	6.7333
 country	saudi arabia	25.0	45.0
-country	senegal	14.0	-14.0
 country	serbia	44.0	21.0
 country	seychelles	-4.58333	55.66667
 country	sierra leone	8.5	-11.5
-country	singapore	1.36667	103.8
 country	slovakia	48.66667	19.5
 country	slovenia	46.11667	14.81667
 country	solomon islands	-8.0	159.0
 country	somalia	10.0	49.0
 country	south africa	-29.0	24.0
-country	south korea	37.0	127.5
-country	korea	37.0	127.5
 country	south sudan	8.0	30.0
-country	spain	40.0	-4.0
 country	sri lanka	7.0	81.0
 country	sudan	15.0	30.0
 country	suriname	4.0	-56.0
 country	swaziland	-26.5	31.5
 country	sweden	62.0	15.0
-country	switzerland	47.0	8.0
 country	syria	35.0	38.0
-country	taiwan	23.5	121.0
 country	tajikistan	39.0	71.0
-country	tanzania	-6.0	35.0
-country	thailand	15.0	100.0
 country	timor leste	-8.5	125.8333
 country	togo	8.0	1.1667
 country	tonga	-20.0	-175.0
@@ -220,509 +192,641 @@ country	uganda	1.0	32.0
 country	ukraine	49.0	32.0
 country	united arab emirates	24.0	54.0
 country	united kingdom	54.0	-4.0
-country	usa	38.0	-97.0
 country	uruguay	-33.0	-56.0
 country	uzbekistan	41.0	64.0
 country	vanuatu	-16.0	167.0
 country	venezuela	8.0	-66.0
-country	vietnam	16.0	106.0
 country	western sahara	24.5	-13.0
 country	yemen	15.0	48.0
 country	zambia	-15.0	30.0
 country	zimbabwe	-20.0	30.0
 
+country	usa	38.0	-97.0
 place	Alabama	33.2588817	-86.8295336
 place	Alaska	64.4459613	-149.6809089
-place	An Giang	10.3833855	105.4399924
-place	Ancona	43.6158	13.5189
-place	Amiens	49.8942	2.2957
-place	Anhwei	31.8611842	117.283042
-place	Anhui	31.8257	117.2264
-place	Annecy	45.8992	6.1294
 place	Arizona	34.395342	-111.7632754
 place	Arkansas	35.2048883	-92.4479107
-place	Australia	-25.274398	133.775136
-place	Bac Giang	21.2667	106.2000
-place	Bac Lieu	9.2850	105.7240
-place	Bac Ninh	21.1861	106.0763
-place	Baden-Wurttemberg	48.6616	9.3501
-place	Bangkok	13.75398	100.50144
-place	Banteay Meanchey	13.6672	102.8966
-place	Ba Ria-Vung Tau	10.4823	107.1686
-place	Bashkortostan	54.8515	69.1369
-place	Battambang	13.0957	103.2022
-place	Beijing	39.906217	116.3912757
-place	Ben Tre	10.2354	106.3753
-place	Berlin	52.5170365	13.3888599
-place	Beyla	8.6898481	-8.6483449
-place	Binh Duong	11.184949	106.601609
-place	Binhphuoc	11.6304	106.6070
-place	Binh Thuan	10.9333	108.1000
+place	California	36.7014631	-118.7559973
+place	Colorado	38.7251776	-105.6077166
+place	Connecticut	41.6500201	-72.7342162
+place	Delaware	38.6920451	-75.4013314
+place	Florida	27.7567667	-81.4639834
+place	Georgia	32.3293809	-83.1137365
+place	Hartford	41.7637	-72.6851
+place	Idaho	44.0682019	-114.7420408
+place	Illinois	40.0417	-89.1965
+place	Indiana	39.8494	-86.2583
+place	Iowa	41.878	-93.0977
+place	Kansas	38.5003	-98.5006
+place	Louisiana	30.9843	-91.9623
+place	Maine	45.2538	-69.4455
+place	Maryland	39.0458	-76.6413
+place	Massachusetts	42.4072	-71.3824
+place	Michigan	44.3148	-85.6024
+place	Minnesota	46.7296	-94.6859
+place	Mississippi	32.3547	-89.3985
+place	Missouri	37.9643	-91.8318
+place	Montana	46.8797	-110.3626
+place	Nebraska	41.4925	-99.9018
+place	Nevada	38.8026	-116.4194
+place	New Hampshire	43.1939	-71.5724
+place	New Jersey	40.0583	-74.4057
+place	New Mexico	34.5199	-105.8701
+place	New York	40.7128	-74.006
+place	North Carolina	35.7596	-79.0193
+place	North Dakota	47.5515	-101.002
+place	Ohio	40.4173	-82.9071
+place	Oklahoma	35.4676	-97.5164
+place	Oregon	43.8041	-120.5542
+place	Pennsylvania	41.2033	-77.1945
+place	South Carolina	33.8361	-81.1637
+place	South Dakota	43.9695	-99.9018
+place	Tennessee	35.5175	-86.5804
+place	Texas	31.9686	-99.9018
+place	Utah	39.32098	-111.093731
+place	Vermont	44.5588	-72.5778
+place	Virginia	37.4316	-78.6569
+place	Washington	47.7511	-120.7401
+place	West Virginia	38.5976	-80.4549
+place	Wisconsin	43.7844	-88.7879
+place	Wyoming	43.076	-107.2903
+place	Los Angeles	34.0522	-118.2437
+
+country	canada	61.0666922	-107.991707
+place	Toronto	43.65107	-79.347015
+place	Moose Factory	51.2586	-80.6097
+place	Victoria	48.4284	-123.3656
+place	Quebec	52.9399159	-73.5491361
+
+place	Puerto Rico	18.2208	-66.5901
+place	Iquitos	3.7465	-73.2538
+place	Lima	-12.0464	-77.0428
+place	Asunción	-25.2637	-57.5759
+place	Guatemala	15.783471	-90.230759
+place	French Guiana	4.003988	-52.999998
+place	Pará	-4.0	-53.0
+place	Colombia	4.570868	-74.297333
+place	Peru	-9.19	-75.0152
+place	Piura	-5.1944909	-80.6328226
+place	Pacasmayo	-7.4167	-79.5667
+
+place	Algiers	36.7538	3.0588
+place	Baghdad	33.3152	44.3661
+place	Cairo	30.0444	31.2357
+place	Libya	26.3351	17.2283
+place	Manama	26.2235	50.5876
+place	Port Sudan	19.6	37.2167
+place	Rabat	34.020882	-6.84165
+place	Tripoli	32.8872	13.1916
 place	Boke	10.952242	-14.2760634
 place	Bombali	9.2388372	-12.1148023
 place	Bomi	6.7177856	-10.7881765
 place	Bong	6.9622195	-9.7134458
 place	Bonthe	7.5292766	-12.5131865
-place	Bordeaux	44.8378	-0.5792
 place	Bo	7.9620654	-11.7366498
-place	Brest	48.3904	-4.4861
-place	British Columbia	49.24966	-123.11934
-place	Budapest	47.4979	19.0402
-place	Ca Mau	9.1809205	105.151992
-place	Caen	49.1829	-0.3707
-place	California	36.7014631	-118.7559973
-place	Cambodia	11.562108	104.888535
-place	Cantho	10.0452	105.7469
-place	Catalunya	41.5912	1.5209
-place	Chemnitz	50.8278	12.9214
-place	Chiang Mai	18.788278	98.985846
-place	Chiang Rai	19.908559	99.832962
-place	Chongqing	29.564168	106.550446
-place	Clermont-Ferrand	45.7772	3.0870
-place	Colorado	38.7251776	-105.6077166
-place	Colombia	4.570868	-74.297333
-place	Connecticut	41.6500201	-72.7342162
 place	Conakry	9.5171253	-13.6999234
 place	Coyah	9.7090404	-13.3889559
-place	Dak Lak	12.6657	108.0378
-place	Daknong	12.0333	107.6667
-place	Dalaba	10.6913277	-12.2512594
-place	Danang	16.0544	108.2022
-place	Delaware	38.6920451	-75.4013314
-place	Dijon	47.3216	5.0415
-place	Dong Nai	11.0618629	107.1635141
-place	Dongthap	10.4720	105.6362
 place	Douala	4.0511	9.7679
 place	Dubreka	9.7889586	-13.5171217
-place	Florida	27.7567667	-81.4639834
 place	Forecariah	9.4300088	-13.0833858
-place	French Guiana	4.003988	-52.999998
 place	Fria	10.363036	-13.5811849
-place	Fujian	26.2324445	117.6330553
-place	Fuyang	30.0533	119.9519
 place	Gbarpolu	7.2681564	-10.381477
-place	Georgia	32.3293809	-83.1137365
-place	Georgia (Asia)	42.3154	43.3569
-place	Germany	51.1657	10.4515
-place	Grenoble	45.1885	5.7245
 place	Grand Bassa	6.1640621	-9.8956689
 place	Grand Cape Mount	6.7521571	-11.0839227
 place	Grand Gedeh	5.8801495	-8.0349574
 place	Grand Kru	4.6072993	-8.2310975
-place	Guangdong	23.3790333	113.7632828
-place	Guangxi	23.8337336	108.7881417
-place	Guatemala	15.783471	-90.230759
-place	Hainan	19.5663943	109.949686
-place	Hai Phong	20.8449	106.6881
-place	Hakata	33.5902	130.4017
-place	Hamburg	53.5511	9.9937
-place	Hanoi	21.028511	105.804817
-place	Hartford	41.7637	-72.6851
-place	Hat Yai	7.0084	100.4767
-place	Hau Giang	9.7579	105.5943
-place	Hebei	37.8956593	114.9042208
-place	Heilongjiang	47.862	127.7615
-place	Henan	34.2904307	113.3823545
-place	Hinggan	48.2507	121.5095
-place	Hokkaido	43.2203	142.8635
-place	Houaphan	20.6483	104.0532
-place	Hubei	31.1518018	112.8783221
-place	Hunan	27.6101765	111.708394
-place	Idaho	44.0682019	-114.7420408
-place	Ile-de-France	48.8499198	2.6370411
-place	Illinois	40.0417	-89.1965
-place	Indiana	39.8494	-86.2583
-place	Iowa	41.878	-93.0977
-place	Kanchanaburi	14.0228	99.5328
-place	Kandal	11.3282	105.2036
-place	Kansas	38.5003	-98.5006
-place	Kep	10.4896	104.3493
-place	Kham Muon	17.5833	104.9167
-place	Kien Giang	9.8246	105.1087
-place	Kiến Thụy	20.7107	106.6188
-place	Kompong Cham	12.0058	105.4634
-place	Kompong Chhnang	12.25	104.6667
-place	Kompong Speu	11.4566	104.5203
-place	Kompong Thom	12.705	104.8885
-place	Kon Tum	14.6611	108.0076
-place	Kracheh	12.5	106
-place	Kratie	12.4872	106.017
-place	Kwangtung	23.3790333	113.7632828
-place	Laos	19.85627	102.495496
+place	Juba	4.8594	31.582
+place	Labé	11.3000	12.2833
 place	Liberia	6.428055	-9.429499
-place	Line Islands	1.8508	-157.3630
-place	Louisiana	30.9843	-91.9623
-place	Luxembourg	49.8153	6.1296
-place	Maine	45.2538	-69.4455
-place	Maryland	39.0458	-76.6413
-place	Massachusetts	42.4072	-71.3824
-place	Mecklenburg-Vorpommern	53.6127	12.4296
-place	Mexico	23.634501	-102.552784
-place	Mississippi	32.3547	-89.3985
-place	Missouri	37.9643	-91.8318
-place	Montana	46.8797	-110.3626
-place	Montpellier	43.6119	3.8772
-place	Moose Factory	51.2586	-80.6097
-place	Moselle	49.000000	6.166667
+place	Monrovia	6.4281	-9.4295
 place	Mount Barclay	6.45	-10.6167
-place	Nakhon Pathom	13.8196	100.063
-place	Nakhon Ratchasima	14.9799	102.0977
-place	Nakhon Sawan	15.7047	100.1372
-place	Nam Dinh	20.417	106.168
-place	Nanning	22.817	108.367
-place	Nebraska	41.4925	-99.9018
-place	Nei Mongol	44.0935	113.9448
-place	Nghe An	19.3333	104.9167
-place	Nha Trang	12.2388	109.1967
-place	Nordrhein-Westfalen	51.4332	7.6616
-place	North Carolina	35.7596	-79.0193
-place	North Dakota	47.5515	-101.0020
-place	Novosibirsk	55.0084	82.9357
-place	Odienné	9.5088	-7.5636
-place	Ohio	40.4173	-82.9071
-place	Oklahoma	35.4676	-97.5164
-place	Oregon	43.8041	-120.5542
-place	Ouémé	6.6378	2.4845
-place	Pacasmayo	-7.4167	-79.5667
-place	Pennsylvania	41.2033	-77.1945
-place	Perak	4.5975	101.0901
-place	Peru	-9.19	-75.0152
-place	Phatthalung	7.6173	100.08
-place	Phichit	16.4364	100.3486
-place	Phitsanulok	16.8217	100.2659
+place	Assaba	16.52	-11.4
+place	Sierra Leone	8.4606	-11.7799
+place	Togo	8.6195	0.8248
+place	Kinshasa	-4.4419	15.2663
+place	Yaounde	3.8480	11.5021
+place	Beyla	8.6898481	-8.6483449
+place	Oueme	6.6378	2.4845
+place	Zinder	13.8072	8.9886
+
+country	tanzania	-6.0	35.0
+place	Zanzibar	-6.1659	39.2026
+
+country	madagascar	-20.0	47.0
+place	Mahatalaky	-25.5154	45.2061
+place	Tsaratanana	-16.8	47.633333
+
+country	ghana	8.0300284	-1.080027
+place	Accra	5.6037	-0.187
+
+country	senegal	14.0	-14.0
+place	Tambacounda	13.7744882	-13.6546467
+place	Kaffrine	14.1077336	-15.551792
+place	Kaolack	14.1525	-16.0725
+place	Diourbel	14.4416	-15.3623
+place	Dakar	14.6928	-17.4467
+place	Thies	14.7890	-16.9260
+place	Saint Louis	16.0020	-16.4897
+
+place	Georgia (Asia)	42.3154	43.3569
+
+country	cambodia	13.0	105.0
+place	Kampong Som	10.6128	103.4730
+place	Kratie	12.5000	106.0333
+place	Banteay Meanchey	13.6672	102.8966
+place	Battambang	13.0957	103.2022
+place	Kampong Cham	12.0005	105.4638
+place	Kampong Chhnang	12.2451	104.6664
+place	Kampong Speu	11.4566	104.5203
+place	Kampong Thom	12.7112	104.8888
+place	Kandal	11.3282	105.2036
+place	Kep	10.4896	104.3493
 place	Phnom Penh	11.5625	104.916
-place	Phrae	18.1446	100.1406
-place	Phu Tho	21.364	105.217
-place	Phuket	7.8804	98.3923
-place	Plzeň	49.7384	13.3736
-place	Poitou-Charentes	46.2322	-0.6490
-place	Poland	51.9194	19.1451
-place	Prachuap Khiri Khan	11.8037	99.8007
+place	Pailin	12.8477	102.6015
 place	Preah Vihear	13.7872	104.9744
 place	Prey Veng	11.4862	105.325
-place	Provence-Alpes-Cote d'Azur	43.9352	6.0679
-place	Puerto Rico	18.2208	-66.5901
-place	Quang Binh	17.4686	106.6223
-place	Quang Nam	15.5736	108.474
-place	Quang Ngai	15.1204	108.7923
-place	Quang Ninh	20.959	107.1026
-place	Quang Tri	16.75	107.1667
-place	Ratchaburi	13.5368	99.8176
-place	Rhone-Alpes	45.3983	4.3871
-place	Rhineland-Palatinate	50.1183	7.309
-place	Riau Islands	0.9167	104.45
-place	Savannakhet	16.5501	104.75
-place	Seine-Maritime	49.6204	0.9343
-place	Selangor	3.0738	101.5183
-place	Senegal	14.4974	-14.4524
-place	Sesshū	34.5868	133.8828
-place	Sichuan	30.6171	102.7103
-place	Sierra Leone	8.4606	-11.7799
-place	Singapore	1.3521	103.8198
-place	Sisaket	15.1187	104.322
-place	Sofia	42.6977	23.3219
-place	Son La	21.3288	103.9148
-place	South Carolina	33.8361	-81.1637
-place	South Dakota	43.9695	-99.9018
-place	Stuttgart	48.7758	9.1829
-place	Sukhothai	17.006	99.8277
-place	Surat Thani	9.1382	99.3216
-place	Tak	16.877	99.1256
-place	Tangier	35.7595	-5.8340
-place	Tennessee	35.5175	-86.5804
-place	Thailand	15.8700	100.9925
-place	Thái Bình	20.4485	106.3400
-place	Thái Nguyên	21.5859	105.8480
-place	Thanh Hoa	20.0561	105.2130
-place	Thừa Thiên-Huế	16.4674	107.5900
-place	Togo	8.6195	0.8248
-place	Toulouse	43.6045	1.4442
-place	Tuyên Quang	21.8230	105.2152
-place	Uttaradit	17.6188	100.0993
-place	Vermont	44.5588	-72.5778
-place	Victoria	48.4284	-123.3656
-place	Vietnam	14.0583	108.2772
-place	Vinh Long	10.2483	105.9577
-place	Vinh Yen	21.3085	105.6048
-place	Vlaanderen	50.6366	3.0672
-place	Vologda	59.2187	39.8938
-place	Vung Tau	10.4114	107.1362
-place	Waikato	-37.7833	175.2833
-place	Washington	47.7511	-120.7401
-place	West Virginia	38.5976	-80.4549
-place	Wisconsin	43.7844	-88.7879
-place	Wonju	37.3422	127.9202
-place	Yamaguchi	34.1859	131.4714
-place	Yazd	31.8974	54.3569
-place	Yunnan	24.4798	102.8329
-place	Zhejiang	29.1832	120.0934
-place	Hong Kong	22.3193039	114.1693611
-place	Shanghai	31.230416	121.473701
-place	Chengdu	30.572815	104.066801
-place	Nanjing	32.060255	118.796877
-place	Hanoi	21.028511	105.804817
-place	Ho Chi Minh City	10.8230989	106.6296638
-place	Isehara	35.3936043	139.3148688
-place	Tien Giang	10.4206589	106.3454423
-place	Valencia	39.46975	-0.37739
-place	Nagoya	35.1814464	136.906398
-place	Dong Thap	10.4956587	105.6895515
-place	Shenzhen	22.543096	114.057865
-place	Xinjiang	42.524635	84.248424
-place	Hiroshima	34.3852029	132.4552927
-place	Vinh Phuc	21.3597222	105.5472222
-place	Kuala Lumpur	3.139003	101.686855
-place	Osaka City	34.6937378	135.5021651
-place	Xiamen	24.479834	118.089425
-place	Osaka Prefecture	34.6227844	135.5112954
-place	Angers	47.478419	-0.563166
-place	Hau Giang	9.7757312	105.467732
-place	Rostov-Na-Donu	47.2357137	39.701505
-place	Grasse	43.6664413	6.9318896
-place	Huizhou	23.1118478	114.4165802
-place	Samut Sakhon	13.5479691	100.2740214
-place	Yunnan Province	24.4752841	101.3431051
-place	Pailin	12.8476793	102.6014806
-place	Taiwan	23.69781	120.960515
-place	Sydney	-33.8548157	151.2164539
-place	Tambacounda	13.7744882	-13.6546467
-place	New York	40.7127281	-74.0060152
-place	Pulau Pinang	5.4163932	100.3326799
-place	Tsaratanana	-16.8	47.633333
-place	Tien Giang	10.4438684	106.3428965
-place	Gia Lai	13.9838864	108.0723781
-place	Hannover	52.3744779	9.7385532
-place	Inner Mongolia	43.712349	127.372108
-place	Hunan	27.6415469	111.7656238
-place	Taipei	25.0375198	121.5636796
-place	Kelantan	6.1253978	102.238581
-place	Melaka	2.1895941	102.2500871
-place	Ningbo	29.8695764	121.5442599
-place	Siem Reap	13.361785	103.860056
-place	Baden-Württemberg	48.6616033	9.3501346
-place	Kaffrine	14.1077336	-15.551792
-place	Changsha	28.228209	112.938813
-place	Kampong Speu	11.4567424	104.666513
-place	Kampong Cham	12.0005186	105.4638148
-place	Komi	63.8035	54.8918
-place	Terengganu	5.3460497	103.1409535
-place	Sichuan	30.6170862	102.7100028
-place	Shanxi	37.869945	113.34658
-place	Liaoning	41.835441	123.437594
-place	Great Britain	55.378051	-3.435973
-place	Versailles	48.8048649	2.1203559
-place	Jiangxi	27.6092159	115.722095
-place	Johor	1.485368	103.761815
-place	Tra Vinh	9.9345702	106.3459975
-place	Lam Dong	11.55	107.8
-place	Lyon	45.75	4.85
-place	Piura	-5.1944909	-80.6328226
-place	Phu Yen	13.1109465	109.1482051
-place	Zhuhai	22.276798	113.567669
-place	Lower Saxony	52.6367044	9.8450774
-place	Wuhan	30.593087	114.305488
-place	Le Mans	48.007555	0.198534
-place	Birobidzhan	48.7988428	132.949265
-place	Hanoi	21.028511	105.804817
-place	Rouen	49.4404591	1.0939658
-place	Kaolack	14.1525	-16.0725
-place	Kunming	24.880095	102.832891
-place	Ninh Thuan	11.8166597	108.7990053
-place	Kedah	6.124505	100.367302
-place	North Rhine-Westphalia	51.4332367	7.6615939
-place	Luan	31.755558	116.489812
-place	Kien Giang	10.11135	105.4432553
-place	Paris FR	48.8566969	2.3514616
-place	Annonay	45.240833	4.675278
-place	Utah	39.3209801	-111.0937311
-place	Okinawa	26.5	128
-place	Iquitos	-3.749027	-73.2534637
-place	Quebec	52.9399159	-73.5491361
-place	Ishigaki	24.340835	124.155681
-place	Osaka	34.6937378	135.5021651
-place	Styria	47.4138252	15.2879838
-place	Queen Mary Hospital	22.258495	114.132252
-place	Mahatalaky	-22.682478	47.648221
-place	Vienna	48.2083537	16.3725042
-place	Ulm	48.401082	9.987608
-place	Texas	31.8160381	-99.5120986
-place	Southern Germany	48.7844179	9.1829321
-place	Geneva	46.2043907	6.1431577
-place	Para	-1.3628673	-48.3744504
-place	Changsha	28.228209	112.938813
-place	Guizhou	26.845708	107.290069
-place	Tay Ninh	11.3065373	106.1009675
-place	Binh Thuan	10.9345091	108.0636634
-place	Saratov	51.5335578	46.0342577
-place	Toyama	36.6959517	137.213676
-place	Long An	10.7023	106.706597
-place	Takeo	11.9905368	104.7976722
-place	Ba Ria	10.5442684	107.1959268
-place	Kampot	10.6084096	104.1743876
-place	Binh Phuoc	11.7512673	106.6749972
-place	Binh Duong	11.0891777	106.8017062
-place	Lower Austria	48.2000377	16.3707227
-place	Kaohsiung	22.620856	120.312037
-place	Rhineland Palatinate	49.9935	7.5732
-place	Shandong	36.341633	118.149817
-place	Sarawak	1.5532787	110.3591241
-place	Pathum Thani	14.0109157	100.5309651
-place	Diourbel	14.6581	-16.2332
-place	Irkutsk Region	52.3088	104.2757
-place	Nantes	47.2186371	-1.5541362
-place	Pingtung County	22.550288	120.527714
-place	Dak Lak	12.862807	108.2160639
-place	Thies	14.8106588	-16.9265833
-place	Nancy	48.6937223	6.1834097
-place	Kampong Thom	12.7112065	104.8887937
-place	Hung Yen	21.1693503	105.6058582
-place	Rennes	48.1113386	-1.6800198
-place	Kampong Chnang	12.2450732	104.6663743
-place	New Mexico	34.5199402	-105.8700901
-place	Soc Trang	9.6014775	105.6228893
-place	Virginia	37.1232245	-78.4927723
-place	Yamanashi	35.656778	138.597945
-place	Jiangsu	32.0617078	118.7632321
-place	Soc Trang	9.6014775	105.6228893
-place	Mecklenburg-Western Pomerania	53.6126509	12.4295953
-place	Ningxia	38.5026214	106.1549975
-place	Angers	47.478419	-0.563166
-place	Khanh Hoa	12.2387911	109.1967489
-place	Pahang	3.9350473	102.4409758
-place	Dakar	14.716677	-17.4676861
-place	Leningrad Oblast	60.1854207	32.3925286
-place	Saint Petersburg	59.9342802	30.3350986
-place	Muenster	51.9606645	7.6261347
-place	Lanzhou	36.061255	103.834377
-place	Kampong Som	10.6222165	103.524279
-place	Yaounde	3.8480328	11.5020752
-place	Shanghai	31.230416	121.473701
-place	Thuringia	51.0109916	10.845346
-place	Peninsular	4.2104847	101.9757669
-place	Sarawak	1.5532787	110.3591241
-place	Miyagi	38.446015	140.927481
-place	Saint Louis	38.6270025	-90.1994042
-place	Poitiers	46.580224	0.340375
-place	Ho Chi Minh	10.8230989	106.6296638
-place	Brandenburg	52.3843683	13.0587501
+place	Siem Reap	13.3618	103.8601
 place	Svay Reang	11.0796	105.6249
-place	Kontum	14.3545014	108.0074163
-place	Guizhou Province	26.845708	107.290069
-place	Kandaldal	13.10623	103.209669
-place	Yamagata	38.2554365	140.3392254
-place	Ben Tre	10.2411826	106.3753112
-place	Tokyo	35.682839	139.759455
-place	Shanxi	37.869945	113.34658
-place	Hangzhou	30.274084	120.15507
-place	Pscov	57.813284	28.349674
-place	Sapporo	43.061771	141.354451			
-place	Gansu	36.0594	104.3081
-place	Montardon	43.3554	-0.3407
-place	Essey-Les-Nancy	48.6941	6.2185
-place	St-Sebastien-sur-Loire	47.1971	-1.5247
-place	Can Tho	10.0452	105.7469
-place	Qinghai	35.7465	95.5832
-place	Maromme	49.4787	1.0375
-place	Ile de France	48.8499	2.6370
-place	Hery-sur-Alby	45.7933	5.9438
-place	Rosny-Sous-Bois	48.8726	2.4797
-place	Nogent-sur-Marne	48.8335	2.4847
-place	Etampes	48.4333	2.1536
-place	Combs-la-Ville	48.6689	2.5664
-place	Gwangju	35.1595	126.8526
-place	Provence Alpes Cote d'Azur	43.9352	6.0679
-place	Lagny-sur-Marne	48.8787	2.7075
-place	L'Isle-d'Espagnac	45.6602	0.1967
-place	Maubeuge	50.2786	3.9723
-place	Chamalieres	45.7743	3.0673
-place	Dieppe	49.9227	1.0774
-place	Toulon	43.1242	5.9280
-place	Grand Est	48.6809	7.5733
-place	Tp Hcm	10.8231	106.6297
-place	Bischheim	48.6193	7.7445
-place	Jilin Province	43.6661	126.1923
-place	Maharashtra State	19.7515	75.7139
-place	Pont-l'Eveque	49.2904	0.1894
-place	Xiangyang	32.0089	112.1224
-place	Shizuoka	34.9756	138.3828
-place	Clamart	48.7988	2.2634
-place	Aichi Prefecture	35.1802	136.9066
-place	Fuveau	43.4522	5.5634
-place	Bagnols-sur-Ceze	44.1626	4.6198
-place	Lagny-Sur-Marne	48.8787	2.7075
-place	Kyoto	35.0116	135.7681
-place	St-Germain-en-Laye	48.8988	2.0922
-place	Nanchang	28.6820	115.8579
-place	Jilin	43.6661	126.1923
-place	Verrieres-Le-Buisson	48.7544	2.2712
-place	St-Germain-En-Laye	48.8988	2.0922
-place	Saint-Brieuc	48.5081	-2.7547
-place	Doullens	50.1527	2.3433
-place	Sagamihara	35.5537	139.3542
-place	Saverne	48.7414	7.3624
-place	Bellegarde-sur-Valserine	46.1067	5.8212
-place	Metz	49.1193	6.1757
-place	Montesson	48.8982	2.1358
-place	Corbeil-Essonnes	48.6138	2.4847
-place	Craponne	45.7463	4.7437
-place	Orleans	47.9029	1.9093
-place	Villeneuve-Les-Avignon	43.9637	4.7989
-place	Bagnolet	48.8673	2.4167
-place	Meylan	45.2181	5.7750
-place	Aix-Les-Bains	45.6915	5.9090
-place	Tianjin	39.3434	117.3616
-place	Ajaccio	41.9192	8.7386
-place	Hauts de France	49.8870	2.3047
-place	Cournon-d'Auvergne	45.7392	3.1922
-place	Bondues	50.7026	3.0991
-place	Chambery	45.5646	5.9178			
-place	Auvergne and Rh??ne-Alpes	45.7922	4.8154
-place	Riom	45.8939	3.1144
-place	Montreuil	48.8641	2.4435
-place	Puteaux	48.8838	2.2383
-place	Verrieres-le-Buisson	48.7544	2.2712
-place	Plouguernevel	48.1995	-3.1833
-place	La-Garenne-Colombes	48.9057	2.2456
-place	Boigny-sur-Bionne	47.9483	2.0094
-place	Tsimenatse	-23.359780	43.672300
-place	Saint-Maur-des-Fossés	48.7999158	2.4714681
-place	Scama	-12.3219436	49.2758101
-place	YanCheng	33.3823	120.1480
-place	Sichuan Province	30.6586	104.0648
-place	Fukuoka	33.5902	130.4017
-place	Kazan	55.8304	49.0661
-place	SuQian	33.9600	118.2750
-place	Kurgan	55.4500	65.3333
-place	Kirov Oblast	58.6000	49.6667
-place	LianYunGang	34.6000	119.4000
-place	Centre-Val de Loire	47.3520	1.8750
-place	Xi'An	34.3416	108.9398
-place	Hmao	61.0000	69.0000
-place	St-Saure-des-Fosses	48.7472	2.4625
-place	San Sebastian	43.3183	-1.9812
-place	Arhangelsk	64.5394	40.5158
-place	Smolensk Region	54.7833	32.0500
-place	Shaanxi	34.2632	108.9542
+place	Takeo	11.9905	104.7977
+place	Ta Khmao	11.5335	104.9837
+
+country	laos	19.8563	102.4955
+place	Savannakhet	16.5501	104.7500
+
+country	china	35.000074	104.999927
+place	Anhnui	31.8612	117.2830
+place	Anhui	31.8612	117.2830
+place	Bei Jing	39.9042	116.4074
+place	Beijing	39.9042	116.4074
+place	Beijng	39.9042	116.4074
+place	Changchun	43.8799	125.3245
+place	Changsha	28.2282	112.9388
+place	Chengdu	30.5728	104.0668
+place	Chongqing	29.5630	106.5516
+place	Dong Nai	10.9725	106.9487
+place	DongNai	10.9400	106.8100
+place	Dalian	38.9140	121.6147
+place	Enshi	30.2722	109.4703
+place	Fujian	26.2324	117.6331
+place	Fujian Province	26.1000	119.3000
+place	Fuyang	32.8901	115.8142
+place	Gaogang	32.0413	119.5227
+place	Gansu	36.0611	103.8343
 place	Guangzhou	23.1291	113.2644
-place	Hyogo	34.7833	135.4833
-place	WuXi	31.5687	120.2938
-place	Normandie	49.4144	0.8321
-place	TianJing	38.8610	117.3616
-place	Rostov On Don	47.2360	39.7138
-place	Voronezh	51.6610	39.1970
-place	Bretagne	48.0000	-2.0000
-place	Auvergne-Rhone-Alpes	45.6900	4.7400
-place	Turku	60.4518	22.2666
-place	SuZhou	31.2989	120.5853
-place	Taizhou	32.4894	119.9103
-place	Volgograd Region	48.7080	44.5134
+place	Guangdong	23.3790	113.7633
+place	Guangxi	23.8337	108.7881
+place	Guizhou	26.6000	106.7000
+place	Haikou	20.0440	110.1999
+place	Hainan	19.5664	109.9497
+place	Hangzhou	30.2741	120.1551
+place	Harbin	45.8038	126.5355
+place	Hebei	37.8957	114.9042
+place	Heilongjiang	47.8620	127.7615
+place	Henan	34.2904	113.3824
+place	Hubei	30.9756	112.2707
+place	Huizhou	23.0974	114.4064
+place	Hunan	27.6102	111.7084
+place	Inner Mongolia	40.8211	111.7656
+place	Jiangjin	29.4200	106.9075
+place	Jiangsu	32.0617	118.7632
+place	Jiangxi	27.6092	115.7221
+place	Jidezheng	24.2933	109.4172
+place	Jilin	43.8379	126.5496
+place	Jinan	36.6512	118.1815
+place	Jiujiang	29.7048	116.0028
+place	Jiangyin	31.9100	120.2630
+place	kunming	25.0389	102.7183
+place	Lanzhou	36.0611	103.8343
+place	Liaoning	41.8354	123.4376
+place	Nanchang	28.6829	115.8582
+place	Nanjing	32.0603	118.7969
+place	Nantong	32.0660	120.8740
+place	Nanyang	32.9908	112.5283
+place	Ningbo	29.8696	121.5443
+place	Ningxia	38.4710	106.2740
+place	Qingdao	36.0683	120.3826
+place	Qinhai	35.4998	96.2025
+place	Qinghai	35.4998	96.2025
+place	Shaanxi	34.2646	108.9462
+place	Shandong	36.3416	118.1498
+place	Shanghai	31.2304	121.4737
+place	Shanhai	31.2304	121.4737
+place	Shanxi	37.8699	113.3466
+place	Shannxi	37.8699	113.3466
+place	Shan’xi	35.0992	110.0400
+place	Shenyang	41.8057	123.4315
+place	Shenzhen	22.5431	114.0579
+place	Sichuan	30.6532	104.0665
+place	Taixing	32.1687	120.0142
+place	Taizhou	32.4933	119.9017
+place	Tianjin	39.3434	117.3616
+place	Tongxiang	30.6302	120.5651
+place	Wenzhou	27.9949	120.6990
+place	Wuhan	30.5928	114.3055
+place	Xiamen	24.4798	118.0894
+place	Xi’an	34.3416	108.9398
+place	Xinhui	22.4560	113.0482
+place	Xinjiang	42.5246	84.2484
+place	Xianghe	39.7642	117.0056
+place	Yancheng	33.3851	120.1492
+place	Yantai	37.4638	121.4479
+place	Yunnan	24.3570	102.7090
+place	Yn	24.3570	102.7090
+place	Yunnan Province	24.3570	102.7090
+place	Zhaotong Prefecture	27.3105	106.9225
+place	Zhoutong Prefecture	27.3105	106.9225
+place	Zhejiang	29.1832	120.0934
+place	Zhuhai	22.2760	113.5678
+
+country	india	22.3511148	78.6677428
+place	Chennai	13.0827	80.2707
+place	Kolkata	22.5726	88.3639
+place	Maharashtra State	19.7515	75.7139
+place	Maharashtra	19.7515	75.7139
+place	Mumbai	19.0760	72.8777
+place	Mumbai City	19.0760	72.8777
+place	Odisha	20.9517	85.0985
+place	Kandaldal	17.5155	76.9571
+place	Kolhapur	16.7050	74.2433
+place	Kerala	10.8505	76.2711
+place	Pune	18.5204	73.8567
+
+country	japan	35.68536	139.75309
+place	Aichi	35.1802	136.9066
+place	Hiroshima	34.3852	132.4553
+place	Hokkaido	43.2203	142.8635
+place	Isehara	35.3936	139.3149
+place	Kobe	34.6937	135.5023
+place	Miyagi	38.2682	140.8694
+place	Nagoya	35.1815	136.9066
+place	Okinawa	26.5000	128.0000
+place	Osaka	34.6937	135.5023
+place	Osaka City	34.6937	135.5023
+place	Osaka Prefecture	34.6937	135.5023
+place	Sapporo	43.0618	141.3545
+place	Tokyo	35.6828	139.7595
+place	Toyama	36.6953	137.213
+place	Yamagata	38.2554	140.3392
+place	Yamanashi	35.6568	138.5979
+
+country	malaysia	4.2105	101.9758
+place	GaiLai	13.3937	107.3136
+place	Johor	1.4854	103.7618
+place	Kaohsiung	22.6273	120.3014
+place	Kedah	6.1187	100.3607
+place	Kelantan	6.1253	102.2364
+place	Kuala Lumpur	3.1390	101.6869
+place	Melaka	2.1896	102.2500
+place	Pahang	3.9350	102.4410
+place	Penang	5.4164	100.3327
+place	Peninsular	4.2105	101.9758
+place	Peninsular Malaysia	4.2105	101.9758
+place	Pingtung County	22.4628	120.4971
+place	Pulau Pinang	5.4163932	100.3326799
+place	Sabah	5.9787	116.0753
+place	Sarawak	1.5533	110.3592
+place	Selangor	3.0738	101.5183
+place	Terengganu	5.3460	103.1409
+
+country	singapore	1.36667	103.8
+place	Jurong	31.9454	119.6020
+
+country	myanmar	21.0	96.0
+place	Yangon	16.8409	96.1735
+
+country	south korea	37.0	127.5
+country	korea	37.0	127.5
+place	Seoul	37.5665	126.9780
+place	Wonju	37.3422	127.9202
+
+country	thailand	15.0	100.0
+place	Bangkok	13.7540	100.5014
+place	Chiang Mai	18.7883	98.9858
+place	Chiang Rai	19.9086	99.8330
+place	Hat Yai	7.0084	100.4767
+place	Kanchanaburi	14.0228	99.5328
+place	Lampang	18.2888	99.4931
+place	Mukdahan	16.5453	104.7237
+place	Nakhon Pathom	13.8196	100.0630
+place	Nakhon Ratchasima	14.9799	102.0977
+place	Nakhon Sawan	15.7047	100.1372
+place	Pathum Thani	14.0109	100.5310
+place	Phuket	7.8804	98.3923
+place	Phrae	18.1432	100.1407
+place	Prachuap Khiri Khan	11.8037	99.8007
+place	Ratchaburi	13.5368	99.8176
+place	Surat Thani	9.1382	99.3216
+place	Tak	16.8770	99.1256
+place	Ubon Ratchathani	15.2325	104.8547
+place	Samut Sakhon	13.4118	100.2763
+place	Phitsanulok	16.8256	100.2661
+
+
+country	vietnam	16.0	106.0
+place	An Giang	10.3834	105.4399
+place	AnGiang	10.5411	105.0926
+place	Bac Giang	21.2667	106.2000
+place	BacGiang	21.2667	106.2000
+place	Bac Lieu	9.2850	105.7240
+place	BacLieu	9.2850	105.7240
+place	BacNinh	21.1861	106.0763
+place	Bac Ninh	21.1861	106.0763
+place	BaRia-VungTau	10.3529	107.0943
+place	Ba Ria-Vung Tau	10.3529	107.0943
+place	BaRia	10.3529	107.0943
+place	Ben Tre	10.2354	106.3753
+place	BenTre	10.2354	106.3753
+place	Binh Duong	11.1849	106.6016
+place	Binh Phuoc	11.7513	106.6750
+place	BinhPhuoc	11.7513	106.6750
+place	Binh Thuan	10.9333	108.1000
+place	BinhDuong	10.9833	106.7167
+place	BinhThuan	10.9289	108.1019
+place	Ca Mau	9.1755	105.1910
+place	CaMau	9.1755	105.1910
+place	Cao Bang	22.8474	106.2894
+place	Can Tho	10.0452	105.7469
+place	CanTho	10.0452	105.7469
+place	DakLak	12.8700	108.1100
+place	Dak Lak	12.7100	108.2378
+place	DaNang	16.0544	108.2022
+place	DakNong	12.3754	107.6944
+place	Dong Thap	10.5169	105.6323
+place	DongThap	10.5353	105.7177
+place	GiaLai	13.3937	107.3136
+place	Ha Giang	22.1363	104.9422
+place	Ha Tinh	18.3333	105.9333
+place	Haiphong	20.8449	106.6881
+place	Hai Duong	20.9225	106.2740
+place	Hanoi	21.0285	105.8048
+place	Ha Noi	21.0285	105.8048
+place	Ho Chi Minh City	10.8231	106.6297
+place	Ho Chi Minh	10.8231	106.6297
+place	HoChiMinh	10.8231	106.6297
+place	Hoa Binh	20.4515	105.3450
+place	Hau Giang	9.7888	105.3562
+place	HauGiang	9.7663	105.3556
+place	Hung Yen	21.1694	105.6059
+place	HungYen	21.1694	105.6059
+place	Kampot	10.6110	104.1827
+place	Kampong Chnang	11.4584	104.7217
+place	Khanh Hoa	12.2388	109.1967
+place	KhanhHoa	12.2388	109.1967
+place	Kien Giang	10.0092	104.7774
+place	KienGiang	10.0099	104.7958
+place	KonTum	14.3718	108.0298
+place	Lai Chau	22.3535	103.6114
+place	LamDong	11.9375	108.4375
+place	Long An	10.7023	106.7066
+place	LongAn	10.7023	106.7066
+place	Luan	14.6349	108.1999
+place	Nghe An	19.0333	105.7569
+place	NinhThuan	11.6739	108.8645
+place	Phu Tho	21.3640	105.2170
+place	PhuYen	13.0952	109.3227
+place	Quang Binh	17.4686	106.6223
+place	Quang Nam	15.5736	108.4740
+place	Quang Ngai	15.1204	108.7923
+place	Quang Ninh	20.9590	107.1026
+place	Quang Tri	16.7500	107.1667
+place	Saverne	48.7497	7.3675
+place	Soc Trang	9.6020	105.9710
+place	SocTrang	9.6020	105.9710
+place	South Viet Nam	10.8231	106.6297
+place	Tay Ninh	11.3604	106.1813
+place	TayNinh	11.3150	106.1388
+place	Thanh Hoa	20.0561	105.2130
+place	ThanhHoa	20.0561	105.2130
+place	Thái Nguyên	21.5859	105.8480
+place	ThaiNguyen	21.5859	105.8480
+place	Thừa Thiên-Huế	16.4674	107.5900
+place	Tien Giang	10.3092	106.3374
+place	TienGiang	10.4032	106.3480
+place	TienGiang	10.4032	106.3480
+place	Tien Giang	10.3092	106.3374
+place	Tra Vinh	9.9347	106.3439
+place	TraVinh	9.9347	106.3439
+place	Tuyên Quang	21.8230	105.2152
+place	Vinh Long	10.2483	105.9577
+place	VinhLong	10.2537	105.9731
+place	Vinh Yen	21.3085	105.6048
+place	VinhPhuc	21.3204	105.6037
+place	Vinh Phuc	21.3204	105.6037
+place	Vung Tau	10.4114	107.1362
+place	Ximen	23.1352	113.2466
+place	Yunlin	23.7092	120.4317
+
+
+country	taiwan	23.6978	120.9605
+place	Tainan	22.9999	120.2270
+place	Taoyuan	24.9936	121.2961
+place	Taipei	25.0330	121.5654
+place	Taichung	24.1477	120.6736
+place	Taiwan	23.6978	120.9605
+
+country	australia	-24.7761085	134.755
+place	Auckland	-36.8485	174.7633
+place	Line Islands	1.8508	-157.363
+place	Riau Islands	0.9167	104.45
+place	Waikato	-37.7833	175.2833
+place	Sydney	-33.8688	151.2093
+place	Perth	-31.9505	115.8605
+
+place	Great Britain	53.4808	-2.2426
+place	Queen Mary Hospital	22.3035	114.1795
+
+place	Copenhagen	55.6867	12.5701
+place	Copenhague	55.6761	12.5683
+
+place	Estonia	58.5953	25.0136
+
+place	Helsinki	60.1695	24.9354
+place	Helsinki-Uusimaa	60.218	24.812
+place	Iceland	64.9631	19.0208
+
+place	Lithuania	55.1694	23.8813
+
+place	Ljubljana	46.05	14.5069
+
+place	Latvia	56.9494	24.1052
+place	Riga	56.9460	24.1059
+
+place	Oslo	59.9139	10.7522
+
+place	Sweden	60.1282	18.6435
+
+place	Belgrade	44.8176	20.4633
+
+place	Bucharest	44.4268	26.1025
+
+place	Budapest	47.4979	19.0402
+
+country	belarus	53.0	28.0
+place	Minsk	53.9	27.5667
+
 place	Edinburgh	55.9533	-3.1883
-place	Stockholm	59.3293	18.0686
-place	Khon Kaen	16.4419	102.8350
-place	Mallorca	39.6953	3.0176
-place	Vigo	42.2406	-8.7207
-place	Salamanca	40.9701	-5.6635
+
+place	Poland	51.9194	19.1451
+place	Bialystok	53.1325	23.1686
+
+country	russia	55.751244	37.618423
+place	Bashkortostan	54.7131	55.9380
+place	Birobidzhan	48.7804	132.9116
+place	Ekaterinburg	56.8389	60.6057
+place	Irkutsk Region	52.047	103.497
+place	Kataysk	56.2900	62.5830
+place	Rostov-Na-Donu	47.2357137	39.701505
+place	Saint-Petersburg	59.9342802	30.3350986
+place	St. Petersburg	59.9342802	30.3350986
+place	Surgut	61.2530	73.3960
+place	Pskov	57.8194	28.3318
+place	Pscov	57.8194	28.3318
+
+country	bulgaria	42.6073975	25.4856617
+place	Sofia	42.6977	23.3219
+
+country	greece	39.0	22.0
+place	Thessaloniki	40.6401	22.9444
+
+place	Andorra	42.5078	1.5211
+
+country	spain	40.0	-4.0
+place	Barcelona	41.3829	2.1774
+place	Barcelona (Cochin)	48.8315	2.3328
+place	Valencia	39.46975	-0.37739
 place	Madrid	40.4168	-3.7038
-place	Teruel	40.3442	-1.1069
-place	Kanagawa	35.51666	139.699997
-place	Shiga	35.3292	136.0563
+place	Catalunya	41.5912	1.5209
+
+place	Italy	41.8719	12.5674
+place	Rome	41.9028	12.4964
+
+place	Monaco	43.7333	7.4167
+
+place	Rijnstate	51.9844	5.8987
+
+place	Glasgow	55.8642	-4.2518
+place	Catalonia	41.5912	1.5209
+
+country	finland	63.2467777	25.9209164
+place	Turku	60.4518	22.2666
+place	Seinajoki	62.7903	22.8405
+place	Tampere	61.4978	23.7610
+
+place	Brussels	50.8503	4.3517
+
+place	Limassol	34.6800	33.0333
+
+place	Luxembourg	49.8153	6.1296
+
+country	switzerland	47.0	8.0
+place	Geneva	46.2043907	6.1431577
+place	Lausanne	46.5197	6.6333
+
+country	france	46.603354	1.8883335
+place	Annecy	45.8992	6.1294
+place	Amiens	49.8942	2.2957
+place	Aubagne	43.2924	5.5703
+place	Angers	47.478419	-0.563166
+place	Anger	47.478419	-0.563166
+place	Annonay	45.2415	4.6706
+place	Bayonne	43.4929	-1.4748
+place	Besançon	47.2379	6.0241
+place	Bischheim	48.6114	7.7517
+place	Bordeaux	44.8378	-0.5792
+place	Bourg-en-Bresse	46.2057	5.2259
+place	Brest	48.3904	-4.4861
+place	Caen	49.1829	-0.3707
+place	Chamilly	47.0221	4.8392
+place	Charnay Les Macon	46.2425	4.8317
+place	Clamart	48.8014	2.2616
+place	Clermont-Ferrand	45.7772	3.087
+place	Combs la Ville	48.6656	2.5743
+place	Craponne	45.7584	4.8250
+place	Dijon	47.3220	5.0415
+place	Essey Les Nancy	48.6903	6.2022
+place	Fuveau	43.4064	5.4290
+place	Grasse	43.6667	6.9167
+place	Grenoble	45.1885	5.7245
+place	Le Mans	48.0061	0.1996
+place	Lyon	45.7640	4.8357
+place	La Gareene Colombes	48.9089	2.2428
+place	Marquette-lez-Lille	50.6654	3.0352
+place	Maubeuge	50.2849	3.9737
+place	Metz	49.1193	6.1757
+place	Mirecourt	48.3000	6.1333
+place	Montpellier	43.6108	3.8767
+place	Montreuil	48.8641	2.4435
+place	Montesson	48.9417	2.1416
+place	Nancy	48.6921	6.1844
+place	Nantes	47.2184	-1.5536
+place	Nogent Sur Marne	48.8500	2.5400
+place	Orlean	47.9029	1.9092
+place	Paris	48.8566	2.3522
+place	Paris (Cochin)	48.8315	2.3328
+place	Paris FR	48.8566	2.3522
+place	Pont l'Eveque	49.2782	0.1939
+place	Pont-l'Eveque	49.2782	0.1939
+place	Poitiers	46.5802	0.3404
+place	Puteaux	48.8824	2.2464
+place	Rennes	48.1173	-1.6778
+place	Reims	49.2583	4.0317
+place	Rouen	49.4431	1.0993
+place	Saint Sebastien	43.3111	-1.9860
+place	Saint-Malo	48.6493	-2.0257
+place	St Maur des Fosses	48.7989	2.4729
+place	Saint-Tropez	43.2708	6.6417
+place	Saverne	48.7497	7.3675
+place	Soyaux	45.6583	0.1923
+place	Toulouse	43.6045	1.4442
+place	Versailles	48.8049	2.1204
+place	Verrieres Le Buisson	48.7511	2.2925
+place	Vichy	46.4302	3.4029
+place	Villeneuve Les Avignon	43.9616	4.7981
+place	Volvic	45.7594	3.2680
+place	PLERIN	48.5314	-2.7666
+place	Bagnols-Sur-Ceze	44.1593	4.6172
+place	Aix-Les-Bains	45.6889	5.9156
+place	Corbeil-Essonnes	48.6131	2.4832
+place	Villeneuve-Les-Avignon	43.9616	4.7981
+place	Hauts de France	50.6292	3.0573
+place	Lagny-sur-Marne	48.8765	2.7074
+place	St-Saure-des-Fosses	48.7989	2.4729
+place	Orleans	47.9029	1.9092
+place	Cournon-d'Auvergne	45.7439	3.1965
+place	Sagamihara	35.5533	139.3544
+place	Hery-sur-Alby	45.8125	6.0167
+place	Riom	45.8942	3.1128
+
+place	Vienna	48.2082	16.3738
+place	Lower Austria	48.2000	15.6500
+place	Styria	47.0167	15.4167
+
+country	czech republic	49.8175	15.4730
+country	czechia	49.8175	15.4730
+place	Olomouc	49.5956	17.2518
+place	Liberec	50.767	15.058
+place	Plzeň	49.7475	13.3773
+
+country	germany	51.0834196	10.4234469
+place	Baden-Wurttemberg	48.6616	9.3501
+place	Baden-Württemberg	48.6616033	9.3501346
+place	Baden-Wuerttemberg	48.6616033	9.3501346
+place	Thuringia	50.9698	11.0215
+place	Berlin	52.52	13.405
+place	Brandenburg	52.3843683	13.0587501
+place	Cologne	50.9412	6.9583
+place	Düsseldorf	51.225	6.7742
+place	Frankfurt	50.1109	8.6821
+place	Germany	51.1657	10.4515
+place	Hanover	52.3759	9.7320
+place	Jena	50.9270	11.5898
+place	Kiel	54.3213	10.1344
+place	Muenster	51.9607	7.6261
+place	Stuttgart	48.7758	9.1829
+place	Chemnitz	50.8278	12.9214
+place	Southern Germany	48.1351	11.5820
+place	Northrhine-Westphalia	51.4332	7.6616
+place	Lower Saxony	52.0070	9.8490
+place	Mecklenburg Western	53.6333	13.8000
+place	Rhineland Palatinate	49.7468	7.1620
+place	Ulm	48.4011	9.9876
