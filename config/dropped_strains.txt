@@ -22,6 +22,8 @@ MF578379
 
 # lab host: suckling mouse
 AB090799
+AB090800
+AB090801
 AB090802
 
 #vaccines
@@ -36,3 +38,7 @@ HQ844644
 
 # high diversity, sewage
 PQ889342
+
+
+# mouse, clone
+PP526685

@@ -313,8 +313,10 @@ country	tanzania	-6.0	35.0
 place	Zanzibar	-6.1659	39.2026
 
 country	madagascar	-20.0	47.0
-place	Mahatalaky	-25.5154	45.2061
-place	Tsaratanana	-16.8	47.633333
+place	Mahatalaky	-24.783333	47.083333
+place	Scama	-12.46667	49.03333
+place	Tsaratanana	-16.797222	47.652778
+place	Tsimenatse	-23.35864	43.67434
 
 country	ghana	8.0300284	-1.080027
 place	Accra	5.6037	-0.187
@@ -433,6 +435,7 @@ place	Xianghe	39.7642	117.0056
 place	Yancheng	33.3851	120.1492
 place	Yantai	37.4638	121.4479
 place	Yunnan	24.3570	102.7090
+place	Yuyao	30.0491	121.1546
 place	Yn	24.3570	102.7090
 place	Yunnan Province	24.3570	102.7090
 place	Zhaotong Prefecture	27.3105	106.9225
@@ -441,6 +444,7 @@ place	Zhejiang	29.1832	120.0934
 place	Zhuhai	22.2760	113.5678
 
 country	india	22.3511148	78.6677428
+place	Andaman Islands	11.7401	92.6586
 place	Chennai	13.0827	80.2707
 place	Kolkata	22.5726	88.3639
 place	Maharashtra State	19.7515	75.7139
@@ -503,6 +507,13 @@ place	Yangon	16.8409	96.1735
 
 country	south korea	37.0	127.5
 country	korea	37.0	127.5
+place	Cheju	33.4996	126.5312
+place	Gwangju	35.1595	126.8526
+place	Incheon	37.4563	126.7052
+place	Jeju	33.4996	126.5312
+place	Jeju City	33.4996	126.5312
+place	Kyunggi	37.4138	127.5183
+place	Pusan	35.1796	129.0756
 place	Seoul	37.5665	126.9780
 place	Wonju	37.3422	127.9202
 place	Gwangju	35.1595	126.8526
@@ -684,6 +695,7 @@ place	Birobidzhan	48.7804	132.9116
 place	Ekaterinburg	56.8389	60.6057
 place	Irkutsk Region	52.047	103.497
 place	Kataysk	56.2900	62.5830
+place	Moscow	55.7558	37.6173
 place	Rostov-Na-Donu	47.2357137	39.701505
 place	Saint-Petersburg	59.9342802	30.3350986
 place	St. Petersburg	59.9342802	30.3350986
@@ -742,6 +754,7 @@ place	Annecy	45.8992	6.1294
 place	Annonay	45.2415	4.6706
 place	Aubagne	43.2924	5.5703
 place	Auvergne-Rhone-Alpes	45.7640	4.8357
+place	Auvergne and Rhone-Alpes	45.7640	4.8357
 place	Bagnols-sur-Ceze	44.1593	4.6172
 place	Bagnolet	48.8667	2.4167
 place	Bayonne	43.4929	-1.4748
@@ -779,6 +792,7 @@ place	Hauts de France	50.6292	3.0573
 place	Hery-sur-Alby	45.8125	6.0167
 place	Ile de France	48.8499	2.6370
 place	La-Garenne-Colombes	48.9089	2.2428
+place	La Gareene Colombes	48.9089	2.2428
 place	Lagny-Sur-Marne	48.8765	2.7074
 place	Lagny-sur-Marne	48.8765	2.7074
 place	Le Mans	48.0061	0.1996
@@ -790,6 +804,7 @@ place	Maubeuge	50.2849	3.9737
 place	Meylan	45.2096	5.7755
 place	Metz	49.1193	6.1757
 place	Mirecourt	48.3000	6.1333
+place	Monastir	35.7770	10.8262
 place	Montardon	43.3511	-0.3706
 place	Montesson	48.9417	2.1416
 place	Montpellier	43.6108	3.8767
