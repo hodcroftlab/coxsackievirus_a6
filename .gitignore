@@ -1,3 +1,4 @@
+
 .snakemake
 
 upload_nextstrain
@@ -25,3 +26,5 @@ scripts/__pycache__
 Simplot
 
 .env
+
+ compare-alignments/
