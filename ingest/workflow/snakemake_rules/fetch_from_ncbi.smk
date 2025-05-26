@@ -43,14 +43,17 @@ rule fetch_ncbi_dataset_package:
         dataset_package=temp("data/ncbi_dataset.zip"),
     # Allow retries in case of network errors
     retries: 5
+    # localrule: True
     benchmark:
         "benchmarks/fetch_ncbi_dataset_package.txt"
     shell:
         """
-        datasets download virus genome taxon {params.ncbi_taxon_id:q} \
-            --no-progressbar \
-            --filename {output.dataset_package} || \
-            curl https://hel1.your-objectstorage.com/loculus-public/mirror/{params.ncbi_taxon_id:q}.zip -o {output.dataset_package}
+        (echo "Trying NCBI datasets download..." && \
+        datasets download virus genome taxon "{params.ncbi_taxon_id:q}" \
+        --no-progressbar \
+        --filename {output.dataset_package}) || \
+        (echo "NCBI download failed, using fallback with curl..." && \
+        curl https://hel1.your-objectstorage.com/loculus-public/mirror/{params.ncbi_taxon_id:q}.zip -o {output.dataset_package})
         """
 
 # Note: This rule is not part of the default workflow!
