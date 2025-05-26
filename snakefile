@@ -306,15 +306,16 @@ rule filter:
             --metadata {input.metadata} \
             --metadata-id-columns {params.strain_id_field} \
             --exclude {input.exclude} \
+            --exclude-where doi="Private data: J-L Bailly"\
             --include {input.include} \
             --group-by {params.group_by} \
             --sequences-per-group {params.sequences_per_group} \
             --min-date {params.min_date} \
-            --output {output.sequences}\
+            --output-sequences {output.sequences}\
             --output-log {output.reason}
         """
 
-        # 	    --exclude-where doi="Private data: J-L Bailly"\
+        
 
 
 rule reference_gb_to_fasta:
@@ -482,6 +483,7 @@ rule refine:
             --output-tree {output.tree} \
             --output-node-data {output.node_data} \
             --timetree \
+            --stochastic-resolve \
             --coalescent {params.coalescent} \
             --date-confidence \
             --clock-rate {params.clock_rate}\

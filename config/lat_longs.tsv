@@ -401,6 +401,7 @@ place	Jiangyin	31.9100	120.2630
 place	kunming	25.0389	102.7183
 place	Lanzhou	36.0611	103.8343
 place	Liaoning	41.8354	123.4376
+place	LianYunGang	34.6	119.1667
 place	Nanchang	28.6829	115.8582
 place	Nanjing	32.0603	118.7969
 place	Nantong	32.0660	120.8740
@@ -419,15 +420,21 @@ place	Shannxi	37.8699	113.3466
 place	Shan’xi	35.0992	110.0400
 place	Shenyang	41.8057	123.4315
 place	Shenzhen	22.5431	114.0579
-place	Sichuan	30.6532	104.0665
+place	Sichuan	30.6667	102.5
+place	Sichuan Province	30.6667	102.5
+place	SuQian	33.96323	118.2752
+place	SuZhou	31.3	120.6
 place	Taixing	32.1687	120.0142
 place	Taizhou	32.4933	119.9017
 place	Tianjin	39.3434	117.3616
+place	TianJing	39.14222	117.17667
 place	Tongxiang	30.6302	120.5651
 place	Wenzhou	27.9949	120.6990
 place	Wuhan	30.5928	114.3055
+place	WuXi	31.5667	120.2833
 place	Xiamen	24.4798	118.0894
-place	Xi’an	34.3416	108.9398
+place	Xi’an	34.25833	108.92861
+place	Xi'An	34.25833	108.92861
 place	Xinhui	22.4560	113.0482
 place	Xinjiang	42.5246	84.2484
 place	Xiangyang	32.0090	112.1224
@@ -461,10 +468,13 @@ place	Pune	18.5204	73.8567
 country	japan	35.68536	139.75309
 place	Aichi	35.1802	136.9066
 place	Aichi Prefecture	35.1802	136.9066
+place	Fukuoka	33.5833	130.4
 place	Hiroshima	34.3852	132.4553
+place	Hyogo	35.0	134.9167
 place	Hokkaido	43.2203	142.8635
 place	Isehara	35.3936	139.3149
 place	Kobe	34.6937	135.5023
+place	Kanagawa	35.4667	139.6333
 place	Kyoto	35.0116	135.7681
 place	Miyagi	38.2682	140.8694
 place	Nagoya	35.1815	136.9066
@@ -474,6 +484,7 @@ place	Osaka City	34.6937	135.5023
 place	Osaka Prefecture	34.6937	135.5023
 place	Sagamihara	35.5533	139.3544
 place	Sapporo	43.0618	141.3545
+place	Shiga	35.033	135.85
 place	Shizuoka	34.9756	138.3828
 place	Tokyo	35.6828	139.7595
 place	Toyama	36.6953	137.213
@@ -524,6 +535,7 @@ place	Chiang Mai	18.7883	98.9858
 place	Chiang Rai	19.9086	99.8330
 place	Hat Yai	7.0084	100.4767
 place	Kanchanaburi	14.0228	99.5328
+place	Khon kaen	16.4467	102.833
 place	Lampang	18.2888	99.4931
 place	Mukdahan	16.5453	104.7237
 place	Nakhon Pathom	13.8196	100.0630
@@ -674,6 +686,7 @@ place	Riga	56.9460	24.1059
 place	Oslo	59.9139	10.7522
 
 place	Sweden	60.1282	18.6435
+place	Stockholm	59.33258	18.0649
 
 place	Belgrade	44.8176	20.4633
 
@@ -690,18 +703,27 @@ place	Poland	51.9194	19.1451
 place	Bialystok	53.1325	23.1686
 
 country	russia	55.751244	37.618423
+place	Arhangelsk	64.5401	40.5433
 place	Bashkortostan	54.7131	55.9380
 place	Birobidzhan	48.7804	132.9116
 place	Ekaterinburg	56.8389	60.6057
+place	Hmao	61.0	69.0
 place	Irkutsk Region	52.047	103.497
 place	Kataysk	56.2900	62.5830
+place	Kazan	55.78874	49.12214
+place	Kirov Oblast	58.767	49.833
+place	Kurgan	55.45	65.35
 place	Moscow	55.7558	37.6173
 place	Rostov-Na-Donu	47.2357137	39.701505
+place	Rostov On Don	47.2314	39.7233
 place	Saint-Petersburg	59.9342802	30.3350986
+place	Smolensk Region	54.7833	32.05
 place	St. Petersburg	59.9342802	30.3350986
 place	Surgut	61.2530	73.3960
 place	Pskov	57.8194	28.3318
 place	Pscov	57.8194	28.3318
+place	Voronezh	51.6667	39.2
+place	Volgograd Region	49.5	44.5
 
 country	bulgaria	42.6073975	25.4856617
 place	Sofia	42.6977	23.3219
@@ -714,10 +736,14 @@ place	Andorra	42.5078	1.5211
 country	spain	40.0	-4.0
 place	Barcelona	41.3829	2.1774
 place	Barcelona (Cochin)	48.8315	2.3328
+place	Catalunya	41.5912	1.5209
+place	Madrid	40.4168	-3.7038
+place	Mallorca	39.710358	2.995148
+place	Teruel	40.3456	-1.1065
+place	San Sebastian	43.318334	-1.9812313
+place	Salamanca	40.9616	-5.6676
 place	Valencia	39.46975	-0.37739
 place	Vigo	42.2406	-8.7207
-place	Madrid	40.4168	-3.7038
-place	Catalunya	41.5912	1.5209
 
 place	Italy	41.8719	12.5674
 place	Rome	41.9028	12.4964

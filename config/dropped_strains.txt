@@ -42,3 +42,13 @@ PQ889342
 
 # mouse, clone
 PP526685
+
+# root in 1920
+LC013464
+
+# root in 1970
+JQ364886
+
+#outlier - influences root
+KC879540
+JN203517
