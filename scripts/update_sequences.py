@@ -60,7 +60,8 @@ def internal_accession(local_df, must_have_local, current_date):
             print(f"Created new internal accession: {new_internal_accession} for {accession}")
 
     # Replace all invalid accessions in gb_accession column to NA
-    local_df["gb_accession"] = local_df["gb_accession"].apply(lambda x: 'NA' if not re.match(r'^[A-Z]{1,2}\d{5,6}$', x) else x)
+    local_df["gb_accession"] = local_df["gb_accession"].apply(
+        lambda x: 'NA' if not re.match(r'^[A-Z]{1,2}\d{5,6}$', str(x)) else x)
     
     # Check if any of the samples with internal accessions now have a GenBank accession
     for index, row in local_df.iterrows():
