@@ -1,0 +1,32 @@
+# Handle line endings (normalize to LF in repo, convert to CRLF on Windows if configured)
+* text=auto
+
+# Treat shell and script files as text
+*.sh text eol=lf
+*.py text eol=lf
+*.R text eol=lf
+*.pl text eol=lf
+
+# Force Jupyter notebooks to be treated as binary (GitHub shows diffs, but avoids merge conflicts)
+*.ipynb binary
+
+# Handle images and binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.pdf binary
+*.zip binary
+*.gz binary
+*.tar binary
+
+# Language overrides for GitHub linguist
+*.ipynb linguist-language=Jupyter Notebook
+*.csv linguist-detectable=true
+
+# Optional: Custom diff settings (example for Markdown and LaTeX)
+*.md diff=markdown
+*.tex diff=tex
+
+# Ignore diff for certain files if desired
+# *.lock -diff

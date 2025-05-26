@@ -27,4 +27,6 @@ Simplot
 
 .env
 
- compare-alignments/
+compare-alignments
+ingest/vendored
+temp/
