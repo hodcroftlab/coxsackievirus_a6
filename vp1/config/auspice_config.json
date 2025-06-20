@@ -19,7 +19,7 @@
     },
     {
       "key": "clade_assignment",
-      "title": "VP1 Clades",
+      "title": "Subclade Annotation (VP1-based)",
       "type": "categorical"
     },
     {
@@ -88,8 +88,8 @@
       "type": "ordinal"
     },
     {
-      "key": "length",
-      "title": "Total Length",
+      "key": "NCBI_length_genome",
+      "title": "NCBI-reported Length",
       "type": "continuous"
     },
     {
@@ -122,7 +122,7 @@
     "region",
     "author",
     "subgenogroup", 
-    "length",
+    "length_VP1",
     "med_diagnosis_major",
     "has_age",
     "date_added",

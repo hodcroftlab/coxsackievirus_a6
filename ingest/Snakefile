@@ -38,7 +38,12 @@ def _get_all_targets(wildcards):
 
 rule all:
     input: _get_all_targets
-
+    output: "../data/sequences.fasta", "../data/metadata.tsv"
+    shell:
+        """
+        cp data/sequences.fasta ../data
+        cp data/metadata.tsv ../data
+        """
 
 
 include: "workflow/snakemake_rules/fetch_from_ncbi.smk"

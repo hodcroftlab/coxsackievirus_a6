@@ -286,8 +286,8 @@ if __name__ == '__main__':
     new_meta2= new_meta.loc[:,['accession', 'accession_version', 'strain', 'date', 'region', 'place',
         'country', 'host', 'gender', 'age_yrs','age_range',"has_age", 'has_diagnosis','med_diagnosis_all','med_diagnosis_major',
         'isolation_source', 'NCBI_length_genome',
-        'subgenogroup','date_released',
-         'abbr_authors', 'authors', 'institution','ENPEN','doi',
+        'subgenogroup','lineage','date_released',
+        'abbr_authors', 'authors', 'institution','ENPEN','doi',
         'qc.overallScore', 'qc.overallStatus',
         'alignmentScore', 'alignmentStart', 'alignmentEnd', 'genome_coverage','date_added']]
 

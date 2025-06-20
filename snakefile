@@ -7,8 +7,17 @@
 # To run a default whole genome run ( <6400bp):
 # snakemake auspice/coxsackievirus_A6_whole-genome.json --cores 9
 
+from dotenv import load_dotenv
+import os
+from datetime import date
+import glob
+
 if not config:
     configfile: "config/config.yaml"
+
+load_dotenv(".env")
+REMOTE_GROUP = os.getenv("REMOTE_GROUP")
+UPLOAD_DATE = os.getenv("UPLOAD_DATE") or date.today().isoformat()
 
 ###############
 wildcard_constraints:
@@ -20,19 +29,6 @@ wildcard_constraints:
 segments = ['vp1', 'whole-genome']
 GENES = ["-5utr","-vp4", "-vp2", "-vp3", "-vp1", "-2A", "-2B", "-2C", "-3A", "-3B", "-3C", "-3D","-3utr"]
 QUARTS = ["-1Q", "-2Q", "-3Q", "-4Q"]
-
-# Expand augur JSON paths
-rule all:
-    input:
-        augur_jsons = expand("auspice/coxsackievirus_A6_{segs}.json", segs=segments)
-
-rule all_genes:
-    input:
-        augur_jsons = expand("auspice/coxsackievirus_A6_gene_{genes}.json", genes=GENES)
-
-rule all_quarts:
-    input:
-        augur_jsons = expand("auspice/coxsackievirus_A6_whole_genome{quarts}.json", quarts=QUARTS)
 
 # Rule to handle configuration files
 rule files:
@@ -47,13 +43,31 @@ rule files:
         colors =            "config/colors.tsv",
         clades =            "{seg}/config/clades_genome.tsv",
         regions=            "config/geo_regions.tsv",
-        meta=               "data/metadata.tsv",
-        extended_metafile=  "data/meta_public.tsv",
+        meta_public=        "data/meta_public.tsv",
         meta_collab =       "data/meta_collab.tsv",
         last_updated_file = "data/date_last_updated.txt",
-        local_accn_file =   "data/local_accn.txt"
-
+        local_accn_file =   "data/local_accn.txt",
+        SEQUENCES =         "data/sequences.fasta",
+        METADATA =          "data/metadata.tsv"
 files = rules.files.input
+
+# Expand augur JSON paths
+rule all:
+    input:
+        augur_jsons = expand("auspice/coxsackievirus_A6_{segs}.json", segs=segments),        
+        meta = files.METADATA,
+        seq = files.SEQUENCES
+
+rule all_genes:
+    input:
+        augur_jsons = expand("auspice/coxsackievirus_A6_gene_{genes}.json", genes=GENES),
+        meta = files.METADATA,
+        seq = files.SEQUENCES
+
+
+rule all_quarts:
+    input:
+        augur_jsons = expand("auspice/coxsackievirus_A6_whole_genome{quarts}.json", quarts=QUARTS)
 
 ##############################
 # Download from NBCI Virus with ingest snakefile
@@ -63,18 +77,13 @@ rule fetch:
     input:
         dir = "ingest"
     output:
-        sequences="data/sequences.fasta",
-        metadata=files.meta
-    params:
-        seq="ingest/data/sequences.fasta",
-        meta="ingest/data/metadata.tsv"
+        sequences=files.SEQUENCES,
+        metadata=files.METADATA
     shell:
         """
         cd {input.dir} 
         snakemake --cores 9 all
         cd ../
-        cp -u {params.seq} {output.sequences}
-        cp -u {params.meta} {output.metadata}
         """
 
 ##############################
@@ -87,7 +96,7 @@ rule update_strain_names:
         Updating strain name in metadata.
         """
     input:
-        file_in =  files.meta
+        file_in =  files.METADATA
     params:
         backup = "data/strain_names_previous_run.tsv"
     output:
@@ -95,12 +104,12 @@ rule update_strain_names:
     shell:
         """
         time bash scripts/update_strain.sh {input.file_in} {params.backup} {output.file_out}
-        cp -i {output.file_out} {params.backup}
+        cp {output.file_out} {params.backup}
         """
 
 ##############################
 # Change the format of the dates in the metadata
-# Attention: ```augur curate``` only accepts iso 8 formats; please make sure that you save e.g. Excel files in the correct format
+# Attention: `augur curate` only accepts iso 8 formats; please make sure that you save e.g. Excel files in the correct format
 ###############################
 
 rule curate:
@@ -109,7 +118,7 @@ rule curate:
         Cleaning up metadata with augur curate
         """
     input:
-        metadata=files.extended_metafile,  # Path to input metadata file
+        metadata=files.meta_public,  # Path to input metadata file
         meta_collab = files.meta_collab  # Data shared with us by collaborators
     params:
         strain_id_field=config["id_field"],
@@ -121,6 +130,7 @@ rule curate:
         meta="data/curated/all_meta.tsv"  # Final merged output file
     shell:
         """
+        # Normalize strings for publication metadata
         augur curate normalize-strings \
             --id-column {params.strain_id_field} \
             --metadata {input.metadata} \
@@ -131,6 +141,7 @@ rule curate:
             --id-column {params.strain_id_field} \
             --output-metadata {output.metadata}
         
+        # Normalize strings and format dates for collab metadata
         augur curate normalize-strings \
             --id-column {params.strain_id_field} \
             --metadata {input.meta_collab} \
@@ -141,20 +152,20 @@ rule curate:
             --id-column {params.strain_id_field} \
             --output-metadata {output.meta_collab}
         
+        # Merge curated metadata
         augur merge --metadata metadata={output.metadata} meta_collab={output.meta_collab}\
             --metadata-id-columns {params.strain_id_field} \
             --output-metadata {output.meta}
         """
-
-##############################
+# ##############################
 # Add additional sequences
 # if you have sequences that are not on NCBI Virus
 ###############################
 
 rule update_sequences:
     input:
-        sequences = "data/sequences.fasta",
-        metadata=files.meta,
+        sequences = files.SEQUENCES,
+        metadata=files.METADATA,
         extra_metadata = rules.curate.output.meta
     output:
         sequences = "data/all_sequences.fasta"
@@ -227,7 +238,7 @@ rule add_metadata:
         Cleaning data in metadata
         """
     input:
-        metadata=files.meta,
+        metadata=files.METADATA,
         new_data=rules.curate.output.meta,
         regions=ancient(files.regions),
         renamed_strains=rules.update_strain_names.output.file_out
@@ -248,10 +259,6 @@ rule add_metadata:
             --regions {input.regions} \
             --id {params.strain_id_field} \
             --output {output.metadata}
-        
-        if [ -d "./temp/" ]; then
-        rm -r ./temp/
-        fi
         """
 
 ##############################
@@ -293,8 +300,8 @@ rule filter:
         reason ="{seg}/results/reasons.tsv"
 
     params:
-        group_by = "country",
-        sequences_per_group = 15000, # set lower if you want to have a max sequences per group
+        group_by = "country year",
+        sequences_per_group = 2000, # set lower if you want to have a max sequences per group
         strain_id_field= config["id_field"],
         min_date = 1950  # Gdula was collected in 1949
         ##TODO: add length filter
@@ -335,7 +342,7 @@ rule reference_gb_to_fasta:
 rule align: 
     message:
         """
-        Aligning sequences to {input.reference} using Nextalign
+        Aligning sequences to {input.reference} using Nextalign.
         """
     input:
         gff_reference = files.gff_reference,
@@ -465,14 +472,20 @@ rule refine:
         tree = "{seg}/results/tree{gene}{quart}.nwk",
         # node_data = "{seg}/results/branch_lengths.json"
         node_data = "{seg}/results/branch_lengths{gene}{quart}.json"
+    log:
+        reasons_refine = "logs/refine.{seg}{gene}{quart}.log" # number of dropped sequences
     params:
         coalescent = "opt",
         date_inference = "marginal",
-        clock_filter_iqd = 3, # was 3
+        clock_filter_iqd = 6, # was 3
         strain_id_field = config["id_field"],
         clock_rate = 0.004, # remove for estimation
-        clock_std_dev = 0.0015
-        # clock_rate_string = lambda wildcards: f"--clock-rate 0.004 --clock-std-dev 0.0015" if wildcards.gene or wildcards.quart else ""
+        clock_std_dev = 0.0015,
+        rooting = lambda wildcards: (
+            "" if (wildcards.seg == "whole_genome" and not wildcards.gene)
+            else "--root AB114107 LT719048" if wildcards.seg == "vp1"
+            else ""
+        )
     shell:
         """
         augur refine \
@@ -489,7 +502,8 @@ rule refine:
             --clock-rate {params.clock_rate}\
             --clock-std-dev {params.clock_std_dev} \
             --date-inference {params.date_inference} \
-            --clock-filter-iqd {params.clock_filter_iqd}
+            --clock-filter-iqd {params.clock_filter_iqd}\
+                >> {log.reasons_refine} 2>&1
         """
         
 
@@ -538,7 +552,7 @@ rule clades:
         tree=rules.refine.output.tree,
         aa_muts = rules.translate.output.node_data,
         nuc_muts = rules.ancestral.output.node_data,
-        clades = files.clades
+        clades = files.clades # "vp1/config/vp1_clades.tsv"
     output:
         # clade_data = "{seg}/results/clades.json"
         clade_data = "{seg}/results/clades{gene}{quart}.json"
@@ -617,6 +631,10 @@ rule clade_published:
         # Drop the original 'l_vp1' column
         merged_df = merged_df.drop(columns=["l_vp1"])
 
+        # add url with genbank accession
+        merged_df['url'] = "https://www.ncbi.nlm.nih.gov/nuccore/" + merged_df['accession']
+
+
         # Save the merged dataframe to the output file
         merged_df.to_csv(output.final_metadata, sep="\t", index=False)
 
@@ -654,17 +672,6 @@ rule export:
 
 
 ##############################
-rule clean:
-    message: "Removing directories: {params}"
-    params:
-        "results ",
-        # "auspice"
-    shell:
-        """
-        rm -rfv {params}
-        rm ingest/data/*
-        """
-
 
 rule rename_whole_genome:
     message: 
@@ -688,4 +695,41 @@ rule rename_genes:
     shell:
         """
         mv {input.json} {output.json}
+        """
+
+rule clean:
+    message: "Removing directories: {params}"
+    params:
+        "*/results/*",
+        "auspice/*",
+        "ingest/data/*",
+        "temp/*",
+        files.METADATA,
+        files.SEQUENCES,
+        "data/updated_strain_names.tsv",
+        "data/curated/*",
+        "data/all_sequences.fasta",
+        "data/all_metadata.tsv",
+        "data/final_metadata.tsv"
+
+    shell:
+        "rm {params}"
+
+rule upload: ## make sure you're logged in to Nextstrain
+    message: "Uploading auspice JSONs to Nextstrain"
+    input:
+        # jsons = glob.glob("auspice/*.json"),
+        jsons = ["auspice/coxsackievirus_A6_vp1.json", "auspice/coxsackievirus_A6_whole-genome.json",
+        "auspice/coxsackievirus_A6_gene_-vp1.json", "auspice/coxsackievirus_A6_gene_-3D.json"]
+    params:
+        remote_group=REMOTE_GROUP,
+        date=UPLOAD_DATE,
+    shell:
+        """
+        nextstrain remote upload \
+            nextstrain.org/groups/{params.remote_group}/ \
+            {input.jsons}
+
+        mkdir -p auspice/{params.date}
+        cp {input.jsons} auspice/{params.date}/
         """

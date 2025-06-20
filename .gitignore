@@ -30,3 +30,6 @@ Simplot
 compare-alignments
 ingest/vendored
 temp/
+
+logs
+backup

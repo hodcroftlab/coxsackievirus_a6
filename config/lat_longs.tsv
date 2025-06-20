@@ -358,33 +358,41 @@ place	Savannakhet	16.5501	104.7500
 country	china	35.000074	104.999927
 place	Anhnui	31.8612	117.2830
 place	Anhui	31.8612	117.2830
+place	Baise	23.9000	106.6167
 place	Bei Jing	39.9042	116.4074
+place	Beihai	21.4833	109.1167
 place	Beijing	39.9042	116.4074
 place	Beijng	39.9042	116.4074
 place	Changchun	43.8799	125.3245
 place	Changsha	28.2282	112.9388
 place	Chengdu	30.5728	104.0668
 place	Chongqing	29.5630	106.5516
+place	Chongzuo	22.3833	107.3650
+place	Dalian	38.9140	121.6147
 place	Dong Nai	10.9725	106.9487
 place	DongNai	10.9400	106.8100
-place	Dalian	38.9140	121.6147
 place	Enshi	30.2722	109.4703
+place	Fangchenggang	21.6333	108.3500
 place	Fujian	26.2324	117.6331
 place	Fujian Province	26.1000	119.3000
 place	Fuyang	32.8901	115.8142
 place	Gaogang	32.0413	119.5227
 place	Gansu	36.0611	103.8343
-place	Guangzhou	23.1291	113.2644
 place	Guangdong	23.3790	113.7633
 place	Guangxi	23.8337	108.7881
+place	Guangzhou	23.1291	113.2644
+place	Guigang	23.0964	109.6092
+place	Guilin	25.2819	110.2864
 place	Guizhou	26.6000	106.7000
-place	Haikou	20.0440	110.1999
 place	Hainan	19.5664	109.9497
+place	Haikou	20.0440	110.1999
 place	Hangzhou	30.2741	120.1551
 place	Harbin	45.8038	126.5355
 place	Hebei	37.8957	114.9042
+place	Hechi	24.6929	108.0853
 place	Heilongjiang	47.8620	127.7615
 place	Henan	34.2904	113.3824
+place	Hezhou	24.4036	111.5667
 place	Hubei	30.9756	112.2707
 place	Huizhou	23.0974	114.4064
 place	Hunan	27.6102	111.7084
@@ -392,63 +400,69 @@ place	Inner Mongolia	40.8211	111.7656
 place	Jiangjin	29.4200	106.9075
 place	Jiangsu	32.0617	118.7632
 place	Jiangxi	27.6092	115.7221
+place	Jiangyin	31.9100	120.2630
 place	Jidezheng	24.2933	109.4172
 place	Jilin	43.8379	126.5496
 place	Jilin Province	43.6667	126.2000
 place	Jinan	36.6512	118.1815
 place	Jiujiang	29.7048	116.0028
-place	Jiangyin	31.9100	120.2630
-place	kunming	25.0389	102.7183
+place	Kunming	25.0389	102.7183
+place	Laibin	23.7000	109.2667
 place	Lanzhou	36.0611	103.8343
 place	Liaoning	41.8354	123.4376
-place	LianYunGang	34.6	119.1667
+place	LianYunGang	34.6000	119.1667
+place	Liuzhou	24.3125	109.3886
 place	Nanchang	28.6829	115.8582
 place	Nanjing	32.0603	118.7969
+place	Nanning	22.8167	108.3167
 place	Nantong	32.0660	120.8740
 place	Nanyang	32.9908	112.5283
 place	Ningbo	29.8696	121.5443
 place	Ningxia	38.4710	106.2740
+place	Qinghai	35.4998	96.2025
 place	Qingdao	36.0683	120.3826
 place	Qinhai	35.4998	96.2025
-place	Qinghai	35.4998	96.2025
+place	Qinzhou	21.9667	108.6167
 place	Shaanxi	34.2646	108.9462
 place	Shandong	36.3416	118.1498
 place	Shanghai	31.2304	121.4737
 place	Shanhai	31.2304	121.4737
 place	Shanxi	37.8699	113.3466
-place	Shannxi	37.8699	113.3466
 place	Shan’xi	35.0992	110.0400
+place	Shannxi	37.8699	113.3466
 place	Shenyang	41.8057	123.4315
 place	Shenzhen	22.5431	114.0579
-place	Sichuan	30.6667	102.5
-place	Sichuan Province	30.6667	102.5
-place	SuQian	33.96323	118.2752
-place	SuZhou	31.3	120.6
+place	Sichuan	30.6667	102.5000
+place	Sichuan Province	30.6667	102.5000
+place	SuQian	33.9632	118.2752
+place	SuZhou	31.3000	120.6000
 place	Taixing	32.1687	120.0142
 place	Taizhou	32.4933	119.9017
+place	TianJing	39.1422	117.1767
 place	Tianjin	39.3434	117.3616
-place	TianJing	39.14222	117.17667
 place	Tongxiang	30.6302	120.5651
 place	Wenzhou	27.9949	120.6990
 place	Wuhan	30.5928	114.3055
 place	WuXi	31.5667	120.2833
+place	Wuzhou	23.4805	111.2885
 place	Xiamen	24.4798	118.0894
-place	Xi’an	34.25833	108.92861
-place	Xi'An	34.25833	108.92861
+place	Xianghe	39.7642	117.0056
+place	Xiangyang	32.0090	112.1224
+place	Xi'An	34.2583	108.9286
+place	Xi’an	34.2583	108.9286
 place	Xinhui	22.4560	113.0482
 place	Xinjiang	42.5246	84.2484
-place	Xiangyang	32.0090	112.1224
-place	Xianghe	39.7642	117.0056
 place	Yancheng	33.3851	120.1492
 place	Yantai	37.4638	121.4479
-place	Yunnan	24.3570	102.7090
-place	Yuyao	30.0491	121.1546
 place	Yn	24.3570	102.7090
+place	Yulin	22.6333	110.1500
+place	Yunnan	24.3570	102.7090
 place	Yunnan Province	24.3570	102.7090
+place	Yuyao	30.0491	121.1546
 place	Zhaotong Prefecture	27.3105	106.9225
-place	Zhoutong Prefecture	27.3105	106.9225
 place	Zhejiang	29.1832	120.0934
 place	Zhuhai	22.2760	113.5678
+place	Zhoutong Prefecture	27.3105	106.9225
 
 country	india	22.3511148	78.6677428
 place	Andaman Islands	11.7401	92.6586
