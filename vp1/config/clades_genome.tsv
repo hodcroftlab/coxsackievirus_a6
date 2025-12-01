@@ -23,16 +23,9 @@ D3a	nuc	261	A
 D3a	nuc	639	C
 D3a	nuc	786	A
 
-E	nuc	114	T
-E	nuc	247	T
-E	nuc	429	G
-E	VP1	23	I
-E	VP1	64	S
-E	VP1	83	S
-
-B	nuc	282	T
+B	nuc	207	T
 B	nuc	621	G
-B	VP1	178	M
+B	nuc	858	G
 
-C1	nuc	816	C
-C1	VP1	283	S
+C	nuc	816	C
+C	VP1	283	S
