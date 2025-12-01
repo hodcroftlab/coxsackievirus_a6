@@ -133,30 +133,82 @@ metadata:
         Vesicular Rash: other
 
     isolation_source:
+        # feces
         'stool': 'feces'
-        'Stool': 'feces'
-        'Faeces': 'feces'
-        'CSF': 'cerebrospinal fluid'
-        'Cerebrospinal Fluid': 'cerebrospinal fluid'
-        'Cerebrospinal Fluid ': 'cerebrospinal fluid'
-        'Throat Swab': 'oronasopharynx'
-        'Throat swab': 'oronasopharynx'
-        'Oral Swab': 'oronasopharynx'
-        'Mouth Swab': 'oronasopharynx'
-        'Nasopharyngeal Aspirate': 'oronasopharynx'
-        'Brain': 'brain'
-        'Cerebellum': 'brain'
-        'Left brain': 'brain'
-        'Brainstem': 'brain'
-        'Vesicle Swab': 'swab'
-        'Ulcer Swab': 'lesion'
-        'Rectal swab': 'swab'
-        'Rectal Swab': 'swab'
-        'Mouth': 'oronasopharynx'
-        'Throat': 'oronasopharynx'
-        'Tonsil': 'oronasopharynx'
-        'Vesicle': 'lesion'
-        'Spinal cord ': 'spinal cord'
+        'stools': 'feces'
+        'faeces': 'feces'
+        'fecal': 'feces'
+        'rectal swab': 'rectal'
+        'anal': 'rectal'
+        'anal swab': 'rectal'
+        'rectal': 'rectal'
+        'gastric lavage fluid': 'stomach'
+
+        # cerebrospinal fluid
+        'csf': 'cerebrospinal fluid'
+        'cerebrospinal fluid': 'cerebrospinal fluid'
+
+        # oronasopharynx
+        'throat swab': 'oronasopharynx'
+        'oral swab': 'oronasopharynx'
+        'mouth swab': 'oronasopharynx'
+        'mouth': 'oronasopharynx'
+        'throat': 'oronasopharynx'
+        'tonsil': 'oronasopharynx'
+        'tongue': 'oronasopharynx'
+        'saliva': 'oronasopharynx'
+        'nasopharyngeal aspirate': 'oronasopharynx'
+        'nasopharyngeal wash': 'oronasopharynx'
+        'nasopharyngeal': 'oronasopharynx'
+        'nasopharinge suction': 'oronasopharynx'
+        'nasal swab': 'oronasopharynx'
+        'nasal': 'oronasopharynx'
+        'oronasopharynx': 'oronasopharynx'
+        'throat/vesicle swab': 'oronasopharynx'
+
+        # lesion
+        'lesion': 'lesion'
+        'ulcer swab': 'lesion'
+        'vesicle': 'lesion'
+        'vesicle swab': 'lesion'
+        'blister fluid': 'lesion'
+        'blisters fluid': 'lesion'
+        'blister swab': 'lesion'
+        'vesicular fluid': 'lesion'
+        'vesicule swab': 'lesion'
+        'skin': 'lesion'
+        'skin swab': 'lesion'
+
+        # cns tissue
+        'brain': 'cns tissue'
+        'cerebellum': 'cns tissue'
+        'left brain': 'cns tissue'
+        'brainstem': 'cns tissue'
+        'spinal cord': 'cns tissue'
+
+        # blood / serum
+        'blood': 'serum'
+        'serum': 'serum'
+
+        # lung
+        'lung': 'lung'
+        'lung aspirate': 'lung'
+
+        # other
+        'biopsy': 'other'
+        'sample': 'other'
+        'clinical': 'other'
+        'hfmd': NaN
+        'second specimen': 'other'
+        'unknown': 'other'
+
+        # environment
+        'river water': 'water'
+        'sewage': 'water'
+
+        # cell culture
+        'cell culture isolate': 'cell culture'
+        'rhabdomyosarcoma cell': 'cell culture'
 
 
 # Config parameters related to the curate rule

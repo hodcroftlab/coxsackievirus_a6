@@ -82,6 +82,11 @@ if __name__ == '__main__':
     # add date_added column
     new_meta= pd.merge(new_meta,last_updated, on=id_field,how='left')
 
+    # create column date_added_num, which is the numeric version of date_added in the year format, round to 2 decimals
+    new_meta['date_added'] = pd.to_datetime(new_meta['date_added'])
+    new_meta['date_added_num'] = new_meta['date_added'].dt.year + (new_meta['date_added'].dt.month - 1) / 12 + (new_meta['date_added'].dt.day - 1) / 365.25
+    new_meta['date_added_num'] = new_meta['date_added_num'].round(2)
+
     # Creating the new strain column based on the conditions
     new_meta['strain'] = new_meta['strain_y'].mask(new_meta['strain_y'] == new_meta['accession'], new_meta['strain_x'])  # Take strain_x if strain_y == accession
     new_meta['strain'] = new_meta['strain'].mask(new_meta['strain_x'] == new_meta['accession'], new_meta['strain_y'])  # Take strain_y if strain_x == accession
@@ -107,18 +112,45 @@ if __name__ == '__main__':
     new_meta['subgenogroup'] = new_meta['subgenogroup'].mask(new_meta['subgenogroup'].isna(), new_meta['clade'])
 
     # Isolation source: standardize
-    # Function to map non-standard terms to standard terms
-    def standardize_isolation_source(value):
-        # Add mappings for non-standard terms to standard terms
-        mapping = config['metadata']['isolation_source']
-        
-        val=mapping.get(value, value)
-        if pd.isna(val):
-            return val
-        val=val.title()
+    # Define a mapping for full terms to their abbreviations and standardized names
+    isolation_version = config['metadata']['isolation_source']
+    isolation_forms = set(isolation_version.values())
 
-        # Return the mapped value if it exists, otherwise return the original value
-        return val
+    # Function to map non-standard terms to standard terms
+    def standardize_isolation_source(isolation, threshold=75):
+        if pd.isna(isolation):
+            return np.nan
+
+        # Normalize delimiters
+        clean_isolation = (isolation.replace(',', ';')
+                                    .replace(' or ', ';')
+                                    .replace('/', ';')
+                                    .replace('  ', ' ')
+                                    .strip('; '))
+
+        # Split on delimiters
+        isolations = [iso.strip() for iso in clean_isolation.split(';') if iso.strip()]
+
+        standardized_isolation = []
+        for iso in isolations:
+            iso_lower = iso.lower()
+
+            # Exact match first
+            if iso_lower in isolation_version:
+                standardized_isolation.append(isolation_version[iso_lower])
+            else:
+                # Fuzzy match
+                match = process.extractOne(iso_lower, isolation_version.keys(), score_cutoff=threshold)
+                if match:
+                    standardized_isolation.append(isolation_version[match[0]])
+                else:
+                    # Keep as title-case or classify as Other
+                    standardized_isolation.append(iso.lower())
+
+        # Deduplicate and sort
+        standardized_isolation = sorted(set(standardized_isolation))
+
+        return '; '.join([s.lower() for s in standardized_isolation])
     
     # Apply the standardization to both columns
     new_meta['sample_type'] = new_meta['sample_type'].apply(standardize_isolation_source)
@@ -289,7 +321,7 @@ if __name__ == '__main__':
         'subgenogroup','lineage','date_released',
         'abbr_authors', 'authors', 'institution','ENPEN','doi',
         'qc.overallScore', 'qc.overallStatus',
-        'alignmentScore', 'alignmentStart', 'alignmentEnd', 'genome_coverage','date_added']]
+        'alignmentScore', 'alignmentStart', 'alignmentEnd', 'genome_coverage','date_added','date_added_num']]
 
     new_meta2 = new_meta2.drop_duplicates(subset="accession",keep="first")
     new_meta2.to_csv(output_csv_meta, sep='\t', index=False)
