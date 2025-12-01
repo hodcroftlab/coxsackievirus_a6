@@ -1,8 +1,8 @@
 {
   "title": "Genomic epidemiology of Coxsackievirus A6 VP1",
   "maintainers": [
-    {"name": "Nadia Neuner-Jehle", "url": "https://www.swisstph.ch/en/staff/profile/people/nadia-neuner-jehle"},
-    {"name": "Emma Hodcroft", "url": "http://emmahodcroft.com/"}
+    {"name": "Nadia Neuner-Jehle", "url": "https://eve-lab.org/people/nadia-neuner-jehle/"},
+    {"name": "Emma Hodcroft", "url": "https://eve-lab.org/people/emma-hodcroft/"}
   ],
   "data_provenance": [
     {
@@ -78,11 +78,6 @@
       "key": "gender"
     },
     {
-      "title": "Date when added",
-      "type": "categorical",
-      "key": "date_added"
-    },
-    {
       "key": "length_VP1",
       "title": "Length of VP1",
       "type": "ordinal"
@@ -95,6 +90,20 @@
     {
       "key": "author",
       "title": "Authors"
+    },
+    {
+      "key": "date_added_num",
+      "title": "Date when added to build",
+      "type": "continuous",
+      "legend": [
+        {"value": 2024.62, "display": "2024-08-15", "bounds": [2024.61, 2024.63]},
+        {"value": 2025.06, "display": "2025-01-24", "bounds": [2025.05, 2025.07]},
+        {"value": 2025.13, "display": "2025-02-19", "bounds": [2025.12, 2025.14]},
+        {"value": 2025.39, "display": "2025-05-22", "bounds": [2025.38, 2025.40]},
+        {"value": 2025.46, "display": "2025-06-16", "bounds": [2025.45, 2025.47]},
+        {"value": 2025.69, "display": "2025-09-11", "bounds": [2025.68, 2025.70]},
+        {"value": 2025.77, "display": "2025-10-06", "bounds": [2025.76, 2025.78]}
+      ]
     }
   ],
   "geo_resolutions": [
@@ -124,8 +133,9 @@
     "subgenogroup", 
     "length_VP1",
     "med_diagnosis_major",
+    "isolation_source",
     "has_age",
-    "date_added",
+    "date_added_num",
     "doi"
   ]
   }
