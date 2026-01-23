@@ -1,11 +1,21 @@
 # ID for analyses: accession or strain
 id_field: "accession"
 
+# Config parameters related to the curate rule
+curate:
+  # List of date fields to standardize to ISO format YYYY-MM-DD
+    date_fields: ["date"]
+  # List of expected date formats that are present in the date fields provided above
+  # These date formats should use directives expected by datetime
+  # See https://docs.python.org/3.9/library/datetime.html#strftime-and-strptime-format-codes
+    expected_date_formats: ['%Y', '%m.%Y', '%d.%m.%Y', "%b-%Y", "%d-%b-%Y","%Y-%m-%d","%Y-%m"]
+
 # Config parameters related to the metadata curation
 metadata:
     # List of symptoms related to clinical cases
     # Define a mapping for full terms to their abbreviations and standardized names
     symptom_list:
+        # AFP-related
         'poliomyelitis-like disease': 'AFP'
         'acute flaccid paralysis': 'AFP'
         'paralysis': 'AFP'
@@ -16,8 +26,12 @@ metadata:
         'polio': 'AFP'
         'difficulty walking': 'AFP'
         'paralyses': 'AFP'
+        
+        # Ataxia
         'Cerebellar ataxia': 'Ataxia'
         'Cerebellitis': 'Ataxia'
+        
+        # Respiratory
         'upper respiratory tract infection': 'Respiratory'
         'urti': 'Respiratory'
         'acute respiratory disease': 'Respiratory'
@@ -25,17 +39,30 @@ metadata:
         'Cough': 'Respiratory'
         'Influenza-like illness': 'Respiratory'
         'Respiratory Symptoms': 'Respiratory'
+        'respiratory distress': 'Respiratory'
+        'rhinitis': 'rhinitis'
+        'bronchitis': 'bronchitis'
+        
+        # GBS
         'guillain-barré syndrome': 'GBS'
         'guillain-barrésyndrome': 'GBS'
+        
+        # Fever
         'febrile illness': 'Fever'
         'pyrexia': 'Fever'
         'fever': 'Fever'
+        
+        # GI symptoms
         'v&d': 'Vomiting; Diarrhea'
-        'transverse myelitis': 'Myelitis'
         'diarrhoea': 'Diarrhea'
         'diarrhea': 'Diarrhea'
         'Gastroenteritis': 'GI infection'
         'Gastrointestinal': 'GI infection'
+        
+        # Myelitis
+        'transverse myelitis': 'Myelitis'
+        
+        # HFMD variants
         'severe': 'Severe HFMD'
         'light': 'Light HFMD'
         'mild': 'Mild HFMD'
@@ -48,29 +75,33 @@ metadata:
         'hfmd': 'HFMD'
         'hand foot and mouth disease': 'HFMD'
         'hand-foot and mouth disease': 'HFMD'
+        'hand-foot-and-mouth disease': 'HFMD'
+        
+        # Skin/Lesions
         'Toe lesion': 'Lesion'
-        'Gingivostomatitis': 'Stomatitis'
-        'sepsis': 'Sepsis'
-        'neonatal sepsis': 'Sepsis'
-        'Seizure': 'Seizure'
-        'herpangina': 'Herpangina'
-        'herpangine': 'Herpangina'
-        'hypotension': 'Hypotension'
-        'hyperglycemia': 'Hyperglycemia'
-        'severe pulmonary hemorrhage': 'Cardiopulmonary Collapse'
-        'pulmonary hemorrhage': 'Cardiopulmonary Collapse'
-        'Acute cardiogenic shock': 'Cardiogenic shock'
-        'Acute cardiogenic shock, fatal': 'Cardiogenic shock; Fatality'
-        'cardiopulmonary collapse': 'Cardiopulmonary Collapse'
         'vesicular': 'vesicular rash'
         'rash with vesicles': 'vesicular rash'
-        '(death)': 'Fatality'
-        'fatal': 'Fatality'
-        'death': 'Fatality'
-        'Died': 'Fatality'
-        'Shock': 'Shock'
+        'skin rash': 'Rash'
+        'exanthema': 'Rash'
+        'rash': 'Rash'
+        'Skin': 'Rash'
+        'eczema': 'Rash'
+        
+        # Mouth/Throat
+        'Gingivostomatitis': 'Stomatitis'
         'oral ulcers': 'Oral Ulcers'
-        'Onychomadesis': 'Onychomadesis'
+        'herpangina': 'Herpangina'
+        'herpangine': 'Herpangina'
+        'conjunctivitis': 'conjunctivitis'
+        'pharyngitis': 'pharyngitis'
+        
+        # Infections
+        'sepsis': 'Sepsis'
+        'neonatal sepsis': 'Sepsis'
+        
+        # Neurological
+        'Seizure': 'Seizure'
+        'convulsion': 'convulsion'
         'cns symptoms': 'CNS'
         'cns involvement': 'CNS'
         'cns disorder': 'CNS'
@@ -80,60 +111,122 @@ metadata:
         'myoclonus': 'Myoclonic jerk'
         'lethargy': 'Lethargy'
         'lethargic': 'Lethargy'
+        
+        # Cardiovascular
+        'hypotension': 'Hypotension'
+        'hyperglycemia': 'Hyperglycemia'
+        'severe pulmonary hemorrhage': 'Cardiopulmonary Collapse'
+        'pulmonary hemorrhage': 'Cardiopulmonary Collapse'
+        'Acute cardiogenic shock': 'Cardiogenic shock'
+        'Acute cardiogenic shock, fatal': 'Cardiogenic shock; Fatality'
+        'cardiopulmonary collapse': 'Cardiopulmonary Collapse'
+        'Shock': 'Shock'
+        
+        # Meningitis/Encephalitis
         'neck stiffness; vomiting': 'Meningitis'
         'aseptic meningitis': 'Aseptic Meningitis'
         'Benign intracranial hypertension': 'Meningitis'
-        'meningoencephalitis': 'Encephalitis'
+        'Meningitis': 'Meningitis'
+        'meningoencephalitis': 'meningoencephalitis'
         'encephalytis': 'Encephalitis'
         'Encephalitis': 'Encephalitis'
         'Encéphalite': 'Encephalitis'
-        'skin rash': 'Rash'
-        'exanthema': 'Rash'
-        'rash': 'Rash'
-        'Skin': 'Rash'
-        'eczema': 'Rash'
+        'Meningeal syndrome': 'Meningeal syndrome'
+        
+        # Other
+        'Onychomadesis': 'Onychomadesis'
+        
+        # Fatality
+        '(death)': 'Fatality'
+        'fatal': 'Fatality'
+        'death': 'Fatality'
+        'Died': 'Fatality'
+
+        # Asymptomatic
+        'healthy': 'Healthy'
+        'asymptomatic': 'Asymptomatic'
+        'no symptoms': 'Asymptomatic'
 
     # Grouping all symptoms to major forms
     major_symptoms:
-        # CNS-related conditions
-        Encephalitis: CNS
-        Aseptic Meningitis: CNS
-        Meningitis: CNS
-        Opsomyoclonus Syndrome: CNS
-        Myoclonic jerk: CNS
-        CNS: CNS
-        lethargy: CNS
-        Seizure: CNS
-        # Fatality-related conditions
-        Fatality: Fatality
-        # AFP-related conditions
-        GBS: AFP
-        Myelitis: AFP
+        Poliomyelitis: Poliomyelitis
+        polio: Poliomyelitis
+        poliomyelitis-like disease: Poliomyelitis
+        poliomyelitis-like paralysis: Poliomyelitis
+
         AFP: AFP
-        ataxia: AFP
-        # HFMD-related conditions
+        acute flaccid paralysis: AFP
+        acute flaccid myelitis: AFP
+        AFM: AFP
+        paralysis: AFP
+        paralyses: AFP
+        difficulty walking: AFP
+        Myelitis: AFP
+        Ataxia: AFP
+        GBS: AFP
+
+        Cardiogenic shock: Myopericarditis
+        Cardiopulmonary Collapse: Myopericarditis
+        Shock: Myopericarditis
+        Hypotension: Myopericarditis
+        Hyperglycemia: Myopericarditis
+
+        conjunctivitis: Hemorrhagic conjunctivitis
+
+        Respiratory distress: Pneumonia
+        acute respiratory disease: Pneumonia
+
+        upper respiratory tract infection: URTI
+        URTI: URTI
+        Cough: URTI
+        Influenza-like illness: URTI
+        Respiratory Symptoms: URTI
+        rhinitis: URTI
+        pharyngitis: URTI
+
+        asthmatic bronchitis: Airway exacerbation
+
         HFMD: HFMD
+        Mild HFMD: HFMD
+        Light HFMD: HFMD
+        Severe HFMD: HFMD
+
         Atypical HFMD: Atypical HFMD
         Onychomadesis: Atypical HFMD
-        Severe HFMD: HFMD
-        Light HFMD: HFMD
-        Mild HFMD: HFMD
-        # Other categories
-        Sepsis: other
-        Respiratory: other
-        Fever: other
-        Vomiting; Diarrhea: other
-        Diarrhea: other
-        Oral Ulcers: other
-        Hypotension: other
-        Hyperglycemia: other
-        Cardiogenic shock: other
-        Cardiopulmonary Collapse: other
-        Rash: other
-        Vesicular Rash: other
+
+        Aseptic Meningitis: Aseptic Meningitis
+        Meningitis: Aseptic Meningitis
+        Meningeal syndrome: Aseptic Meningitis
+
+        Encephalitis: CNS
+        meningoencephalitis: CNS
+        CNS: CNS
+        Lethargy: CNS
+        Seizure: CNS
+        convulsion: CNS
+        Myoclonic jerk: CNS
+
+        Herpangina: Herpangina
+        Stomatitis: Oral disease
+        Oral Ulcers: Oral disease
+
+        Vomiting; Diarrhea: GI infection
+        Diarrhea: GI infection
+        GI infection: GI infection
+
+        Rash: Rash-associated
+        vesicular rash: Rash-associated
+        Lesion: Rash-associated
+
+        Sepsis: Sepsis
+
+        Fatality: Fatality
+
+        Fever: Other
 
     isolation_source:
         # feces
+        'feces': 'feces'
         'stool': 'feces'
         'stools': 'feces'
         'faeces': 'feces'
@@ -146,6 +239,7 @@ metadata:
 
         # cerebrospinal fluid
         'csf': 'cerebrospinal fluid'
+        'cerebro spinal fluid': 'cerebrospinal fluid'
         'cerebrospinal fluid': 'cerebrospinal fluid'
 
         # oronasopharynx
@@ -188,6 +282,7 @@ metadata:
 
         # blood / serum
         'blood': 'serum'
+        'plasma': 'serum'
         'serum': 'serum'
 
         # lung
@@ -198,9 +293,9 @@ metadata:
         'biopsy': 'other'
         'sample': 'other'
         'clinical': 'other'
-        'hfmd': NaN
+        'hfmd': 'unknown'
         'second specimen': 'other'
-        'unknown': 'other'
+        'unknown': 'unknown'
 
         # environment
         'river water': 'water'
@@ -210,25 +305,14 @@ metadata:
         'cell culture isolate': 'cell culture'
         'rhabdomyosarcoma cell': 'cell culture'
 
-
-# Config parameters related to the curate rule
-curate:
-  # List of date fields to standardize to ISO format YYYY-MM-DD
-  date_fields: ["date"]
-  # List of expected date formats that are present in the date fields provided above
-  # These date formats should use directives expected by datetime
-  # See https://docs.python.org/3.9/library/datetime.html#strftime-and-strptime-format-codes
-  expected_date_formats: ['%Y', '%m.%Y', '%d.%m.%Y', "%b-%Y", "%d-%b-%Y","%Y-%m-%d","%Y-%m"]
-
+# Alignment parameters for high-diversity viruses
 align:
-    #high-diversity 
-    penalty_gap_extend : 1 #make longer gaps more costly - default is 0
-    penalty_gap_open : 13  #make gaps more expensive relative to mismatches - default is 13
-    penalty_gap_open_in_frame : 18 #make gaps more expensive relative to mismatches - default is 7
-    penalty_gap_open_out_of_frame : 23 #make out of frame gaps more expensive - default is 8 # prev was 19
-    kmer_length : 6 #reduce to find more matches - default is 10
-    kmer_distance : 25 #reduce to try more seeds - default is 50
-    min_match_length : 30 #reduce to keep more seeds - default is 40
-    allowed_mismatches : 15 #increase to keep more seeds - default is 8
-    min_length : 30 # min_length - default is 100
-    #cost of a mutation is 4
+    penalty_gap_extend: 1
+    penalty_gap_open: 13
+    penalty_gap_open_in_frame: 18
+    penalty_gap_open_out_of_frame: 23
+    kmer_length: 6
+    kmer_distance: 25
+    min_match_length: 30
+    allowed_mismatches: 15
+    min_length: 30
