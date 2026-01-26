@@ -27,7 +27,6 @@ if __name__ == '__main__':
     parser.add_argument('--local', help="input local accession file")
     parser.add_argument('--regions', help="file to specify regions: format = country region")
     parser.add_argument('--id', help="id: strain or accession", choices=["strain","accession"],default="accession")
-    parser.add_argument('--rename', help="output rule update_strain_names")
     parser.add_argument('--update', help="date when sequences were added")
     args = parser.parse_args()
 
@@ -37,24 +36,13 @@ if __name__ == '__main__':
     add_data = args.add # if several files, use more than one assignment (add_data_1, add_data_2,...)
     con_reg_table = args.regions
     local_accn = args.local
-    renamed_strains = args.rename
     last_updated_file = args.update
 
     # load data
     meta = pd.read_csv(input_csv_meta, keep_default_na=True, sep='\t', index_col=False)
     new_data = pd.read_csv(add_data, keep_default_na=True, sep='\t', index_col=False)
     local_accn_file= pd.read_csv(local_accn, keep_default_na=True, sep='\t', index_col=False)
-    renamed_strains_df = pd.read_csv(renamed_strains, keep_default_na=True, sep='\t', index_col=False,names=["accession","strain"])
     last_updated=pd.read_csv(last_updated_file, keep_default_na=True, sep='\t', index_col=False,names=["accession","date_added"])
-
-    # Create a lookup dictionary for strain updates
-    lookup_strain = renamed_strains_df.set_index('accession')['strain'].to_dict()
-
-    # Update strains in metadata according to lookup
-    meta['strain'] = meta.apply(
-        lambda row: lookup_strain.get(row['accession'], row['strain']),
-        axis=1
-    )
 
     # Create a dictionary for quick lookup
     accession_dict = local_accn_file.set_index('sample_name')['seq_accession'].to_dict()

@@ -106,26 +106,6 @@ if DOWNLOAD_INGEST==True:
             """
 
 ##############################
-# Update strain names
-###############################
-
-rule update_strain_names:
-    message:
-        """
-        Updating strain name in metadata.
-        """
-    input:
-        file_in =  files.METADATA
-    params:
-        backup = "data/strain_names_previous_run.tsv"
-    output:
-        file_out = "data/updated_strain_names.tsv"
-    shell:
-        """
-        time bash scripts/update_strain.sh {input.file_in} {params.backup} {output.file_out}
-        cp {output.file_out} {params.backup}
-        """
-
 # # This rule is very slow. Only give accessions as input where you are certain that they have GenBank metadata.
 rule fetch_metadata:
     message:
@@ -293,7 +273,6 @@ rule add_metadata:
         metadata = files.METADATA,
         new_data = rules.curate.output.meta,
         regions = ancient(files.regions),
-        renamed_strains = rules.update_strain_names.output.file_out
     params:
         strain_id_field = config["id_field"],
         last_updated = files.last_updated_file,
@@ -305,7 +284,6 @@ rule add_metadata:
         python scripts/add_metadata.py \
             --input {input.metadata} \
             --add {input.new_data} \
-            --rename {input.renamed_strains} \
             --local {params.local_accn} \
             --update {params.last_updated}\
             --regions {input.regions} \
@@ -379,8 +357,7 @@ rule filter:
         sequences_per_group = 500, # set lower if you want to have a max sequences per group
         strain_id_field= config["id_field"],
         min_date = 1950,  # G-10 was collected in 1952
-        min_length = lambda wildcards: {"vp1": 600, "whole_genome": 6400}[wildcards.seg], 
-        max_length = lambda wildcards: {"vp1": 900, "whole_genome": 8000}[wildcards.seg],  
+        min_length = lambda wildcards: {"vp1": 600, "whole_genome": 6400}[wildcards.seg]
     shell:
         """
         augur filter \
@@ -394,7 +371,7 @@ rule filter:
             --group-by {params.group_by} \
             --sequences-per-group {params.sequences_per_group} \
             --min-date {params.min_date} \
-            --min-length {params.min_length} --max-length {params.max_length} \
+            --min-length {params.min_length} \
             --output-sequences {output.sequences}\
             --output-log {output.reason}
         """
@@ -789,7 +766,6 @@ rule clean:
         "temp/*",
         files.METADATA,
         files.SEQUENCES,
-        "data/updated_strain_names.tsv",
         "data/curated/*",
         "data/all_sequences.fasta",
         "data/all_metadata.tsv",
