@@ -4,16 +4,17 @@ from Bio import SeqIO
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--blast', required=True)
-    parser.add_argument('--seqs', required=True)
-    parser.add_argument('--out_seqs', required=True)
-    parser.add_argument('--range', required=True, choices=["vp1","whole_genome"]) ## TODO: replace vp1 with protein of choice
-    parser.add_argument('--protein_length', required=False, type=int, nargs=2, help='min and max lengths for specific protein')
-    parser.add_argument('--whole_genome_length', required=False, type=int, nargs=2, help='min and max lengths for whole genome')
+    parser.add_argument('--blast', required=True, help='BLAST results file (CSV)')
+    parser.add_argument('--seqs', required=True, help='Input sequences file (FASTA)')
+    parser.add_argument('--out_seqs', required=True, help='Output sequences file (FASTA)')
+    parser.add_argument('--range', required=True, help='Specify the region to filter: protein_xy')
+    parser.add_argument('--min_length', type=int, required=True, help='Minimum length for the specified range')
+    parser.add_argument('--max_length', type=int, required=True, help='Maximum length for the specified range')
     return parser.parse_args()
 
 def main():
     args = parse_args()
+    length_range = (args.min_length, args.max_length)  # Use the provided min and max lengths
     
     # Load BLAST results
     blast_results = pd.read_csv(args.blast, 
@@ -25,34 +26,33 @@ def main():
     # Filter blast results and remove duplicates
     blast_results=blast_results.sort_values(['length','evalue'],ascending=[False,True]).drop_duplicates(subset='qseqid', keep='first')
     blast_results["diff_length_ref"]=abs(blast_results["send"]-blast_results["sstart"])
-    blast_results.loc[:,["qseqid","diff_length_ref"]].to_csv("vp1/results/blast_vp1_length.csv",index=False,header=False) # needed later for adding to metadata
+    blast_results.loc[:,["qseqid","diff_length_ref"]].to_csv(f"{args.range}/results/blast_{args.range}_length.csv",index=False,header=False) # needed later for adding to metadata
     selected_seqs = []
 
     # Process sequences based on the specified length range
-    if args.range == "vp1":  #TODO: replace with protein of choice
-        r = args.protein_length
-        blast_results=blast_results[(blast_results.diff_length_ref >= r[0]) & (blast_results.diff_length_ref <= r[1])]
-        for seq_record in sequences:
-            if (seq_record.id in blast_results.qseqid.unique()):
-                # Get the relevant BLAST result
-                blast_hit = blast_results[blast_results.qseqid == seq_record.id].iloc[0]
-                # Extract region from sequence
-                reg_seq = seq_record.seq[blast_hit["qstart"] - 1:blast_hit["qend"]]
-                # Create new sequence record
-                new_seq_record = seq_record[:0]  # Copy metadata
-                new_seq_record.seq = reg_seq
-                if (r[0] <= len(reg_seq) <= r[1]):
-                    selected_seqs.append(new_seq_record)
-    elif args.range == "whole_genome":
-        r = args.whole_genome_length
+    if args.range != "whole_genome":
+            blast_results = blast_results[(blast_results.diff_length_ref >= length_range[0]) & (blast_results.diff_length_ref <= length_range[1])]
+            
+            for seq_record in sequences:
+                if seq_record.id in blast_results.qseqid.unique():
+                    # Get the relevant BLAST hit
+                    blast_hit = blast_results[blast_results.qseqid == seq_record.id].iloc[0]
+                    # Extract the aligned region
+                    reg_seq = seq_record.seq[blast_hit["qstart"] - 1:blast_hit["qend"]]
+                    # Create new sequence record
+                    new_seq_record = seq_record[:0]  # Copy metadata
+                    new_seq_record.seq = reg_seq
+                    if length_range[0] <= len(reg_seq) <= length_range[1]:
+                        selected_seqs.append(new_seq_record)
+    else:
         for seq_record in sequences:
             seq_length = len(seq_record.seq)
-            if r[0] <= seq_length <= r[1]:
+            if length_range[0] <= seq_length <= length_range[1]:
                 selected_seqs.append(seq_record)
 
     # Write selected sequences
-    SeqIO.write(selected_seqs, args.out_seqs,"fasta")
-    print("Filtering retained {} out of {} sequences in this file".format(len(selected_seqs), len(sequences)))
+    SeqIO.write(selected_seqs, args.out_seqs, "fasta")
+    print(f"Filtering retained {len(selected_seqs)} out of {len(sequences)} sequences in this file")
 
 if __name__ == "__main__":
     main()

@@ -31,6 +31,7 @@ D3a	nuc	4687	C
 D3a	nuc	5623	A
 D3a	nuc	6379	T
 
-D3b	nuc	805	T
-D3b	nuc	3740	G
-D3b	nuc	5443	G
+D3b	clade	D3
+D3b	nuc	2593	T
+D3b	nuc	4687	T
+D3b	nuc	5599	A

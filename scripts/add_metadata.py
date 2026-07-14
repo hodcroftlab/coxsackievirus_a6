@@ -3,7 +3,7 @@ import numpy as np
 import re
 import sys
 import string
-import ipdb
+# import ipdb
 from fuzzywuzzy import process
 import argparse
 import yaml
@@ -69,11 +69,6 @@ if __name__ == '__main__':
 
     # add date_added column
     new_meta= pd.merge(new_meta,last_updated, on=id_field,how='left')
-
-    # create column date_added_num, which is the numeric version of date_added in the year format, round to 2 decimals
-    new_meta['date_added'] = pd.to_datetime(new_meta['date_added'])
-    new_meta['date_added_num'] = new_meta['date_added'].dt.year + (new_meta['date_added'].dt.month - 1) / 12 + (new_meta['date_added'].dt.day - 1) / 365.25
-    new_meta['date_added_num'] = new_meta['date_added_num'].round(2)
 
     # Creating the new strain column based on the conditions
     new_meta['strain'] = new_meta['strain_y'].mask(new_meta['strain_y'] == new_meta['accession'], new_meta['strain_x'])  # Take strain_x if strain_y == accession
@@ -306,10 +301,10 @@ if __name__ == '__main__':
     new_meta2= new_meta.loc[:,['accession', 'accession_version', 'strain', 'date', 'region', 'place',
         'country', 'host', 'gender', 'age_yrs','age_range',"has_age", 'has_diagnosis','med_diagnosis_all','med_diagnosis_major',
         'isolation_source', 'NCBI_length_genome',
-        'subgenogroup','lineage','date_released',
-        'abbr_authors', 'authors', 'institution','ENPEN','doi',
+        'subgenogroup','date_released',
+         'abbr_authors', 'authors', 'institution','ENPEN','doi',
         'qc.overallScore', 'qc.overallStatus',
-        'alignmentScore', 'alignmentStart', 'alignmentEnd', 'genome_coverage','date_added','date_added_num']]
+        'alignmentScore', 'alignmentStart', 'alignmentEnd', 'genome_coverage','date_added']]
 
     new_meta2 = new_meta2.drop_duplicates(subset="accession",keep="first")
     new_meta2.to_csv(output_csv_meta, sep='\t', index=False)

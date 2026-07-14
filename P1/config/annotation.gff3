@@ -1,0 +1,11 @@
+##gff-version 3
+#!gff-spec-version 1.21
+#!processor NCBI annotwriter
+##sequence-region P1_extracted_AY421764.1 1 2610
+##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=86107
+P1_extracted_AY421764.1	Genbank	region	1	2610	.	+	.	ID=P1_extracted_AY421764.1:1..2610;Dbxref=taxon:86107;organism=Coxsackievirus A6;mol_type=genomic RNA;strain=Gdula;gbkey=Src
+P1_extracted_AY421764.1	Genbank	CDS	1	207	.	+	.	Name=VP4;gbkey=Prot;product=VP4;ID=id-VP4_1..207
+P1_extracted_AY421764.1	Genbank	CDS	208	975	.	+	.	Name=VP2;gbkey=Prot;product=VP2;ID=id-VP2_208..975
+P1_extracted_AY421764.1	Genbank	CDS	976	1695	.	+	.	Name=VP3;gbkey=Prot;product=VP3;ID=id-VP3_976..1695
+P1_extracted_AY421764.1	Genbank	CDS	1696	2610	.	+	.	Name=VP1;gbkey=Prot;product=VP1;ID=id-VP1_1696..2610
+P1_extracted_AY421764.1	Genbank	CDS	1	2610	.	+	.	Name=P1;gbkey=Prot;product=P1;ID=id-P1_1..2610

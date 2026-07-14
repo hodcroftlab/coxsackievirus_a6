@@ -65,7 +65,7 @@ To run the ingest, you will need some specific reference files, such as a `refer
 2. To get these files you have to run the script [generate_from_genbank.py](ingest/bin/generate_from_genbank.py) manually. 
     If you want to have two reference files for whole genome and VP1, you can choose a similar way:
     ```
-    > python3 ingest/bin/generate_from_genbank.py --reference "AY421764.1" --output-dir "whole_genome/config/"
+    > python3 ingest/bin/generate_from_genbank.py --reference "AY421764.1" --output-dir "config/"
     ```
     - You need to specify a few things: [0];[product];[2].
     - It will create the files in the subdirectory `data/references`. 

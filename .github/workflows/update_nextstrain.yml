@@ -1,0 +1,119 @@
+name: Monthly CVA6 Pipeline Run
+on:
+  workflow_dispatch:  # Manual trigger for testing
+  schedule:
+    - cron: '0 0 1 * *'  # 1st of month, midnight UTC
+  push:
+    branches: 
+      - master
+
+jobs:
+  pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: master  # Explicitly checkout this branch
+
+      - name: Checkout data repository
+        uses: actions/checkout@v4
+        with: 
+          repository: hodcroftlab/nextstrain-builds-data
+          token: ${{ secrets.PRIVATE_REPO_TOKEN }}
+          path: data-source
+
+      - name: Copy CVA6 data to correct location
+        run:  |
+          # Create data directory if it doesn't exist
+          mkdir -p data
+          
+          # Copy all CVA6-specific data
+          if [ -d "data-source/coxsackievirus_a6" ]; then
+            cp -r data-source/coxsackievirus_a6/* data/
+            echo "CVA6 data copied successfully"
+          else
+            echo "ERROR: coxsackievirus_a6 folder not found in nextstrain-builds-data"
+            exit 1
+          fi
+          
+          # Clean up temporary directory
+          rm -rf data-source
+          
+          # Verify critical files exist before proceeding
+          echo "Files in data/:"
+          ls -lh data/
+          
+          # Check for required files
+          required_files=("meta_publications.tsv" "genbank_metadata.tsv")
+          for file in "${required_files[@]}"; do
+            if [ ! -f "data/$file" ]; then
+              echo "⚠️  Warning: $file not found in data/"
+            fi
+          done
+
+      - name:  Setup micromamba
+        uses:  mamba-org/setup-micromamba@v2
+        with:
+          environment-file: environment.yaml
+          environment-name: nextstrain
+          init-shell: bash
+          cache-environment: true
+          post-cleanup: 'all'
+
+      - name: Clean previous results
+        run: |
+          snakemake --cores 1 clean || echo "Clean completed"
+        shell:  micromamba-shell {0}
+
+      - name: Run ingest pipeline
+        env:
+          ENTREZ_EMAIL: ${{ secrets.ENTREZ_EMAIL }}
+        run: |
+          cd ingest
+          snakemake --cores 10 all \
+            --use-conda \
+            --rerun-incomplete \
+            --printshellcmds
+          cd ../
+        shell: micromamba-shell {0}
+
+      - name: Run full pipeline
+        env:  
+          REMOTE_GROUP: ${{ secrets.NEXTSTRAIN_REMOTE_GROUP }}
+          ENTREZ_EMAIL: ${{ secrets.ENTREZ_EMAIL }}
+        run: |
+          snakemake --cores 10 all \
+            --use-conda \
+            --rerun-incomplete \
+            --printshellcmds
+        shell: micromamba-shell {0}
+
+      - name:  Upload to Nextstrain
+        if: success()
+        env: 
+          NEXTSTRAIN_USERNAME: ${{ secrets.NEXTSTRAIN_USERNAME }}
+          NEXTSTRAIN_PASSWORD: ${{ secrets.NEXTSTRAIN_PASSWORD }}
+          REMOTE_GROUP:  ${{ secrets.NEXTSTRAIN_REMOTE_GROUP }}
+        run: |
+          snakemake --cores 2 upload
+        shell: micromamba-shell {0}
+
+      - name: Commit and Push Results
+        if: success()
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add auspice/ data/date_last_updated.txt data/local_accn.txt
+          git commit -m "chore: update CVA6 builds [skip ci]" || echo "No changes to commit"
+          git push origin master
+        shell: bash -l {0}
+
+      - name: Upload workflow artifacts (optional)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with: 
+          name:  pipeline-results
+          path: auspice/
+          retention-days: 30

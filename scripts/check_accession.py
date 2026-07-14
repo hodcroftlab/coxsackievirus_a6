@@ -9,9 +9,18 @@ import time
 
 # Function to check if an accession number is real: it uses the entrez functionality of ncbi
 def extract_accession(name, extract="accession"):
+    # Try to load from .env file (for local development)
     load_dotenv(find_dotenv())
-    Entrez.email = os.environ.get("EMAIL")
+    
+    # Get email from environment variable (works for both local .env and GitHub Actions)
+    email = os.environ.get("EMAIL") or os.environ.get("ENTREZ_EMAIL")
+    
+    if not email:
+        raise ValueError("EMAIL or ENTREZ_EMAIL environment variable not set")
+    
+    Entrez.email = email
     # email address should be stored in an .env file in the base directory, in the format EMAIL=user@email.com
+    # OR as a GitHub Secret named ENTREZ_EMAIL
     
     # Define the API endpoint and parameters
     url = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi'
@@ -44,25 +53,21 @@ def extract_accession(name, extract="accession"):
                 seq_record = SeqIO.read(handle, "genbank")
                 handle.close()  # Ensure we close the handle after reading
 
-                # Check if the description contains "Coxsackievirus A6" or "CVA6"
-                if re.search(r'\b(Coxsackievirus A6|CVA6)\b', seq_record.description, re.IGNORECASE):
+                # Check if the description contains "Coxsackievirus A16" or "CVA16"
+                if re.search(r'\b(Coxsackievirus A16|CVA16)\b', seq_record.description, re.IGNORECASE):
                     # Check if the description also contains "VP1" or "complete genome"
-                    if re.search(r'\bVP1\b', seq_record.description, re.IGNORECASE) or re.search(r'\bcomplete \b', seq_record.description, re.IGNORECASE) or re.search(r'\bpartial cds\b', seq_record.description, re.IGNORECASE) or \
-                    re.search(r'Coxsackievirus A6 strain', seq_record.description, re.IGNORECASE):
+                    if re.search(r'\bVP1\b', seq_record.description, re.IGNORECASE) or re.search(r'\bcomplete \b', seq_record.description, re.IGNORECASE) or re.search(r'\bpartial cds\b', seq_record.description, re.IGNORECASE):
                         # what to extract
                         if extract == "accession":
                             accession = seq_record.name
-                        elif extract == "strain": 
-                            match = re.search(r'(strain|isolate)[:\s]+([\w\-\.\/]+)', seq_record.description)
+                        elif extract == "strain":
+                            match = re.search(r'(strain|isolate)\s+([\w\-\.\/]+)', seq_record.description)
                             if match:
                                 strain_name = match.group(2)
-                            else:
-                                # Fallback to extracting strain name from isolate field if not found in description
-                                strain_name = seq_record.annotations.get('isolate', 'unknown')
-                            if re.search(r'\bcomplete \b', seq_record.description, re.IGNORECASE) and len(ids)>1:
-                                accession = strain_name+"c"
-                            else:
-                                accession = strain_name
+                                if re.search(r'\bcomplete \b', seq_record.description, re.IGNORECASE) and len(ids) > 1:
+                                    accession = strain_name + "c"
+                                else:
+                                    accession = strain_name
                         else:
                             accession = seq_record.description
                         accessions.append(accession)
@@ -103,4 +108,3 @@ def extract_digits(string, n=4, position='first'):
         return digits[-n:] if len(digits) >= n else digits
     else:
         raise ValueError("Position should be 'first' or 'last'")
-    

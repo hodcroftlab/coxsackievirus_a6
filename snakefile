@@ -22,22 +22,22 @@ try:
 except:
     pass
 
+TAXID = "86107"
 REMOTE_GROUP = os.getenv("REMOTE_GROUP")
 UPLOAD_DATE = date.today().isoformat()
 
 DOWNLOAD_INGEST=True
 
-
 ###############
 wildcard_constraints:
-    seg="vp1|whole_genome",
-    gene="|-5utr|-vp4|-vp2|-vp3|-vp1|-2A|-2B|-2C|-3A|-3B|-3C|-3D|-3utr",
-    quart = "|-1Q|-2Q|-3Q|-4Q"
+    seg="vp1|whole_genome|P1",
+    gene="|-5utr|-vp4|-vp2|-vp3|-vp1|-2A|-2B|-2C|-3A|-3B|-3C|-3D|-3utr"
    
+#     #from: https://bitbucket.org/snakemake/snakemake/issues/910/empty-wildcard-assignment-works-only-if
+
 # Define segments to analyze
-segments = ['vp1', 'whole-genome']
-GENES = ["-5utr","-vp4", "-vp2", "-vp3", "-vp1", "-2A", "-2B", "-2C", "-3A", "-3B", "-3C", "-3D","-3utr"]
-QUARTS = ["-1Q", "-2Q", "-3Q", "-4Q"]
+segments = ['vp1', 'whole-genome', 'P1'] # add more segments if you want to analyze them separately
+GENES=["-5utr","-vp4", "-vp2", "-vp3", "-vp1", "-2A", "-2B", "-2C", "-3A", "-3B", "-3C", "-3D","-3utr"]
 CODING_GENES = ["VP4", "VP2", "VP3", "VP1", "2A", "2B", "2C", "3A", "3B", "3C", "3D"]
 
 
@@ -45,9 +45,9 @@ CODING_GENES = ["VP4", "VP2", "VP3", "VP1", "2A", "2B", "2C", "3A", "3B", "3C", 
 rule files:
     input:
         sequence_length =   "{seg}",
-        dropped_strains =   "config/dropped_strains.txt",
-        incl_strains =      "config/kept_strains.txt",
-        reference =         "{seg}/config/reference_sequence.gb",
+        dropped_strains =   "config/exclude.txt",
+        incl_strains =      "config/include.txt",
+        reference =         "config/reference_sequence.gb",
         gff_reference =     "{seg}/config/annotation.gff3",
         lat_longs =         "config/lat_longs.tsv",
         auspice_config =    "{seg}/config/auspice_config.json",
@@ -58,14 +58,16 @@ rule files:
         meta_collab =       "data/meta_collab.tsv",
         last_updated_file = "data/date_last_updated.txt",
         local_accn_file =   "data/local_accn.txt",
-        SEQUENCES =         "data/sequences.fasta",
-        METADATA =          "data/metadata.tsv"
+        SEQUENCES =         "data/fetch/sequences.fasta",
+        METADATA =          "data/fetch/metadata.tsv",
+
 files = rules.files.input
+##############################
 
 # Expand augur JSON paths
 rule all:
     input:
-        augur_jsons = expand("auspice/coxsackievirus_A6_{segs}.json", segs=segments),        
+        augur_jsons = expand("auspice/coxsackievirus_A6_{segs}.json", segs=segments),
         meta = files.METADATA,
         seq = files.SEQUENCES
 
@@ -78,18 +80,15 @@ rule all_genes:
 rule next_update:
     """Final rule to generate all required JSON outputs for a monthly run"""
     input:
-        expand("auspice/coxsackievirus_A16_{segs}.json", segs=segments),
-        # expand("auspice/coxsackievirus_A16_gene_{genes}.json", genes=["-vp1", "-3D"]),
+        expand("auspice/coxsackievirus_A6_{segs}.json", segs=segments),
+        # expand("auspice/coxsackievirus_A6_gene_{genes}.json", genes=["-vp1", "-3D"]),
+
     threads: workflow.cores
 
-rule all_quarts:
-    input:
-        augur_jsons = expand("auspice/coxsackievirus_A6_whole_genome{quarts}.json", quarts=QUARTS)
 
 ##############################
 # Download from NBCI Virus with ingest snakefile
 ###############################
-
 if DOWNLOAD_INGEST==True:
     rule fetch:
         input:
@@ -106,6 +105,7 @@ if DOWNLOAD_INGEST==True:
             """
 
 ##############################
+
 # # This rule is very slow. Only give accessions as input where you are certain that they have GenBank metadata.
 rule fetch_metadata:
     message:
@@ -113,14 +113,14 @@ rule fetch_metadata:
         Retrieving GenBank metadata for the specified accessions.
         """
     input:
-        accessions="data/metadata/genbank_meta_AFP.txt",
+        accessions="data/metadata/FRA.txt",
         config="config/config.yaml" # include symptom list and isolation source mapping
     output:
-        metadata="data/metadata/genbank_meta_AFP.tsv",
+        metadata="data/metadata/FRA.tsv",
     params:
         virus="Coxsackievirus A6",
-        genbank_metadata="data/genbank_metadata.tsv",
-        columns = "accession	country	location	region	subgenogroup	lineage	date	collection_yr	sex	age_yrs	age_mo	diagnosis	isolation	origin	strain	doi"
+        columns = "accession	country	location	region	subgenogroup	lineage	date	collection_yr	sex	age_yrs	age_mo	diagnosis	isolation	origin	strain	doi",
+        genbank_metadata="data/genbank_metadata.tsv"
     log:
         "logs/fetch_metadata.log"
     shell:
@@ -154,14 +154,23 @@ rule curate:
         date_fields=config["curate"]["date_fields"],
         expected_date_formats=config["curate"]["expected_date_formats"],
         tmp = temp("temp/merged_meta.tsv"),  # Final output file for publications metadata
+        meta = temp("temp/curated_meta.tsv")  # Final output file for publications metadata
     output:
         meta="data/curated/all_meta.tsv"  # Final merged output file
     shell:
         """
         mkdir -p temp
 
+        augur curate format-dates \
+            --metadata {input.metadata} \
+            --date-fields {params.date_fields} \
+            --no-mask-failure \
+            --expected-date-formats {params.expected_date_formats} \
+            --id-column {params.strain_id_field} \
+            --output-metadata {params.meta}
+
         # Merge curated metadata
-        augur merge --metadata metadata={input.metadata} meta_collab={input.meta_collab} genbank={input.meta_genbank}\
+        augur merge --metadata metadata={params.meta} meta_collab={input.meta_collab} genbank={input.meta_genbank}\
             --metadata-id-columns {params.strain_id_field} \
             --output-metadata {params.tmp}
 
@@ -178,7 +187,7 @@ rule curate:
         echo "Curated metadata saved to {output.meta}"
         """
 
-# ##############################
+##############################
 # Add additional sequences
 # if you have sequences that are not on NCBI Virus
 ###############################
@@ -189,15 +198,16 @@ rule update_sequences:
         metadata = files.METADATA,
         extra_metadata = rules.curate.output.meta
     output:
-        sequences = "data/all_sequences.fasta"
+        sequences = "data/all_sequences.fasta",
     params:
+        strain_id_field = config["id_field"],
         file_ending = "data/*.fas*",
+        temp = temp("temp/sequences.fasta"),
         date_last_updated = files.last_updated_file,
         local_accn = files.local_accn_file,
     shell:
         """
         set -euo pipefail
-        # use bash nullglob so missing globs are ignored
         shopt -s nullglob
 
         mkdir -p temp
@@ -211,53 +221,78 @@ rule update_sequences:
 
         python scripts/update_sequences.py --in_seq "$tmp" --dates {params.date_last_updated} \
             --local_accession {params.local_accn} --meta {input.metadata} --add {input.extra_metadata} \
-            --ingest_seqs {input.sequences} --out_seq {output.sequences}
+            --ingest_seqs {input.sequences} --out_seq {params.temp}
 
         # Deduplicate FASTA headers (keep first occurrence) and atomically replace
-        awk '/^>/{{ if (seen[$1]++ == 0) print; next }} !/^>/{{ print }}' {output.sequences} > "$dedup" && mv "$dedup" {output.sequences}
+        seqkit rmdup {params.temp} > {output.sequences}
         """
 
 
 ##############################
 # BLAST
-# blast fasta files for vp1 
+# blast fasta files for your specific proteins
+# cut out your protein from fasta sequences
 ###############################
+
+rule extract:
+    input: 
+        genbank_file = files.reference
+    output: 
+        extracted_fasta = "{seg}/config/reference.fasta",    
+        extracted_genbank = "{seg}/config/reference.gbk",
+        annotation = "{seg}/config/annotation.gff3"
+    params:
+        product_name = "{seg}",
+        taxid = TAXID,
+        # annotation = lambda wildcards: f'{wildcards.seg}/config/annotation.gff3' if wildcards.seg != "whole_genome" else ""
+
+    shell:
+        """
+        python scripts/extract_gene_from_whole_genome.py \
+        --genbank_file {input.genbank_file} \
+        --output_fasta {output.extracted_fasta} \
+        --product_name {params.product_name} \
+        --output_genbank {output.extracted_genbank} \
+        --taxid {params.taxid} \
+        --output_gff {output.annotation}
+        """
 
 rule blast:
     input: 
-        blast_db_file = "data/references/reference_vp1_blast.fasta",
-        seqs_to_blast = rules.update_sequences.output.sequences
+        blast_db_file = rules.extract.output.extracted_fasta,  
+        seqs_to_blast = rules.update_sequences.output.sequences,
     output:
-        blast_out = "temp/blast_out.csv"
+        blast_out = "temp/{seg}/blast_out.csv"
     params:
-        blast_db = "temp/blast_database"
+        blast_db =  "temp/{seg}/blast_database"
     shell:
         """
         sed -i 's/-//g' {input.seqs_to_blast}
         makeblastdb -in {input.blast_db_file} -out {params.blast_db} -dbtype nucl
-        blastn -task blastn -query {input.seqs_to_blast} -db {params.blast_db} -outfmt '10 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore qcovs' -out {output.blast_out} -evalue 0.0005
+        blastn -task blastn -query {input.seqs_to_blast} -db {params.blast_db} \
+        -outfmt '10 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore qcovs' -out {output.blast_out} -evalue 0.0005
         """
 
 rule blast_sort:
     input:
         blast_result = rules.blast.output.blast_out, # output blast (for your protein)
-        input_seqs = rules.update_sequences.output.sequences
+        input_seqs = rules.update_sequences.output.sequences,
     output:
         sequences = "{seg}/results/sequences.fasta"
         
     params:
-        protein = [600,915], #TODO: min & max length for protein
-        whole_genome = [6400,8000], #TODO: min & max length for whole genome
-        range = "{seg}" # this is determining the path it takes in blast_sort (protein-specific or whole genome)
+        range = "{seg}",  # Determines which protein (or whole genome) is processed
+        min_length = lambda wildcards: {"vp1": 600, "whole_genome": 6400, "P1": 2000}[wildcards.seg],  # Min length
+        max_length = lambda wildcards: {"vp1": 950, "whole_genome": 8000, "P1": 2650}[wildcards.seg]  # Max length
     shell:
         """
         python scripts/blast_sort.py --blast {input.blast_result} \
-            --protein_length {params.protein}  --whole_genome_length {params.whole_genome} \
             --seqs {input.input_seqs} \
             --out_seqs {output.sequences} \
-            --range {params.range}
+            --range {params.range} \
+            --min_length {params.min_length} \
+            --max_length {params.max_length}
         """
-
 
 ##############################
 # Merge all metadata files (NCBI download and own files) and clean them up
@@ -273,25 +308,25 @@ rule add_metadata:
         metadata = files.METADATA,
         new_data = rules.curate.output.meta,
         regions = ancient(files.regions),
-    params:
-        strain_id_field = config["id_field"],
         last_updated = files.last_updated_file,
         local_accn = files.local_accn_file,
+    params:
+        strain_id_field = config["id_field"],
     output:
-        metadata="data/all_metadata.tsv"
+        metadata = "data/all_metadata.tsv"
     shell:
         """
         python scripts/add_metadata.py \
             --input {input.metadata} \
             --add {input.new_data} \
-            --local {params.local_accn} \
-            --update {params.last_updated}\
+            --local {input.local_accn} \
+            --update {input.last_updated}\
             --regions {input.regions} \
             --id {params.strain_id_field} \
             --output {output.metadata}
             """
-#
-# Deduplicate sequences that have identical strain names and sequences
+
+## Deduplicate sequences that have identical strain names and sequences
 rule deduplicate:
     message:
         """
@@ -302,7 +337,7 @@ rule deduplicate:
         metadata = rules.add_metadata.output.metadata
     params:
         id_field = config["id_field"],
-        threshold = 0.99 # percent identity threshold to consider sequences as duplicates
+        threshold = 0.98 # percent identity threshold to consider sequences as duplicates
     output:
         sequences = "{seg}/results/deduplicated_sequences.fasta",
     shell:
@@ -315,10 +350,10 @@ rule deduplicate:
             --out-sequences {output.sequences} 
         """
 
-##############################
-# Rest of the augur pipeline
-###############################
 
+##############################
+# Create an index of sequence composition for filtering & filter
+###############################
 rule index_sequences:
     message:
         """
@@ -351,13 +386,15 @@ rule filter:
         include = files.incl_strains,
     output:
         sequences = "{seg}/results/filtered.fasta",
-        reason = "{seg}/results/filter_log.tsv"
+        reason ="{seg}/results/reasons.tsv",
+    log:
+        "logs/filter.{seg}.log"
     params:
         group_by = "country year",
         sequences_per_group = 500, # set lower if you want to have a max sequences per group
         strain_id_field= config["id_field"],
-        min_date = 1950,  # G-10 was collected in 1952
-        min_length = lambda wildcards: {"vp1": 600, "whole_genome": 6400}[wildcards.seg]
+        min_date = 1949,  # G-10 was collected in 1952
+        min_length = lambda wildcards: {"vp1": 600, "whole_genome": 6400, "P1": 2000}[wildcards.seg], # to be safe
     shell:
         """
         augur filter \
@@ -366,40 +403,32 @@ rule filter:
             --metadata {input.metadata} \
             --metadata-id-columns {params.strain_id_field} \
             --exclude {input.exclude} \
-            --exclude-where doi="Private data: J-L Bailly"\
             --include {input.include} \
             --group-by {params.group_by} \
             --sequences-per-group {params.sequences_per_group} \
             --min-date {params.min_date} \
             --min-length {params.min_length} \
             --output-sequences {output.sequences}\
-            --output-log {output.reason}
+            --output-log {output.reason} \
+            >> {log} 2>&1
+
+        echo "Filtered sequences saved to {output.sequences}"
         """
 
-
-rule reference_gb_to_fasta:
-    message:
-        """
-        Converting reference sequence from genbank to fasta format
-        """
-    input:
-        reference = files.reference
-
-    output:
-        reference = "{seg}/results/reference_sequence.fasta"
-    run:
-        from Bio import SeqIO
-        SeqIO.convert(input.reference, "genbank", output.reference, "fasta")
-
+##############################
+# Reference sequence &
+# Alignment
+###############################
 rule align: 
     message:
         """
+        Segment: {wildcards.seg}
         Aligning sequences to {input.reference} using Nextclade run.
         """
     input:
         gff_reference = files.gff_reference,
         sequences = rules.filter.output.sequences,
-        reference = rules.reference_gb_to_fasta.output.reference
+        reference = rules.extract.output.extracted_fasta,
     output:
         alignment = "{seg}/results/aligned.fasta",
         tsv = "{seg}/results/nextclade.tsv",    
@@ -438,67 +467,64 @@ rule align:
 
 # potentially add one-by-one genes
 # use wildcards
-rule sub_alignments:
-    input:
-        alignment=rules.align.output.alignment,
-        reference=files.reference
-    output:
-        # alignment = "{seg}/results/aligned.fasta"
-        alignment = "{seg}/results/aligned{gene}{quart}.fasta"
-    run:
-        from Bio import SeqIO
-        from Bio.Seq import Seq
+# rule sub_alignments:
+#     input:
+#         alignment=rules.align.output.alignment,
+#         reference=files.reference
+#     output:
+#         alignment = "{seg}/results/aligned{gene}.fasta"
+#     benchmark:
+#         "benchmark/sub_alignments.{seg}{gene}.log"
+#     run:
+#         from Bio import SeqIO
+#         from Bio.Seq import Seq
 
-        if wildcards.quart:
-            real_gene = wildcards.quart.replace("-", "", 1)
-            boundaries = {
-                '1Q':(3443, 3943),  '2Q':(3944, 4444),
-                '3Q':(4445, 4945),  '4Q':(4946, 5446)}
-            b = boundaries[real_gene]
-        else:
-            real_gene = wildcards.gene.replace("-", "", 1)
+#         real_gene = wildcards.gene.replace("-", "", 1)
 
-            # Extract boundaries from the reference GenBank file
-            gene_boundaries = {}
-            with open(input.reference) as handle:
-                for record in SeqIO.parse(handle, "genbank"):
-                    for feature in record.features:
-                        if feature.type == "CDS" and 'Name' in feature.qualifiers:
-                            product = feature.qualifiers['Name'][0].upper()
-                            if product == real_gene.upper():
-                                # Corrected: Use .start and .end directly
-                                gene_boundaries[product] = (feature.location.start, feature.location.end)
+#         # Extract boundaries from the reference GenBank file
+#         gene_boundaries = {}
+#         with open(input.reference) as handle:
+#             for record in SeqIO.parse(handle, "genbank"):
+#                 for feature in record.features:
+#                     if feature.type == "CDS" and 'Name' in feature.qualifiers:
+#                         product = feature.qualifiers['Name'][0].upper()
+#                         if product == real_gene.upper():
+#                             # Corrected: Use .start and .end directly
+#                             gene_boundaries[product] = (feature.location.start, feature.location.end)
 
-            if real_gene.upper() not in gene_boundaries:
-                raise ValueError(f"Gene {real_gene} not found in reference file.")
+#         if real_gene.upper() not in gene_boundaries:
+#             raise ValueError(f"Gene {real_gene} not found in reference file.")
 
-            b = gene_boundaries[real_gene.upper()]
+#         b = gene_boundaries[real_gene.upper()]
 
-        alignment = SeqIO.parse(input.alignment, "fasta")
-        with open(output.alignment, "w") as oh:
-            for record in alignment:
-                sequence = Seq(record.seq)
-                gene_keep = sequence[b[0]:b[1]]
-                if set(gene_keep) == {"N"} or len(gene_keep) == 0 or set(gene_keep) == {"-"}:
-                    continue  # Skip sequences that are entirely masked
-                sequence = len(sequence) * "-"
-                sequence = sequence[:b[0]] + gene_keep + sequence[b[1]:]
-                record.seq = Seq(sequence)
-                SeqIO.write(record, oh, "fasta")
+#         alignment = SeqIO.parse(input.alignment, "fasta")
+#         with open(output.alignment, "w") as oh:
+#             for record in alignment:
+#                 sequence = Seq(record.seq)
+#                 gene_keep = sequence[b[0]:b[1]]
+#                 if set(gene_keep) in [{"N"}, {"-"}, set()]:
+#                     continue  # Skip sequences that are entirely masked
+#                 sequence = len(sequence) * "-"
+#                 sequence = sequence[:b[0]] + gene_keep + sequence[b[1]:]
+#                 record.seq = Seq(sequence)
+#                 SeqIO.write(record, oh, "fasta")
 
-
+##############################
+# Tree building
+###############################
 rule tree:
     message:
         """
+        Segment: {wildcards.seg} {wildcards.gene}
         Creating a maximum likelihood tree
         """
     input:
-        # alignment = rules.align.output.alignment,
-        alignment = rules.sub_alignments.output.alignment
+        alignment = rules.align.output.alignment,
+        # alignment = rules.sub_alignments.output.alignment,
     output:
         # tree = "{seg}/results/tree_raw.nwk"
-        tree = "{seg}/results/tree_raw{gene}{quart}.nwk"
-    threads: 9
+        tree = "{seg}/results/tree_raw{gene}.nwk"
+    threads: workflow.cores    
     shell:
         """
         augur tree \
@@ -507,9 +533,16 @@ rule tree:
             --output {output.tree}
         """
 
+##############################
+# Refine tree &
+# Ancestral sequence reconstruction
+# & Translation
+###############################
+
 rule refine:
     message:
         """
+        Segment: {wildcards.seg} {wildcards.gene}
         Refining tree by rerooting and resolving polytomies
           - estimate timetree
           - use {params.coalescent} coalescent timescale
@@ -518,28 +551,24 @@ rule refine:
         """
     input:
         tree = rules.tree.output.tree,
-        # alignment = rules.align.output.alignment,
-        alignment = rules.sub_alignments.output.alignment,
+        alignment = rules.align.output.alignment,
+        # alignment = rules.sub_alignments.output.alignment,
         metadata =  rules.add_metadata.output.metadata,
     output:
         # tree = "{seg}/results/tree.nwk",
-        tree = "{seg}/results/tree{gene}{quart}.nwk",
         # node_data = "{seg}/results/branch_lengths.json"
-        node_data = "{seg}/results/branch_lengths{gene}{quart}.json"
-    log:
-        reasons_refine = "logs/refine.{seg}{gene}{quart}.log" # number of dropped sequences
+        tree = "{seg}/results/tree{gene}.nwk",
+        node_data = "{seg}/results/branch_lengths{gene}.json"
     params:
         coalescent = "opt",
         date_inference = "marginal",
-        clock_filter_iqd = 6, # was 3
+        clock_filter_iqd = lambda w: 11 if getattr(w, "seg", "") == "vp1" else 3,
         strain_id_field = config["id_field"],
-        clock_rate = 0.004, # remove for estimation
-        clock_std_dev = 0.0015,
-        rooting = lambda wildcards: (
-            "" if (wildcards.seg == "whole_genome" and not wildcards.gene)
-            else "--root AB114107 LT719048" if wildcards.seg == "vp1"
-            else ""
-        )
+        clock_rate = 0.0039, # estimated with clockor: VP1 = 3.882 x 10^-3, WHOLE-GENOME = 4.033 x 10^-3
+        clock_std_dev = 0.0015
+        # clock_rate_string = lambda wildcards: f"--clock-rate 0.004 --clock-std-dev 0.0015" if wildcards.gene or wildcards.quart else ""
+    log:
+        "logs/refine.{seg}{gene}.log"
     shell:
         """
         augur refine \
@@ -550,29 +579,36 @@ rule refine:
             --output-tree {output.tree} \
             --output-node-data {output.node_data} \
             --timetree \
-            --stochastic-resolve \
             --coalescent {params.coalescent} \
             --date-confidence \
+            --stochastic-resolve \
             --clock-rate {params.clock_rate}\
             --clock-std-dev {params.clock_std_dev} \
             --date-inference {params.date_inference} \
-            --clock-filter-iqd {params.clock_filter_iqd}\
-                >> {log.reasons_refine} 2>&1
+            --clock-filter-iqd {params.clock_filter_iqd} \
+            2>&1 | (grep -i "pruning leaf" || cat > /dev/null) > {log}
+
+        echo "Refined tree saved to {output.tree}"
         """
-        
+        #            
+
 
 rule ancestral:
     message: "Reconstructing ancestral sequences and mutations"
     input:
         tree = rules.refine.output.tree,
-        # alignment = rules.align.output.alignment,
-        alignment = rules.sub_alignments.output.alignment,
-        annotation = files.reference,
+        # alignment = rules.sub_alignments.output.alignment,
+        alignment = rules.align.output.alignment,
+        annotation = rules.extract.output.extracted_genbank,
     output:
-        node_data = "{seg}/results/muts{gene}{quart}.json",
+        node_data = "{seg}/results/muts{gene}.json",
     params:
         inference = "joint",
-        genes = lambda wildcards: "VP1" if wildcards.seg == "vp1" else (wildcards.gene.replace("-", "", 1).upper() if wildcards.gene else CODING_GENES), 
+        genes = lambda wildcards: (
+            CODING_GENES if wildcards.seg == "whole_genome" 
+            else [wildcards.seg.upper()] if not wildcards.gene
+            else []
+        ),
         translation_template= r"{seg}/results/translations/cds_%GENE.translation.fasta",
         output_translation_template=r"{seg}/results/translations/cds_%GENE.ancestral.fasta",
         root = "{seg}/results/ancestral_sequences.fasta",
@@ -604,15 +640,22 @@ rule ancestral:
                 --skip-validation
             """)
 
+            # --root-sequence {input.annotation} \  -> assigns mutations to the root relative to the reference, not wanted here
+
+
+##############################
+# Clade assignment
+###############################
+
 rule clades: 
     message: "Assigning clades according to nucleotide mutations"
     input:
         tree=rules.refine.output.tree,
         muts = rules.ancestral.output.node_data,
-        clades = files.clades # "vp1/config/vp1_clades.tsv"
+        clades = files.clades #"vp1/config/vp1_clades.tsv" 
     output:
         # clade_data = "{seg}/results/clades.json"
-        clade_data = "{seg}/results/clades{gene}{quart}.json"
+        clade_data = "{seg}/results/clades{gene}.json"
     shell:
         """
         augur clades --tree {input.tree} \
@@ -628,7 +671,7 @@ rule traits:
         metadata = rules.add_metadata.output.metadata
     output:
         # node_data = "{seg}/results/traits.json"
-        node_data = "{seg}/results/traits{gene}{quart}.json",
+        node_data = "{seg}/results/traits{gene}.json",
     params:
         traits = "country",
         strain_id_field= config["id_field"]
@@ -673,29 +716,23 @@ rule clade_published:
         vp1_lengths = [len(record.seq.replace("N", "").replace("-", "")) for record in seqs]
 
         # Create a DataFrame with sequence IDs and VP1 lengths
-        len_df = pd.DataFrame({"accession": ids, "l_vp1": vp1_lengths})
+        len_df = pd.DataFrame({"accession": ids, "length_vp1": vp1_lengths})
 
         # Add the length to the metadata
         merged_df = pd.merge(merged_df, len_df, left_on=params.strain_id_field, right_on="accession", how="left")
-
-        # Define bins and labels for VP1 length ranges
-        bins_length = [-np.inf, 599, 699, 799, 899, np.inf]
-        labels_length = ['<600nt', '600-700nt', '700-800nt', '800-900nt', '>900nt']
-
-        # Create length range column using pd.cut for VP1 length
-        merged_df['length_VP1'] = pd.cut(merged_df['l_vp1'], bins=bins_length, labels=labels_length, right=False).astype(str)
-
-        # Drop the original 'l_vp1' column
-        merged_df = merged_df.drop(columns=["l_vp1"])
 
         # add url with genbank accession
         merged_df['url'] = "https://www.ncbi.nlm.nih.gov/nuccore/" + merged_df['accession']
 
         merged_df.rename(columns={"has_age":"Age available"}, inplace=True)
         merged_df.rename(columns={"has_diagnosis":"Diagnosis available"}, inplace=True)
-
+        
         # Save the merged dataframe to the output file
         merged_df.to_csv(output.final_metadata, sep="\t", index=False)
+
+#########################
+#  EXPORT
+#########################
 
 rule export:
     message: "Creating auspice JSONs"
@@ -713,9 +750,7 @@ rule export:
         strain_id_field= config["id_field"],
         muts_flag = lambda wildcards: "" if wildcards.gene else f"{wildcards.seg}/results/muts.json",
     output:
-        auspice_json = "auspice/coxsackievirus_A6_{seg}{gene}{quart}.json"
-        # auspice_json = rules.all.input.augur_jsons
-        
+        auspice_json = "auspice/coxsackievirus_A6_{seg}{gene}.json"        
     shell:
         """
         augur export v2 \
@@ -730,7 +765,7 @@ rule export:
         """
 
 
-##############################
+# ##############################
 
 rule rename_whole_genome:
     message: 
@@ -746,48 +781,53 @@ rule rename_whole_genome:
 
 rule rename_genes:
     message: 
-        "Rename and compress the single genome builts"
+        "Rename the single genome builts"
     input: 
         json="auspice/coxsackievirus_A6_whole_genome{gene}.json"
     output:
         json="auspice/coxsackievirus_A6_gene_{gene}.json" # easier view in auspice
     shell:
         """
-        jq -c . {input.json} > {output.json}
-        rm {input.json}
+        mv {input.json} {output.json}
         """
 
 rule clean:
-    message: "Removing directories: {params}"
+    message: 
+        """
+        Removing previous results and temporary files in the following directories:
+        {params.targets}
+        """
     params:
-        "*/results/*",
-        "auspice/*.json",
-        "ingest/data/*.*",
-        "temp/*",
-        files.METADATA,
-        files.SEQUENCES,
-        "data/curated/*",
-        "data/all_sequences.fasta",
-        "data/all_metadata.tsv",
-        "data/final_metadata.tsv",
-        "logs/*"
-
-    shell:
-        "rm -rfv {params}"
-
+        targets = [
+            "*/results/*",
+            "auspice/*.json",
+            "ingest/data/*.*",
+            "temp/*",
+            "logs/*",
+            "benchmark/*",
+            "data/fetch/*",
+            "data/all_*.*",
+            "data/curated/*"
+        ]
+    shell: 
+        """
+        for dir in {params.targets}; do
+            rm -rf "$dir" 2>/dev/null || true
+        done
+        """
 
 rule upload: ## make sure you're logged in to Nextstrain
     message: "Uploading auspice JSONs to Nextstrain"
     input:
-        # jsons = expand("auspice/coxsackievirus_A16_{segs}.json", segs=segments)
-        jsons = ["auspice/coxsackievirus_A16_vp1.json", "auspice/coxsackievirus_A16_whole-genome.json",
-                 "auspice/coxsackievirus_A16_gene_-vp1.json", "auspice/coxsackievirus_A16_gene_-3D.json"]
+        jsons = expand("auspice/coxsackievirus_A6_{segs}.json", segs=segments)
     params:
         remote_group=REMOTE_GROUP,
         date=UPLOAD_DATE,
+        USERNAME=os.getenv("NEXTSTRAIN_USERNAME"),
+
     shell:
         """
-        nextstrain login --no-prompt
+        nextstrain login --username {params.USERNAME}
         nextstrain remote upload \
             nextstrain.org/groups/{params.remote_group}/ \
             {input.jsons}

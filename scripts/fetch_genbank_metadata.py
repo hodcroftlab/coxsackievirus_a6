@@ -382,9 +382,8 @@ def main():
     parser.add_argument(
         '--columns',
         nargs='+',
-        default=["accession", "strain", "country", "location", "region", 
-               "subgenogroup", "lineage", "date", "collection_yr", "sex", 
-               "age_yrs", "age_mo", "diagnosis", "isolation", "origin", "doi"],
+        default=["accession", "strain", "subgenogroup", "country", "location", 
+                "date", "age_yrs", "sex", "diagnosis", "doi"],
         help='Columns to include in output (default: accession strain subgenogroup country location date age_yrs sex diagnosis doi)'
     )
     

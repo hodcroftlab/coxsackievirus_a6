@@ -1,0 +1,87 @@
+#high divergence, date not clear if real
+OR500230
+OR500231
+MT350228
+MT350229
+KY433795
+AB779616
+MT350230
+
+#KP289518
+
+#monopartite
+LR027552
+
+# reference strains
+AF081297
+AY421764
+PQ530051 # Gdula
+
+# underdiverged
+MF578379 
+
+# lab host: suckling mouse
+AB090799
+AB090800
+AB090801
+AB090802
+
+#vaccines
+LQ705799
+MB001409
+
+
+# high diversity, splitting off in 1950s
+KF412903
+HQ844644
+
+
+# high diversity, sewage
+PQ889342
+
+
+# mouse, clone
+PP526685
+
+# root in 1920
+LC013464
+
+# root in 1970
+JQ364886
+
+#outlier - influences root
+KC879540
+JN203517
+
+#clockor - high divergence
+LT719048
+OK570258
+
+LC707384
+LC831098
+
+LT719047
+OK570257
+
+# big cluster in clustor2 - weird
+#JN203516
+# JQ364887
+# OK570258
+# AB268279
+# KP143075
+# KP143076
+# KC866915
+# KP143073
+# LC421592
+# LC421656
+# KP143074
+# KP143078
+# AB114106
+# AB114105
+# AB114110
+# AB114102
+# AB114103
+# AB114108
+
+# outlier - pulls root back by a lot
+JN203516

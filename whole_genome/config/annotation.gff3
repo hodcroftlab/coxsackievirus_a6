@@ -3,15 +3,18 @@
 #!processor NCBI annotwriter
 ##sequence-region AY421764.1 1 7434
 ##species https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=86107
-AY421764.1	Genbank	region	1	7434	.	+	.	ID=AY421764.1:1..7434;Dbxref=taxon:86107;gb-acronym=CV-A6;gbkey=Src;isolate=CA6;mol_type=genomic RNA;strain=Gdula
-AY421764.1	Genbank	CDS	746	952	.	+	.	Name=VP4;gbkey=Prot;product=VP4;ID=id-AAR38844.1:1..69
-AY421764.1	Genbank	CDS	953	1720	.	+	.	Name=VP2;gbkey=Prot;product=VP2;ID=id-AAR38844.1:70..325
-AY421764.1	Genbank	CDS	1721	2440	.	+	.	Name=VP3;gbkey=Prot;product=VP3;ID=id-AAR38844.1:326..565
-AY421764.1	Genbank	CDS	2441	3355	.	+	.	Name=VP1;gbkey=Prot;product=VP1;ID=id-AAR38844.1:566..870
-AY421764.1	Genbank	CDS	3356	3805	.	+	.	Name=2A;gbkey=Prot;product=2A;ID=id-AAR38844.1:871..1020
-AY421764.1	Genbank	CDS	3806	4102	.	+	.	Name=2B;gbkey=Prot;product=2B;ID=id-AAR38844.1:1021..1119
-AY421764.1	Genbank	CDS	4103	5089	.	+	.	Name=2C;gbkey=Prot;product=2C;ID=id-AAR38844.1:1120..1448
-AY421764.1	Genbank	CDS	5090	5347	.	+	.	Name=3A;gbkey=Prot;product=3A;ID=id-AAR38844.1:1449..1534
-AY421764.1	Genbank	CDS	5348	5413	.	+	.	Name=3B;gbkey=Prot;product=3B;ID=id-AAR38844.1:1535..1556
-AY421764.1	Genbank	CDS	5414	5962	.	+	.	Name=3C;gbkey=Prot;product=3C;ID=id-AAR38844.1:1557..1739
-AY421764.1	Genbank	CDS	5963	7348	.	+	.	Name=3D;gbkey=Prot;product=3D;ID=id-AAR38844.1:1740..2201
+AY421764.1	Genbank	region	1	7434	.	+	.	ID=AY421764.1:1..7434;Dbxref=taxon:86107;organism=Coxsackievirus A6;mol_type=genomic RNA;strain=Gdula;gbkey=Src
+AY421764.1	Genbank	CDS	746	952	.	+	.	Name=VP4;gbkey=Prot;product=VP4;ID=id-VP4_746..952
+AY421764.1	Genbank	CDS	953	1720	.	+	.	Name=VP2;gbkey=Prot;product=VP2;ID=id-VP2_953..1720
+AY421764.1	Genbank	CDS	1721	2440	.	+	.	Name=VP3;gbkey=Prot;product=VP3;ID=id-VP3_1721..2440
+AY421764.1	Genbank	CDS	2441	3355	.	+	.	Name=VP1;gbkey=Prot;product=VP1;ID=id-VP1_2441..3355
+AY421764.1	Genbank	CDS	3356	3805	.	+	.	Name=2A;gbkey=Prot;product=2A;ID=id-2A_3356..3805
+AY421764.1	Genbank	CDS	3806	4102	.	+	.	Name=2B;gbkey=Prot;product=2B;ID=id-2B_3806..4102
+AY421764.1	Genbank	CDS	4103	5089	.	+	.	Name=2C;gbkey=Prot;product=2C;ID=id-2C_4103..5089
+AY421764.1	Genbank	CDS	5090	5347	.	+	.	Name=3A;gbkey=Prot;product=3A;ID=id-3A_5090..5347
+AY421764.1	Genbank	CDS	5348	5413	.	+	.	Name=3B;gbkey=Prot;product=3B;ID=id-3B_5348..5413
+AY421764.1	Genbank	CDS	5414	5962	.	+	.	Name=3C;gbkey=Prot;product=3C;ID=id-3C_5414..5962
+AY421764.1	Genbank	CDS	5963	7348	.	+	.	Name=3D;gbkey=Prot;product=3D;ID=id-3D_5963..7348
+AY421764.1	Genbank	CDS	746	3355	.	+	.	Name=P1;gbkey=Prot;product=P1;ID=id-P1_746..3355
+AY421764.1	Genbank	CDS	3356	5089	.	+	.	Name=P2;gbkey=Prot;product=P2;ID=id-P2_3356..5089
+AY421764.1	Genbank	CDS	5090	7348	.	+	.	Name=P3;gbkey=Prot;product=P3;ID=id-P3_5090..7348
