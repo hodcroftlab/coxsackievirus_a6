@@ -2,7 +2,7 @@
 import os
 from Bio import SeqIO
 from collections import defaultdict
-
+import re
 
 def parse_args():
     import argparse
@@ -13,7 +13,10 @@ def parse_args():
 
 def get_reference_sequence(accession):
     from Bio import Entrez
-    Entrez.email = "hello@nextstrain.org"
+    from dotenv import load_dotenv, find_dotenv
+
+    load_dotenv(find_dotenv())
+    Entrez.email = os.environ.get("EMAIL")
     handle = Entrez.efetch(db="nucleotide", id=accession, rettype="gb", retmode="text")
     print(f"Fetching reference sequence {accession} from genbank")
     return SeqIO.read(handle, "genbank")
@@ -46,6 +49,12 @@ def annotate_sequence(seq, cds):
     seq.features = new_features
     return seq
 
+def clean_qualifier(value):
+    """Remove common patterns from qualifier values."""
+    value = re.sub(r'^(protein|protease|protien)[\s_|]*', '', value, flags=re.IGNORECASE)
+    value = re.sub(r'\s*\([\w\d]+\)\s*$', '', value)
+    value = re.sub(r'__\d[A-D]_.*', '', value)
+    return value.strip()
 
 def check_name(new_name):
     forbidden_chars = ' ,.;:()[]'
@@ -53,7 +62,7 @@ def check_name(new_name):
         print(f"ERROR: the CDS name contains invalid characters '{forbidden_chars}' or spaces.")
         print("These have been replaced by '_', but you might want to start over with different names.")
         for c in forbidden_chars:
-            new_name = new_name.replace(c, '_')
+            new_name = clean_qualifier(new_name)
 
     if len(new_name)>20:
         print(f"WARNING: this CDS name '{new_name}' is long, this might result in cumbersome output")
@@ -175,10 +184,14 @@ if __name__=="__main__":
                 new_entries, new_attributes = list(segment[0]), dict(segment[1])
                 new_entries[2]='CDS'
                 new_attributes['Name']=names_by_id[segment_id]
+                if 'product' in new_attributes:
+                    new_attributes['product'] = check_name(new_attributes['product'])
+                if 'locus_tag' in new_attributes:
+                    new_attributes['locus_tag'] = check_name(new_attributes['locus_tag'])
                 if "Parent" in new_attributes: new_attributes.pop("Parent")
                 streamlined_cds[segment_id].append([new_entries, new_attributes])
 
-    gff_fname = f"{args.output_dir}/annotation.gff3"
+    gff_fname = f"{args.output_dir}/genome_annotation.gff3"
     print(f"\nWriting annotation to GFF file: {gff_fname}\n")
     # write the gff file as a simple text file line by line
     with open(gff_fname, "w") as f:

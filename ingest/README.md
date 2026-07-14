@@ -27,19 +27,18 @@ To set up and run the ingest workflow, follow these steps:
 2. **Run `generate_from_genbank.py` Script:**  
    Execute the script (located in `bin/`) to generate required reference files:
    ```bash
-   python3 bin/generate_from_genbank.py --reference "AY421764.1" --output-dir data/references/
+   python3 bin/generate_from_genbank.py --reference "U22521.1" --output-dir data/references/
    ```
 
    During execution, you may be asked to provide CDS annotations. You can use the following codes to specify the CDS automatically:
    - `[0]`
    - `[product]` or `[leave empty for manual choice]` to select proteins.
    - `[2]`.
+
+   > [!NOTE]
+   > Please note that for some pathogens, no common fields may be available in the set. In such cases, you will need to leave the input blank and manually assign CDS names.  
    
    The generated files will be saved in the `data/references` subdirectory and used by the `ingest` Snakefile.
-
-> [!NOTE]
-> Please note that for some pathogens, no common fields may be available in the set. In such cases, you will need to leave the input blank and manually assign CDS names. 
-   
 
 3. **Update Attributes**  
    Ensure that attributes in `data/references/pathogen.json` are up-to-date. Please consult the [Nextclade pathogen configuration documentation](https://docs.nextstrain.org/projects/nextclade/en/stable/user/input-files/05-pathogen-config.html#pathogen-configuration) for more optional attributes to add to the file.  
