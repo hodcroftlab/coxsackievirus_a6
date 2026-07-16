@@ -3,14 +3,6 @@ D3	nuc	1686	A
 D3	nuc	2004	T
 D3	nuc	2268	G
 
-D3a	nuc	981	T
-D3a	nuc	1350	C
-D3a	nuc	1803	C
-D3a	nuc	2028	C
-
-D3b	nuc	1956	G
-D3b	nuc	2472	G
-
 D2	nuc	178	G
 D2	nuc	1818	T
 D2	nuc	1449	G
@@ -18,3 +10,7 @@ D2	nuc	1449	G
 D	nuc	1017	A
 D	nuc	1383	A
 D	nuc	2226	C
+
+D1	nuc	636	G
+D1	nuc	1506	G
+D1	nuc	2340	A
