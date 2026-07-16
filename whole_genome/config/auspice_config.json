@@ -1,5 +1,5 @@
 {
-  "title": "Genomic epidemiology of Coxsackievirus A6 - complete genome",
+  "title": "Genomic epidemiology of Coxsackievirus A16 - whole genome",
   "maintainers": [
     {"name": "Nadia Neuner-Jehle", "url": "https://eve-lab.org/people/nadia-neuner-jehle/"},
     {"name": "Emma Hodcroft", "url": "https://eve-lab.org/people/emma-hodcroft/"}
@@ -10,7 +10,7 @@
       "url": "https://www.ncbi.nlm.nih.gov/genbank/"
     }
   ],
-  "build_url": "https://github.com/hodcroftlab/coxsackievirus_a6/tree/master",
+  "build_url": "https://github.com/hodcroftlab/coxsackievirus_a16/tree/master",
   "colorings": [
     {
       "key": "gt",
@@ -23,42 +23,47 @@
       "type": "categorical"
     },
     {
-      "title": "Published Subgenogroup",
+      "title": "Published Clades",
       "type": "categorical",
       "key": "subgenogroup"
     },
     {
-      "title": "Published Lineages",
-      "type": "categorical",
-      "key": "lineage"
+      "key": "num_date",
+      "title": "Date",
+      "type": "continuous"
     },
     {
-      "key": "date_added_num",
-      "title": "Date when added to build",
+      "key": "age_yrs",
+      "title": "Age (years)",
       "type": "continuous",
+      "scale": [
+        [0, "#3f63cf"],
+        [0.125, "#3f63cf"],
+        [0.375, "#529ab6"],
+        [0.75, "#75b681"],
+        [3, "#a6be55"],
+        [7.5, "#d4b13f"],
+        [13.5, "#e68133"],
+        [20, "#dc2f24"]
+      ],
       "legend": [
-        {"value": 2024.62, "display": "2024-08-15", "bounds": [2024.61, 2024.63]},
-        {"value": 2025.06, "display": "2025-01-24", "bounds": [2025.05, 2025.07]},
-        {"value": 2025.13, "display": "2025-02-19", "bounds": [2025.12, 2025.14]},
-        {"value": 2025.39, "display": "2025-05-22", "bounds": [2025.38, 2025.40]},
-        {"value": 2025.46, "display": "2025-06-16", "bounds": [2025.45, 2025.47]},
-        {"value": 2025.69, "display": "2025-09-11", "bounds": [2025.68, 2025.70]},
-        {"value": 2025.77, "display": "2025-10-06", "bounds": [2025.76, 2025.78]}
+        {"value": 0.125, "display": "0-3 m/o", "bounds":  [0, 0.25]},
+        {"value": 0.375, "display": "4-6 m/o", "bounds":  [0.25, 0.5]},
+        {"value":  0.75, "display": "7-12 m/o", "bounds":  [0.5, 1]},
+        {"value": 3, "display": "1-5 y/o", "bounds": [1, 5]},
+        {"value": 7.5, "display": "6-10 y/o", "bounds": [5, 10]},
+        {"value": 13.5, "display": "11-17 y/o", "bounds": [10, 17]},
+        {"value": 20, "display": "18+ y/o", "bounds": [17, 100]}
       ]
     },
     {
-      "key": "age_range",
-      "title": "Age range",
-      "type": "categorical"
-    },
-    {
       "key": "med_diagnosis_all",
-      "title": "Medical diagnosis (detailed)",
+      "title": "Detailed Symptom List",
       "type": "categorical"
     },
     {
       "key": "med_diagnosis_major",
-      "title": "Major medical diagnosis",
+      "title": "Disease",
       "type": "categorical"
     },
     {
@@ -73,7 +78,7 @@
     },
     {
       "key": "place",
-      "title": "Location",
+      "title": "Place",
       "type": "categorical"
     },
     {
@@ -87,9 +92,31 @@
       "key": "gender"
     },
     {
-      "key": "length_VP1",
+      "title": "Date when added",
+      "type": "categorical",
+      "key": "date_added"
+    },
+    {
+      "key": "length_vp1",
       "title": "Length of VP1",
-      "type": "ordinal"
+      "type": "continuous",
+      "scale": [
+        [0, "#3f63cf"],
+        [600, "#3f63cf"],
+        [650, "#529ab6"],
+        [700, "#75b681"],
+        [750, "#a6be55"],
+        [800, "#d4b13f"],
+        [850, "#e68133"],
+        [1000, "#dc2f24"]
+      ],
+      "legend": [
+      {"value": 600, "display": "<600nt", "bounds": [0, 600]},
+      {"value": 650, "display": "600-700nt", "bounds": [600, 700]},
+      {"value": 750, "display": "700-800nt", "bounds": [700, 800]},
+      {"value": 850, "display": "800-900nt", "bounds": [800, 900]},
+      {"value": 950, "display": ">900nt", "bounds": [900, 10000]}
+      ]
     },
     {
       "key": "NCBI_length_genome",
@@ -97,8 +124,9 @@
       "type": "continuous"
     },
     {
-      "key": "author",
-      "title": "Authors"
+      "key": "abbr_authors",
+      "title": "Authors",
+      "type":"categorical"
     }
   ],
   "geo_resolutions": [
@@ -126,10 +154,10 @@
     "region",
     "author",
     "subgenogroup", 
-    "length_VP1",
+    "length_vp1",
     "med_diagnosis_major",
-    "has_age",
-    "date_added_num",
+    "Age available",
+    "Diagnosis available",
     "doi"
   ]
   }
