@@ -39,7 +39,7 @@ wildcard_constraints:
 segments = ['vp1', 'whole-genome', 'P1'] # add more segments if you want to analyze them separately
 GENES=["-5utr","-vp4", "-vp2", "-vp3", "-vp1", "-2A", "-2B", "-2C", "-3A", "-3B", "-3C", "-3D","-3utr"]
 CODING_GENES = ["VP4", "VP2", "VP3", "VP1", "2A", "2B", "2C", "3A", "3B", "3C", "3D"]
-
+PROTEIN1 = ["VP4", "VP2", "VP3", "VP1"]
 
 # Rule to handle configuration files
 rule files:
@@ -307,7 +307,7 @@ rule add_metadata:
     input:
         metadata = files.METADATA,
         new_data = rules.curate.output.meta,
-        regions = ancient(files.regions),
+        regions = files.regions,
         last_updated = files.last_updated_file,
         local_accn = files.local_accn_file,
     params:
@@ -406,6 +406,7 @@ rule filter:
             --include {input.include} \
             --group-by {params.group_by} \
             --sequences-per-group {params.sequences_per_group} \
+            --exclude-where doi="Private data: J-L Bailly" \
             --min-date {params.min_date} \
             --min-length {params.min_length} \
             --output-sequences {output.sequences}\
@@ -465,49 +466,47 @@ rule align:
         --output-fasta {output.alignment}
         """
 
-# potentially add one-by-one genes
-# use wildcards
-# rule sub_alignments:
-#     input:
-#         alignment=rules.align.output.alignment,
-#         reference=files.reference
-#     output:
-#         alignment = "{seg}/results/aligned{gene}.fasta"
-#     benchmark:
-#         "benchmark/sub_alignments.{seg}{gene}.log"
-#     run:
-#         from Bio import SeqIO
-#         from Bio.Seq import Seq
+rule sub_alignments:
+    input:
+        alignment=rules.align.output.alignment,
+        reference=files.reference
+    output:
+        alignment = "{seg}/results/aligned{gene}.fasta"
+    benchmark:
+        "benchmark/sub_alignments.{seg}{gene}.log"
+    run:
+        from Bio import SeqIO
+        from Bio.Seq import Seq
 
-#         real_gene = wildcards.gene.replace("-", "", 1)
+        real_gene = wildcards.gene.replace("-", "", 1)
 
-#         # Extract boundaries from the reference GenBank file
-#         gene_boundaries = {}
-#         with open(input.reference) as handle:
-#             for record in SeqIO.parse(handle, "genbank"):
-#                 for feature in record.features:
-#                     if feature.type == "CDS" and 'Name' in feature.qualifiers:
-#                         product = feature.qualifiers['Name'][0].upper()
-#                         if product == real_gene.upper():
-#                             # Corrected: Use .start and .end directly
-#                             gene_boundaries[product] = (feature.location.start, feature.location.end)
+        # Extract boundaries from the reference GenBank file
+        gene_boundaries = {}
+        with open(input.reference) as handle:
+            for record in SeqIO.parse(handle, "genbank"):
+                for feature in record.features:
+                    if feature.type == "CDS" and 'Name' in feature.qualifiers:
+                        product = feature.qualifiers['Name'][0].upper()
+                        if product == real_gene.upper():
+                            # Corrected: Use .start and .end directly
+                            gene_boundaries[product] = (feature.location.start, feature.location.end)
 
-#         if real_gene.upper() not in gene_boundaries:
-#             raise ValueError(f"Gene {real_gene} not found in reference file.")
+        if real_gene.upper() not in gene_boundaries:
+            raise ValueError(f"Gene {real_gene} not found in reference file.")
 
-#         b = gene_boundaries[real_gene.upper()]
+        b = gene_boundaries[real_gene.upper()]
 
-#         alignment = SeqIO.parse(input.alignment, "fasta")
-#         with open(output.alignment, "w") as oh:
-#             for record in alignment:
-#                 sequence = Seq(record.seq)
-#                 gene_keep = sequence[b[0]:b[1]]
-#                 if set(gene_keep) in [{"N"}, {"-"}, set()]:
-#                     continue  # Skip sequences that are entirely masked
-#                 sequence = len(sequence) * "-"
-#                 sequence = sequence[:b[0]] + gene_keep + sequence[b[1]:]
-#                 record.seq = Seq(sequence)
-#                 SeqIO.write(record, oh, "fasta")
+        alignment = SeqIO.parse(input.alignment, "fasta")
+        with open(output.alignment, "w") as oh:
+            for record in alignment:
+                sequence = Seq(record.seq)
+                gene_keep = sequence[b[0]:b[1]]
+                if set(gene_keep) in [{"N"}, {"-"}, set()]:
+                    continue  # Skip sequences that are entirely masked
+                sequence = len(sequence) * "-"
+                sequence = sequence[:b[0]] + gene_keep + sequence[b[1]:]
+                record.seq = Seq(sequence)
+                SeqIO.write(record, oh, "fasta")
 
 ##############################
 # Tree building
@@ -519,8 +518,8 @@ rule tree:
         Creating a maximum likelihood tree
         """
     input:
-        alignment = rules.align.output.alignment,
-        # alignment = rules.sub_alignments.output.alignment,
+        # alignment = rules.align.output.alignment,
+        alignment = rules.sub_alignments.output.alignment,
     output:
         # tree = "{seg}/results/tree_raw.nwk"
         tree = "{seg}/results/tree_raw{gene}.nwk"
@@ -551,8 +550,8 @@ rule refine:
         """
     input:
         tree = rules.tree.output.tree,
-        alignment = rules.align.output.alignment,
-        # alignment = rules.sub_alignments.output.alignment,
+        # alignment = rules.align.output.alignment,
+        alignment = rules.sub_alignments.output.alignment,
         metadata =  rules.add_metadata.output.metadata,
     output:
         # tree = "{seg}/results/tree.nwk",
@@ -594,53 +593,47 @@ rule refine:
 
 
 rule ancestral:
-    message: "Reconstructing ancestral sequences and mutations"
+    message: 
+        """
+        Reconstructing ancestral sequences and mutations
+
+        Segment: {wildcards.seg}
+        """
     input:
         tree = rules.refine.output.tree,
-        # alignment = rules.sub_alignments.output.alignment,
-        alignment = rules.align.output.alignment,
+        alignment = rules.sub_alignments.output.alignment,
+        # alignment = rules.align.output.alignment,
         annotation = rules.extract.output.extracted_genbank,
     output:
         node_data = "{seg}/results/muts{gene}.json",
     params:
         inference = "joint",
         genes = lambda wildcards: (
-            CODING_GENES if wildcards.seg == "whole_genome" 
-            else [wildcards.seg.upper()] if not wildcards.gene
+            CODING_GENES if wildcards.seg == "whole_genome"
+            else PROTEIN1 if wildcards.seg == "P1"
+            else "VP1" if wildcards.seg == "vp1"
             else []
-        ),
+        ),        
         translation_template= r"{seg}/results/translations/cds_%GENE.translation.fasta",
         output_translation_template=r"{seg}/results/translations/cds_%GENE.ancestral.fasta",
         root = "{seg}/results/ancestral_sequences.fasta",
-
-    run:
-        # Check if this is for a specific gene (wildcards.gene is not empty)
-        if wildcards.gene != "":
-            # Running for a specific gene
-            shell("""
-                augur ancestral \
-                --tree {input.tree} \
-                --alignment {input.alignment} \
-                --output-node-data {output.node_data} \
-                --keep-ambiguous \
-                --inference {params.inference}
-            """)
-        else:
-            # Running for whole genome with translation
-            shell("""
-                augur ancestral \
-                --tree {input.tree} \
-                --alignment {input.alignment} \
-                --annotation {input.annotation} \
-                --genes {params.genes} \
-                --translations {params.translation_template} \
-                --output-node-data {output.node_data} \
-                --output-translations {params.output_translation_template} \
-                --output-sequences {params.root} \
-                --skip-validation
-            """)
-
-            # --root-sequence {input.annotation} \  -> assigns mutations to the root relative to the reference, not wanted here
+    log:
+        "logs/ancestral.{seg}{gene}.log"
+    shell:
+        """
+            augur ancestral \
+            --tree {input.tree} \
+            --alignment {input.alignment} \
+            --annotation {input.annotation} \
+            --genes {params.genes} \
+            --translations {params.translation_template} \
+            --output-node-data {output.node_data} \
+            --output-translations {params.output_translation_template} \
+            --output-sequences {params.root} \
+            > {log} 2>&1
+        """
+        # --keep-ambiguous\ #do not infer nucleotides at ambiguous (N) sites on tip sequences (leave as N).
+        # --root-sequence {input.annotation} \  -> assigns mutations to the root relative to the reference, not wanted here
 
 
 ##############################
