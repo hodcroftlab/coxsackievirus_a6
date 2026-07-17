@@ -469,6 +469,11 @@ rule align:
         """
 
 rule sub_alignments:
+    wildcard_constraints:
+        # Never match gene="" here: that would collide with rule align's
+        # output for the same {seg}, since rules.align.output.alignment is
+        # this rule's input, and Snakemake would resolve a self-cycle.
+        gene="-5utr|-vp4|-vp2|-vp3|-vp1|-2A|-2B|-2C|-3A|-3B|-3C|-3D|-3utr"
     input:
         alignment=rules.align.output.alignment,
         reference=files.reference
