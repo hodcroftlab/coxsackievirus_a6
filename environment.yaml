@@ -1,0 +1,36 @@
+name: grouping
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python=3.11
+  - snakemake>=9.22.0
+  - augur>=33.0
+  - auspice>=2.66.0
+  - biopython
+  - pandas
+  - numpy
+  - csvtk
+  - seqkit
+  - tsv-utils
+  - entrez-direct
+  - unzip
+  - blast
+  - nextstrain-cli
+  - ncbi-datasets-cli>=18.29.1
+  - cvxopt
+  - datrie
+  - fasttree
+  - iqtree>=3.1.2
+  - mafft>=7.526
+  - nextclade>=3
+  - psutil
+  - nodejs=22
+  - raxml
+  - vcftools
+  - git
+  - python-dotenv
+  - pyyaml
+  - fuzzywuzzy
+  - python-levenshtein
+  - requests
