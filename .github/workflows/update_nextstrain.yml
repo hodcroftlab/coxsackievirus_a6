@@ -46,7 +46,7 @@ jobs:
           ls -lh data/
           
           # Check for required files
-          required_files=("meta_publications.tsv" "genbank_metadata.tsv")
+          required_files=("meta_public.tsv" "genbank_metadata.tsv")
           for file in "${required_files[@]}"; do
             if [ ! -f "data/$file" ]; then
               echo "⚠️  Warning: $file not found in data/"
