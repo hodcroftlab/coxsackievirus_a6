@@ -53,8 +53,8 @@ def extract_accession(name, extract="accession"):
                 seq_record = SeqIO.read(handle, "genbank")
                 handle.close()  # Ensure we close the handle after reading
 
-                # Check if the description contains "Coxsackievirus A16" or "CVA16"
-                if re.search(r'\b(Coxsackievirus A16|CVA16)\b', seq_record.description, re.IGNORECASE):
+                # Check if the description contains "Coxsackievirus A6" or "CVA6"
+                if re.search(r'\b(Coxsackievirus A6|CVA6)\b', seq_record.description, re.IGNORECASE):
                     # Check if the description also contains "VP1" or "complete genome"
                     if re.search(r'\bVP1\b', seq_record.description, re.IGNORECASE) or re.search(r'\bcomplete \b', seq_record.description, re.IGNORECASE) or re.search(r'\bpartial cds\b', seq_record.description, re.IGNORECASE):
                         # what to extract

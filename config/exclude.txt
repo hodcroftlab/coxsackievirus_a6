@@ -47,7 +47,7 @@ PP526685
 LC013464
 
 # root in 1970
-JQ364886
+# JQ364886
 
 #outlier - influences root
 KC879540
@@ -85,3 +85,12 @@ OK570257
 
 # outlier - pulls root back by a lot
 JN203516
+
+# pulling new sequences up
+PV235418
+PZ469654
+PZ469653
+PV235420
+PV235419
+PZ469650
+PX454568

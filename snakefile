@@ -23,6 +23,7 @@ except:
     pass
 
 TAXID = "86107"
+REFERENCE = "AY421764"
 REMOTE_GROUP = os.getenv("REMOTE_GROUP")
 UPLOAD_DATE = date.today().isoformat()
 
@@ -562,9 +563,9 @@ rule refine:
     params:
         coalescent = "opt",
         date_inference = "marginal",
-        clock_filter_iqd = lambda w: 11 if getattr(w, "seg", "") == "vp1" else 3,
+        clock_filter_iqd = 6,
         strain_id_field = config["id_field"],
-        clock_rate = 0.0039, # estimated with clockor: VP1 = 3.882 x 10^-3, WHOLE-GENOME = 4.033 x 10^-3
+        clock_rate = lambda w: 0.004 if getattr(w, "seg", "") == "whole_genome" else 0.0039, # estimated with clockor: VP1 = 3.882 x 10^-3, WHOLE-GENOME = 4.033 x 10^-3
         clock_std_dev = 0.0015
         # clock_rate_string = lambda wildcards: f"--clock-rate 0.004 --clock-std-dev 0.0015" if wildcards.gene or wildcards.quart else ""
     log:

@@ -118,7 +118,7 @@ metadata:
         'severe pulmonary hemorrhage': 'Cardiopulmonary Collapse'
         'pulmonary hemorrhage': 'Cardiopulmonary Collapse'
         'Acute cardiogenic shock': 'Cardiogenic shock'
-        'Acute cardiogenic shock, fatal': 'Cardiogenic shock; Fatality'
+        'Acute cardiogenic shock, fatal': 'Cardiogenic shock; Mortality'
         'cardiopulmonary collapse': 'Cardiopulmonary Collapse'
         'Shock': 'Shock'
         
@@ -136,11 +136,12 @@ metadata:
         # Other
         'Onychomadesis': 'Onychomadesis'
         
-        # Fatality
-        '(death)': 'Fatality'
-        'fatal': 'Fatality'
-        'death': 'Fatality'
-        'Died': 'Fatality'
+        # Mortality
+        '(death)': 'Mortality'
+        'fatal': 'Mortality'
+        'death': 'Mortality'
+        'Died': 'Mortality'
+        'Fatality': 'Mortality'
 
         # Asymptomatic
         'healthy': 'Healthy'
@@ -220,7 +221,7 @@ metadata:
 
         Sepsis: Sepsis
 
-        Fatality: Fatality
+        Mortality: Mortality
 
         Fever: Other
 
