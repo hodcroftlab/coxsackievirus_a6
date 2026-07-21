@@ -12,13 +12,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
           ref: master  # Explicitly checkout this branch
 
       - name: Checkout data repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with: 
           repository: hodcroftlab/nextstrain-builds-data
           token: ${{ secrets.PRIVATE_REPO_TOKEN }}
@@ -54,7 +54,7 @@ jobs:
           done
 
       - name:  Setup micromamba
-        uses:  mamba-org/setup-micromamba@v2
+        uses:  mamba-org/setup-micromamba@v3
         with:
           environment-file: environment.yaml
           environment-name: nextstrain
@@ -112,7 +112,7 @@ jobs:
 
       - name: Upload workflow artifacts (optional)
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with: 
           name:  pipeline-results
           path: auspice/
