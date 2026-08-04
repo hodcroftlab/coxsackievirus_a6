@@ -33,3 +33,6 @@ temp/
 
 logs
 backup
+
+!data/date_last_updated.txt
+!data/local_accn.txt

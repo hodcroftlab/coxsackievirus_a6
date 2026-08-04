@@ -92,6 +92,7 @@ rule next_update:
 # Download from NBCI Virus with ingest snakefile
 ###############################
 if DOWNLOAD_INGEST==True:
+    ruleorder: fetch > add_metadata > blast > refine > traits
     rule fetch:
         input:
             dir = "ingest"
@@ -285,7 +286,7 @@ rule blast_sort:
     params:
         range = "{seg}",  # Determines which protein (or whole genome) is processed
         min_length = lambda wildcards: {"vp1": 600, "whole_genome": 6400, "P1": 2000}[wildcards.seg],  # Min length
-        max_length = lambda wildcards: {"vp1": 950, "whole_genome": 8000, "P1": 2650}[wildcards.seg]  # Max length
+        max_length = lambda wildcards: {"vp1": 950, "whole_genome": 8000, "P1": 3000}[wildcards.seg]  # Max length
     shell:
         """
         python scripts/blast_sort.py --blast {input.blast_result} \
