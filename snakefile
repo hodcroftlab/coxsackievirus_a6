@@ -71,7 +71,8 @@ rule all:
     input:
         augur_jsons = expand("auspice/coxsackievirus_A6_{segs}.json", segs=segments),
         meta = files.METADATA,
-        seq = files.SEQUENCES
+        seq = files.SEQUENCES,
+        meta_ = "data/all_metadata.tsv",
 
 rule all_genes:
     input:
