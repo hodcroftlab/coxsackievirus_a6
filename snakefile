@@ -309,13 +309,14 @@ rule add_metadata:
         Cleaning data in metadata
         """
     input:
+        seq = rules.update_sequences.output.sequences,
         metadata = files.METADATA,
         new_data = rules.curate.output.meta,
         regions = files.regions,
-        last_updated = files.last_updated_file,
-        local_accn = files.local_accn_file,
     params:
         strain_id_field = config["id_field"],
+        last_updated = files.last_updated_file,
+        local_accn = files.local_accn_file,
     output:
         metadata = "data/all_metadata.tsv"
     shell:
@@ -323,8 +324,8 @@ rule add_metadata:
         python scripts/add_metadata.py \
             --input {input.metadata} \
             --add {input.new_data} \
-            --local {input.local_accn} \
-            --update {input.last_updated}\
+            --local {params.local_accn} \
+            --update {params.last_updated}\
             --regions {input.regions} \
             --id {params.strain_id_field} \
             --output {output.metadata}
