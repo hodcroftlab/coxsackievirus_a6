@@ -5,8 +5,8 @@ if not config:
 def _get_all_targets(wildcards):
     # Default targets are the metadata TSV and sequences FASTA files
     all_targets = [
-        "data/sequences.fasta",
-        "data/metadata.tsv"
+        "results/sequences.fasta",
+        "results/metadata.tsv"
     ]
 
     return all_targets
@@ -16,11 +16,11 @@ rule all:
     output: "../data/fetch/sequences.fasta", "../data/fetch/metadata.tsv"
     shell:
         """
-        cp data/sequences.fasta ../data/fetch/
-        cp data/metadata.tsv ../data/fetch/
+        cp results/sequences.fasta ../data/fetch/
+        cp results/metadata.tsv ../data/fetch/
         """
 
 
-include: "workflow/snakemake_rules/fetch_from_ncbi.smk"
-include: "workflow/snakemake_rules/curate.smk"
-include: "workflow/snakemake_rules/sort.smk"
+include: "rules/fetch_from_ncbi.smk"
+include: "rules/curate.smk"
+include: "rules/sort.smk"

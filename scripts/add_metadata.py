@@ -56,6 +56,9 @@ if __name__ == '__main__':
     # replace None values with NaN
     new_data['accession'] = new_data['accession'].replace([None], np.nan)
 
+    # rename clade field
+    meta.rename(columns={"clade": "nextclade_clade"}, inplace=True)
+    print(f"New data columns: {meta.columns.tolist()}")
                 
     ## Remove duplicates based on id_field
     new_data = new_data.drop_duplicates(subset=id_field)
@@ -90,9 +93,6 @@ if __name__ == '__main__':
 
     # Country: keep the non-missing ones
     new_meta['place'] = new_meta['location_y'].mask(new_meta['location_y'].isna(), new_meta['location_x'])
-
-    # Clades: keep non-missing clades - subgenogroup
-    new_meta['subgenogroup'] = new_meta['subgenogroup'].mask(new_meta['subgenogroup'].isna(), new_meta['clade'])
 
     # Isolation source: standardize
     # Define a mapping for full terms to their abbreviations and standardized names
@@ -298,13 +298,16 @@ if __name__ == '__main__':
     )
 
     # write new metadata file to output
+    # accession	accession_version	strain	date	region	country	division	location	length	host	date_released	date_updated	sra_accessions	authors	full_authors	
+    # institution	url	clade	
+    # coverage	missing_data	divergence	nonACGTN	QC_missing_data	QC_mixed_sites	QC_rare_mutations	QC_frame_shifts	QC_stop_codons	frame_shifts
     new_meta2= new_meta.loc[:,['accession', 'accession_version', 'strain', 'date', 'region', 'place',
         'country', 'host', 'gender', 'age_yrs','age_range',"has_age", 'has_diagnosis','med_diagnosis_all','med_diagnosis_major',
-        'isolation_source', 'NCBI_length_genome',
+        'isolation_source', 'NCBI_length_genome', 'nextclade_clade',
         'subgenogroup','date_released',
-         'abbr_authors', 'authors', 'institution','ENPEN','doi',
-        'qc.overallScore', 'qc.overallStatus',
-        'alignmentScore', 'alignmentStart', 'alignmentEnd', 'genome_coverage','date_added']]
+        'authors', 'full_authors', 'institution','ENPEN','doi', 'url', 'coverage', 'missing_data', 'divergence', 'nonACGTN',
+        'QC_missing_data', 'QC_mixed_sites', 'QC_rare_mutations', 'QC_frame_shifts', 'QC_stop_codons', 'frame_shifts',
+        'date_added']]
 
     new_meta2 = new_meta2.drop_duplicates(subset="accession",keep="first")
     new_meta2.to_csv(output_csv_meta, sep='\t', index=False)

@@ -52,6 +52,7 @@ def annotate_sequence(seq, cds):
 def clean_qualifier(value):
     """Remove common patterns from qualifier values."""
     value = re.sub(r'^(protein|protease|protien)[\s_|]*', '', value, flags=re.IGNORECASE)
+    value = re.sub(r'[\s_|]*(protein|protease|protien)$', '', value, flags=re.IGNORECASE)
     value = re.sub(r'\s*\([\w\d]+\)\s*$', '', value)
     value = re.sub(r'__\d[A-D]_.*', '', value)
     return value.strip()
