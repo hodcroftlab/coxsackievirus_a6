@@ -391,6 +391,7 @@ rule filter:
     output:
         sequences = "{seg}/results/filtered.fasta",
         reason ="{seg}/results/reasons.tsv",
+        metadata = "{seg}/results/filtered_metadata.tsv"
     log:
         "logs/filter.{seg}.log"
     params:
@@ -414,6 +415,7 @@ rule filter:
             --min-date {params.min_date} \
             --min-length {params.min_length} \
             --output-sequences {output.sequences}\
+            --output-metadata {output.metadata} \
             --output-log {output.reason} \
             >> {log} 2>&1
 
@@ -561,7 +563,7 @@ rule refine:
         tree = rules.tree.output.tree,
         # alignment = rules.align.output.alignment,
         alignment = rules.sub_alignments.output.alignment,
-        metadata =  rules.add_metadata.output.metadata,
+        metadata =  rules.filter.output.metadata,
     output:
         # tree = "{seg}/results/tree.nwk",
         # node_data = "{seg}/results/branch_lengths.json"
@@ -670,7 +672,7 @@ rule traits:
     message: "Inferring ancestral traits for {params.traits!s}"
     input:
         tree = rules.refine.output.tree,
-        metadata = rules.add_metadata.output.metadata
+        metadata = rules.filter.output.metadata
     output:
         # node_data = "{seg}/results/traits.json"
         node_data = "{seg}/results/traits{gene}.json",
@@ -691,7 +693,7 @@ rule traits:
 rule get_dates:
     """Create ordering for color assignment"""
     input:
-        metadata = rules.add_metadata.output.metadata,
+        metadata = rules.filter.output.metadata,
     output:
         ordering = "temp/color_ordering.tsv"
     run:
@@ -744,13 +746,13 @@ rule colors:
 rule clade_published:
     message: "Assigning clades from publications"
     input:
-        metadata = rules.add_metadata.output.metadata,
+        metadata = rules.filter.output.metadata,
         subgenotypes = "data/clades_vp1.tsv",
         alignment="vp1/results/aligned.fasta"
     params:
         strain_id_field= config["id_field"]
     output:
-        final_metadata = "data/final_metadata.tsv"
+        final_metadata = "{seg}/results/final_metadata.tsv"
     run:
         import pandas as pd
         from Bio import SeqIO
@@ -775,9 +777,6 @@ rule clade_published:
 
         # Add the length to the metadata
         merged_df = pd.merge(merged_df, len_df, left_on=params.strain_id_field, right_on="accession", how="left")
-
-        # add url with genbank accession
-        merged_df['url'] = "https://www.ncbi.nlm.nih.gov/nuccore/" + merged_df['accession']
 
         merged_df.rename(columns={"has_age":"Age available"}, inplace=True)
         merged_df.rename(columns={"has_diagnosis":"Diagnosis available"}, inplace=True)
@@ -857,8 +856,10 @@ rule clean:
             "*/results/*",
             "auspice/*.json",
             "ingest/data/*.*",
+            "ingest/results/*",
             "temp/*",
             "logs/*",
+            "ingest/logs/*",
             "benchmark/*",
             "data/fetch/*",
             "data/all_*.*",
